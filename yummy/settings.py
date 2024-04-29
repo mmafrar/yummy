@@ -39,13 +39,17 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-    'foodordering.apps.FoodOrderingConfig',  
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users.apps.UsersConfig',
+    'restaurants.apps.RestaurantsConfig',
+    'menus.apps.MenusConfig',
+    'orders.apps.OrdersConfig',
+    'contacts.apps.ContactsConfig',
 ]
 
 MIDDLEWARE = [
