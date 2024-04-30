@@ -1,6 +1,12 @@
-from django.http import HttpResponse
+from django.shortcuts import render
+from django.views import View
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
-
-# Create your views here.
-def index(request):
-    return HttpResponse("This is the main page for Yummy menus")
+class ViewMenuView(View):
+    
+    def get(self,request):
+        return render(request,"blog/blog-menu.html")
+        
+    def post(self,request):
+        pass
