@@ -6,7 +6,6 @@ from django.urls import reverse
 class ViewMenuView(View):
     
     def get(self,request):
-        return render(request,"blog/blog-menu.html")
+        return render(request,"menu.html")
         
-    def post(self,request):
-        pass
+

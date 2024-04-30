@@ -1,6 +1,7 @@
 from django.http import HttpResponse
-
+from django.shortcuts import render
+from django.views import View
 
 # Create your views here.
 def index(request):
-    return HttpResponse("This is the main page for Yummy web application")
+    return render(request,"index.html")

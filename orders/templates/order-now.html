@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css_files %}
+    <link href="{% static 'order.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+  <section id="menu" class="menu section-bg mt-5">
+    <div class="container mt-5">
+      <h2>Order Food</h2>
+      <form id="order-food-form">
+        <br />
+        <div class="form-group">
+          <label for="street-address">Street Address:</label>
+          <input type="text" class="form-control" id="street-address" placeholder="Enter street address" />
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="city">City:</label>
+          <input type="text" class="form-control" id="city" placeholder="Enter city" />
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="state">State:</label>
+          <input type="text" class="form-control" id="state" placeholder="Enter state" />
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="zip-code">ZIP Code:</label>
+          <input type="text" class="form-control" id="zip-code" placeholder="Enter ZIP code" />
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="phone-number">Phone Number:</label>
+          <input type="tel" class="form-control" id="phone-number" placeholder="Enter phone number" />
+        </div>
+        <br />
+        <div class="form-group">
+          <label>Select Payment Method:</label><br />
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="payment-method" id="payment-method-cash" value="cash" />
+            <label class="form-check-label" for="payment-method-cash">Cash</label>
+          </div>
+          <br />
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="restaurant-branch">Select Restaurant Branch:</label>
+          <select class="form-control" id="restaurant-branch">
+            <option>Select branch</option>
+            <option>Yummy Food Restaurant - Bukit Bintang</option>
+            <option>Yummy Food Restaurant - Sunway Pyramid</option>
+            <option>Yummy Food Restaurant - IOI City Mall</option>
+            <option>Yummy Food Restaurant - Pavilion Bukit Jalil</option>
+          </select>
+        </div>
+        <br />
+        <hr />
+        <div class="row">
+          <div class="col-md-6">
+            <h4>Review Order</h4>
+            <p>
+              <strong>Salad:</strong> Caesar Salad
+            </p>
+          </div>
+          <div class="col-md-6">
+            <h4>Total Amount</h4>
+            <p>
+              <strong>$10.99</strong>
+            </p>
+          </div>
+        </div>
+        <hr />
+        <button style="margin-left: 850px;" type="submit" class="btn btn-primary">Place Order</button>
+        <a href="{% url 'menus:view-menu' %}"class="btn btn-secondary ml-2"> Cancel</a>
+        {% comment %} <button style="margin-left: 20px;" type="button" class="btn btn-secondary ml-2" onclick="cancelOrder()">Cancel</button> {% endcomment %}
+      </form>
+    </div>
+  </section>
+  <!-- End Menu Section -->
+{% endblock %}
