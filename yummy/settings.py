@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'dashboard.apps.DashboardConfig',
     'users.apps.UsersConfig',
     'restaurants.apps.RestaurantsConfig',
     'menus.apps.MenusConfig',
