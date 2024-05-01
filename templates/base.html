@@ -103,11 +103,11 @@
           <div class="col-lg-2 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Menu</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Branches</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#"> Contact Us</a></li>
+              <li><a class="nav-link scrollto" href="{% url 'index' %}">Home</a></li>
+              <li><a class="nav-link scrollto" href="{% url 'menus:view-menu' %}">Menu</a></li>
+              <li><a class="nav-link scrollto" href="{% url 'restaurants:view-resturant' %}">Branches</a></li>
+              <li><a class="nav-link scrollto" href="{% url 'contacts:view-about' %}">About</a></li>
+              <li><a class="nav-link scrollto" href="{% url 'contacts:view-contact' %}">Contact</a></li>
             </ul>
           </div>
 

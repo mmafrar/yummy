@@ -92,19 +92,16 @@
               <h4>Useful Links</h4>
               <ul>
                 <li>
-                  <i class="bx bx-chevron-right"></i> <a href="#">Home</a>
+                  <a class="nav-link scrollto " href="{% url 'dashboard:view-dashboard' %}">Dashboard</a>
                 </li>
                 <li>
-                  <i class="bx bx-chevron-right"></i> <a href="#">Menu</a>
+                  <a class="nav-link scrollto" href="{% url 'dashboard:view-admin-menu' %}">Menu</a>
                 </li>
                 <li>
-                  <i class="bx bx-chevron-right"></i> <a href="#">Branches</a>
+                  <a class="nav-link scrollto" href="{% url 'dashboard:view-admin-branch' %}">Branches</a>
                 </li>
                 <li>
-                  <i class="bx bx-chevron-right"></i> <a href="#">About us</a>
-                </li>
-                <li>
-                  <i class="bx bx-chevron-right"></i> <a href="#">Contact Us</a>
+                  <a class="nav-link scrollto" href="{% url 'dashboard:view-order'%}">Order</a>
                 </li>
               </ul>
             </div>
