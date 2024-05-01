@@ -1,6 +1,14 @@
-from django.http import HttpResponse
+from django.shortcuts import render
+from django.views import View
 
 
-# Create your views here.
-def index(request):
-    return HttpResponse("This is the main page for Yummy users")
+class ViewUserProfileView(View):
+    
+    def get(self,request):
+        return render(request,"user-profile.html")
+
+class ViewEditProfileView(View):
+    
+    def get(self,request):
+        return render(request,"edit-profile.html")
+        

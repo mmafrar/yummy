@@ -1,0 +1,93 @@
+{% extends 'dashboard.html' %}
+
+{% load static %}
+
+{% block css_files %}
+  <link href="{% static 'css/admin.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/dataTables.bootstrap5.min.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div>
+          <h4 class="mt-0 menu-title">Branch</h4>
+        </div>
+        <div class="card-body">
+          <!-- Menu Title and New Menu Button -->
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h4 class="mt-0 header-title menu-title"></h4>
+            </div>
+            <div>
+              <a class="btn rounded btn-custom my-3" href="{% url 'dashboard:add-branch' %}">New Branch</a>
+            </div>
+          </div>
+
+          <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>description</th>
+                <th>Catagory</th>
+                <th>Price</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Lobster Bisque</td>
+                <td>Lorem, deren, trataro, filede, nerada</td>
+                <td>Starters</td>
+                <td>5.9$</td>
+                <td>
+                  <a href="{% url 'dashboard:update-branch' 1 %}" class="btn rounded btn-success">Update</a>
+                  <a href="#" class="btn rounded btn-danger">Delete</a>
+                </td>
+              </tr>
+              <tr>
+                <td>Lobster Bisque</td>
+                <td>Lorem, deren, trataro, filede, nerada</td>
+                <td>Starters</td>
+                <td>5.9$</td>
+                <td>
+                  <a href="#" class="btn rounded btn-success">Update</a>
+                  <a href="#" class="btn rounded btn-danger">Delete</a>
+                </td>
+              </tr>
+              <tr>
+                <td>Lobster Bisque</td>
+                <td>Lorem, deren, trataro, filede, nerada</td>
+                <td>Starters</td>
+                <td>5.9$</td>
+                <td>
+                  <a href="#" class="btn rounded btn-success">Update</a>
+                  <a href="#" class="btn rounded btn-danger">Delete</a>
+                </td>
+              </tr>
+              <tr>
+                <td>Lobster Bisque</td>
+                <td>Lorem, deren, trataro, filede, nerada</td>
+                <td>Starters</td>
+                <td>5.9$</td>
+                <td>
+                  <a href="#" class="btn rounded btn-success">Update</a>
+                  <a href="#" class="btn rounded btn-danger">Delete</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'js/dataTables.bootstrap5.min.js' %}"></script>
+  <script src="{% static 'js/datatables.init.js' %}"></script>
+{% endblock %}

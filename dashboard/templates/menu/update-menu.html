@@ -1,0 +1,60 @@
+{% extends 'dashboard.html' %}
+
+{% load static %}
+
+{% block css_files %}
+  <link href="{% static 'css/admin.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="offset-3 col-7">
+        <div class="card">
+            <br>
+            <div>
+                <h4 class="mt-0 header-title menu-title">Update Menu</h4>
+            </div>
+            <div class="card-body">
+                <!-- Add New Menu Form -->
+                <form action="" method="POST">
+                    <div class="my-3">
+                        <label for="menuName" class="form-label menu-label">Menu Name</label>
+                        <input type="text" class="form-control" id="menuName" placeholder="Enter menu name">
+                    </div>
+                    <div class="mt-4">
+                        <label for="menuDescription" class="form-label menu-label">Menu Description</label>
+                        <textarea class="form-control" id="menuDescription" rows="3" placeholder="Enter menu description"></textarea>
+                    </div>
+                    <div class="mt-4">
+                        <label for="menuImage" class="form-label menu-label">Menu Image</label>
+                        <input type="file" class="form-control" id="menuImage" accept="image/*">
+                    </div>
+                    <div class="mt-4">
+                        <label for="menuCategory" class="form-label menu-label">Menu Category</label>
+                        <select class="form-select" id="menuCategory">
+                            <option selected>Select category</option>
+                            <option value="1">Starters</option>
+                            <option value="2">Salad</option>
+                            <option value="3">Specialty</option>
+                        </select>
+                    </div>
+                    <div class="mt-4">
+                        <label for="menuPrice" class="form-label menu-label">Menu Price</label>
+                        <input type="text" class="form-control" id="menuPrice" placeholder="RM">
+                    </div>
+                    <br>
+
+                    <div class="d-flex justify-content-center">
+                        <a href="{% url 'dashboard:view-admin-menu' %}" class="btn btn-danger me-2">Cancel</a>
+                        <button type="submit" class="btn btn-custom ms-2">Update Menu</button>
+                    </div>
+                   
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}{% endblock %}

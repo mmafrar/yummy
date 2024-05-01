@@ -1,0 +1,80 @@
+{% extends 'dashboard.html' %}
+
+{% load static %}
+
+{% block css_files %}
+  <link href="{% static 'css/admin.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/dataTables.bootstrap5.min.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div>
+          <h4 class="mt-0 menu-title">Order</h4>
+        </div>
+        <div class="card-body">
+          <!-- Menu Title and New Menu Button -->
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h4 class="mt-0 header-title menu-title"></h4>
+            </div>
+          </div>
+
+          <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
+            <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>Address</th>
+                  <th>Order</th>
+                  <th>Status</th>
+                  <th>Action</th>
+              </tr>
+          </thead>
+          <tbody>
+              <!-- Table rows here -->
+              <tr>
+                  <td>Hanifah</td>
+                  <td>Sunway GeoSense, Jalan Lagoon Selatan, Petaling jaya</td>
+                  <td>BERRY GRAPEFUL</td>
+                  <td>New</td>
+                  <td>
+                      <a href="{% url 'dashboard:view-order-details' %}" class="btn rounded btn-success">View</a>
+                  </td>
+              </tr>
+              <tr>
+                 
+                  <td>Asma Hanifah</td>
+                  <td>81, Jalan SS2/47 Petaling Jaya</td>
+                  <td>TUNA SAN</td>
+                  <td>Accepted</td>
+                  <td>
+                      <a href="{% url 'dashboard:order-after-status' 1 %}" class="btn rounded btn-success">View</a>
+                  </td>
+              </tr>
+              <tr>
+            
+                  <td>Mai</td>
+                  <td>Condo Tamara Putrajaya 3/12 JLN TEMOLEH P8/4 Ayer8</td>
+                  <td>PEANUT BUTTER COCONUT OATMEAL</td>
+                  <td>Rejected</td>
+                  <td>
+                      <a href="#" class="btn rounded btn-success">View</a>
+                  </td>
+              </tr>
+              <!-- Add more rows as needed -->
+          </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'js/dataTables.bootstrap5.min.js' %}"></script>
+  <script src="{% static 'js/datatables.init.js' %}"></script>
+{% endblock %}

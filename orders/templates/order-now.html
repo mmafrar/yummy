@@ -11,7 +11,7 @@
   <section id="menu" class="menu section-bg mt-5">
     <div class="container mt-5">
       <h2>Order Food</h2>
-      <form id="order-food-form">
+      <form id="order-food-form" action="{% url 'orders:view-order-confirmation' %}">
         <br />
         <div class="form-group">
           <label for="street-address">Street Address:</label>
