@@ -1,0 +1,99 @@
+/* Custom styles here */
+body {
+    background-color: white;
+    /* Set background color to white */
+}
+
+/* Custom styles for content page */
+.content-page {
+    height: 100vh;
+    /* Set height to 100% of viewport height */
+    width: 100%;
+    /* Set width to 100% of parent container */
+    overflow: auto;
+    /* Add overflow for scrolling if needed */
+    padding: 20px;
+    /* Add padding to create space around content */
+    background-color: white;
+    /* Set background color to grey */
+    color: white;
+    /* Set text color to white for better contrast */
+}
+
+
+/* Custom styles for button */
+.btn-custom {
+    background-color: #cda45e;
+    /* Set background color for button */
+    color: white;
+    /* Set text color for button */
+    border-color: #cda45e;
+    /* Set border color for button */
+}
+
+/* Style hover state for button */
+.btn-custom:hover {
+    background-color: #b28f4b;
+    /* Change background color on hover */
+    border-color: #b28f4b;
+    /* Change border color on hover */
+}
+
+.btn-success {
+    background-color: #cda45e;
+    /* Set background color for button */
+    color: white;
+    /* Set text color for button */
+    border-color: #cda45e;
+    /* Set border color for button */
+}
+
+.btn-success:hover {
+    background-color: #b28f4b;
+    /* Change background color on hover */
+    border-color: #b28f4b;
+    /* Change border color on hover */
+}
+
+.btn-danger {
+    background-color: #b4b3b0;
+    /* Set background color for button */
+    color: white;
+    /* Set text color for button */
+    border-color: #b4b3b0;
+    /* Set border color for button */
+}
+
+.btn-danger:hover {
+    background-color: #757573;
+    /* Change background color on hover */
+    border-color: #757573;
+    /* Change border color on hover */
+}
+
+.header {
+    background-color: #222120;
+    /* Set background color for button */
+    color: white;
+    /* Set text color for button */
+    border-color: #222120;
+    /* Set border color for button */
+}
+
+.menu-title{
+    font-size: 30px; 
+    margin-left: 18px;
+    color: #cda45e;
+    border-color: white;
+}
+
+.page-link{
+background-color: white !important;
+color: #cda45e !important;
+border-color: #c5c1bb !important;
+}
+
+.menu-label, .label-color{
+    color: #cda45e !important;
+    font-weight: bold;
+}

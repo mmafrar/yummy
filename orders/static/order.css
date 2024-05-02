@@ -1,0 +1,41 @@
+h2 {
+    color: #cda45e;
+}
+
+.btn-primary {
+    background-color: #cda45e; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.btn-primary:hover {
+    background-color: #f19c09;
+}
+
+.btn-secondary {
+    background-color: #b4b3b0; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.btn-secondary:hover {
+    background-color: #f19c09;
+}
