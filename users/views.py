@@ -66,7 +66,8 @@ class CustomLoginView(LoginView):
 def profile(request):
     if request.method == 'POST':
         user_form = UpdateUserForm(request.POST, instance=request.user)
-        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        profile_form = UpdateProfileForm(
+            request.POST, request.FILES, instance=request.user.profile)
 
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
@@ -81,12 +82,12 @@ def profile(request):
 
 
 class ViewUserProfileView(View):
-    
-    def get(self,request):
-        return render(request,"user-profile.html")
+
+    def get(self, request):
+        return render(request, "user-profile.html")
+
 
 class ViewEditProfileView(View):
-    
-    def get(self,request):
-        return render(request,"edit-profile.html")
-        
+
+    def get(self, request):
+        return render(request, "edit-profile.html")

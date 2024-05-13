@@ -7,10 +7,10 @@ from PIL import Image
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
-    #email = models.EmailField(max_length = 254)
+    avatar = models.ImageField(
+        default='default.jpg', upload_to='users')
+    # email = models.EmailField(max_length = 254)
     address = models.TextField()
-    
 
     def __str__(self):
         return self.user.username

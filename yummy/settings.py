@@ -30,10 +30,10 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = [
-  '0.0.0.0',
-  '127.0.0.1',
-  'localhost',
-  'yummy-food-ordering-f9f48591304f.herokuapp.com'
+    '0.0.0.0',
+    '127.0.0.1',
+    'localhost',
+    'yummy-food-ordering-f9f48591304f.herokuapp.com'
 ]
 
 # Application definition
@@ -71,7 +71,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR / "templates"
-            ],
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -134,7 +134,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
 
-#added by mash
+# added by mash
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -144,7 +144,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 LOGIN_REDIRECT_URL = '/users'
 LOGIN_URL = 'login'
 
-#ended by mash
+# ended by mash
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

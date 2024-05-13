@@ -43,7 +43,8 @@ class RegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
+        fields = ['first_name', 'last_name', 'username',
+                  'email', 'password1', 'password2']
 
 
 class LoginForm(AuthenticationForm):
@@ -80,8 +81,10 @@ class UpdateUserForm(forms.ModelForm):
 
 
 class UpdateProfileForm(forms.ModelForm):
-    avatar = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
-    address = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
+    avatar = forms.ImageField(widget=forms.FileInput(
+        attrs={'class': 'form-control-file'}))
+    address = forms.CharField(widget=forms.Textarea(
+        attrs={'class': 'form-control', 'rows': 5}))
 
     class Meta:
         model = Profile
