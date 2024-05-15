@@ -140,11 +140,23 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-LOGIN_REDIRECT_URL = '/users'
-LOGIN_URL = 'login'
-
 # ended by mash
+
+# added by naqibullah : if user is admin after log
+
+
+
+# if user is customer
+LOGIN_REDIRECT_URL = '/'
+
+#if the user is admin ?
+#LOGIN_REDIRECT_URL = '/dashboard'
+
+
+LOGIN_URL = 'users/login'
+LOGOUT_REDIRECT_URL = '/'
+
+# added by naqibullah finished 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

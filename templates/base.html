@@ -59,16 +59,27 @@
                     <li><a class="nav-link scrollto" href="{% url 'restaurants:view-resturant' %}">Branches</a></li>
                     <li><a class="nav-link scrollto" href="{% url 'contacts:view-about' %}">About</a></li>
                     <li><a class="nav-link scrollto" href="{% url 'contacts:view-contact' %}">Contact</a></li>
+                    
+                    {% if user.is_authenticated %}
                     <li><a class="nav-link scrollto" href="{% url 'users:view-profile' %}">My Profile</a></li>
+                    {% endif %}
+
                 </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
+                     <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
             <!-- .navbar -->
-            <a href="login" class="book-a-table-btn scrollto d-none d-lg-flex">Sign In</a>
-
-            {% comment %} <a href="#book-a-table" class="book-a-table-btn scrollto d-none d-lg-flex">Sign Out</a> {%
-            endcomment %}
-
+           
+            {% if user.is_authenticated %}
+            <form id="logoutform" action="{% url 'users:logout' %}" method="post">
+                {% csrf_token %}
+            </form>
+            <a href="#" class="nav-item nav-link book-a-table-btn scrollto d-none d-lg-flex"
+                onclick="document.getElementById('logoutform').submit();">Logout</a>
+            {% else %}
+            <a href="{% url 'users:login' %}" class="book-a-table-btn scrollto d-none d-lg-flex">Sign In</a>
+            {% endif %}
+            {% comment %} <a href="#book-a-table" class="book-a-table-btn scrollto d-none d-lg-flex">Sign Out</a> {% endcomment %}
+            
         </div>
     </header><!-- End Header -->
 

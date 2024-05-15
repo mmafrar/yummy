@@ -13,7 +13,7 @@
   <section id="menu" class="menu section-bg mt-5">
     <div class="container mt-5">
       <h2>Edit Profile</h2>
-      <form id="edit-profile-form" action="{% url 'users:view-profile'%}" method="POST">
+      <form id="edit-profile-form" action="{% url 'users:view-profile'%}" method="POST" enctype="multipart/form-data">
         <br />
         <br />
         <div class="row">

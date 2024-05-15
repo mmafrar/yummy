@@ -16,7 +16,10 @@ def home(request):
 class RegisterView(View):
     form_class = RegisterForm
     initial = {'key': 'value'}
-    template_name = 'users/register.html'
+    # template_name = 'users/register.html'
+    
+    # added by naqibullah
+    template_name = 'register.html'
 
     def dispatch(self, request, *args, **kwargs):
         # will redirect to the home page if a user tries to access the register page while logged in
@@ -39,7 +42,10 @@ class RegisterView(View):
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}')
 
-            return redirect(to='login')
+            # return redirect(to='login')
+        
+            #added by naqibullah
+            return redirect('users:login')
 
         return render(request, self.template_name, {'form': form})
 
@@ -79,6 +85,7 @@ def profile(request):
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
     return render(request, 'users/profile.html', {'user_form': user_form, 'profile_form': profile_form})
+    
 
 
 class ViewUserProfileView(View):

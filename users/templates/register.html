@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css_files %}
+  <link href="{% static 'register.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+  <section id="menu" class="menu mt-1">
+    <div class="signup-container">
+      <h2>Sign up</h2>
+
+      {% if form.errors %}
+        <div class="alert alert-danger alert-dismissible" role="alert">
+          <div id="form_errors">
+            {% for key, value in form.errors.items %}
+              <strong>{{ value }}</strong>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      <form method="POST" class="signup-form">
+        {% csrf_token %}
+        {% if form.errors %}
+          <div class="alert alert-danger alert-dismissible" role="alert">
+            <div id="form_errors">
+              {% for key, value in form.errors.items %}
+                <strong>{{ value }}</strong>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+
+        {{ form.first_name }}
+        {{ form.last_name }}
+        {{ form.username }}
+        {{ form.email }}
+        {{ form.password1 }}
+        {{ form.errors.password }}
+        {{ form.password2 }}
+        <input type="submit" class="text-light" value="Sign Up">
+      </form>
+      <p>Already have an account? <a href="{% url 'users:login' %}">Sign in</a></p>
+    </div>
+  </section>
+{% endblock %}
