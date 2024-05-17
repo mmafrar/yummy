@@ -8,7 +8,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     avatar = models.ImageField(
-        default='default.jpg', upload_to='users')
+        default='users/default.jpg', upload_to='users')
     # email = models.EmailField(max_length = 254)
     address = models.TextField()
 
