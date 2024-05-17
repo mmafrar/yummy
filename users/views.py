@@ -7,7 +7,7 @@ from django.views import View
 from django.contrib.auth.decorators import login_required
 
 from .forms import RegisterForm, LoginForm, UpdateUserForm, UpdateProfileForm
-
+from .models import Profile
 
 def home(request):
     return render(request, 'users/home.html')
@@ -40,13 +40,11 @@ class RegisterView(View):
             form.save()
 
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Account created for {username}')
 
             # return redirect(to='login')
-        
             #added by naqibullah
             return redirect('users:login')
-
+            
         return render(request, self.template_name, {'form': form})
 
 
@@ -70,6 +68,7 @@ class CustomLoginView(LoginView):
 
 @login_required
 def profile(request):
+    Profile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
         user_form = UpdateUserForm(request.POST, instance=request.user)
         profile_form = UpdateProfileForm(
