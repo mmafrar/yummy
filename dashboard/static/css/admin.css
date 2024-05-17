@@ -56,18 +56,18 @@ body {
 }
 
 .btn-danger {
-    background-color: #b4b3b0;
+    background-color: grey;
     /* Set background color for button */
     color: white;
     /* Set text color for button */
-    border-color: #b4b3b0;
+    border-color: white;
     /* Set border color for button */
 }
 
 .btn-danger:hover {
-    background-color: #757573;
+    background-color: #cda45e;
     /* Change background color on hover */
-    border-color: #757573;
+    border-color: #bb821f;
     /* Change border color on hover */
 }
 
@@ -96,4 +96,30 @@ border-color: #c5c1bb !important;
 .menu-label, .label-color{
     color: #cda45e !important;
     font-weight: bold;
+}
+
+/* Added Hanifah */
+.modal-dialog{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal-body {
+    overflow: auto; 
+}
+
+.text-wrap {
+    overflow-wrap: break-word;
+}
+
+.error-message {
+    color: #721c24;
+    text-align: center;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    }
 }

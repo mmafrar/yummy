@@ -15,68 +15,73 @@
           <h4 class="mt-0 menu-title">Branch</h4>
         </div>
         <div class="card-body">
-          <!-- Menu Title and New Menu Button -->
+          
+        <!--Added Hanifah - Message Notif-->
+          {% if messages %}
+          <div class="alert alert-success" id="success-message">
+                  {% for message in messages %}
+                  {{ message }}
+                  {% endfor %}
+          </div>
+          {% endif %}
+
+          <!-- Branch Title and New Branch Button -->
           <div class="d-flex justify-content-between align-items-center">
             <div>
               <h4 class="mt-0 header-title menu-title"></h4>
             </div>
             <div>
-              <a class="btn rounded btn-custom my-3" href="{% url 'dashboard:add-branch' %}">New Branch</a>
+              <a class="btn rounded btn-custom my-3" href="{% url 'dashboard:add-branch' %}">Add New Branch</a>
             </div>
           </div>
 
           <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>description</th>
-                <th>Catagory</th>
-                <th>Price</th>
+                <th>Branch Name</th>
+                <!--<th>Branch Contact</th>-->
+                <th>Day</th>
+                <th>Opening Time</th>
+                <th>Closing Time</th>
                 <th>Action</th>
               </tr>
             </thead>
 
             <tbody>
+              {% for branch in all_branches %}
               <tr>
-                <td>Lobster Bisque</td>
-                <td>Lorem, deren, trataro, filede, nerada</td>
-                <td>Starters</td>
-                <td>5.9$</td>
+                <td>{{ branch.branch_name }}</td>
+                <!--<td>{{ branch.branch_contact}}</td>-->
+                <td>{{ branch.day}}</td>
+                <td>{{ branch.opening_time}}</td>
+                <td>{{ branch.closing_time}}</td>
                 <td>
-                  <a href="{% url 'dashboard:update-branch' 1 %}" class="btn rounded btn-success">Update</a>
-                  <a href="#" class="btn rounded btn-danger">Delete</a>
+                  <a href="{% url 'dashboard:update-branch' pk=branch.pk %}" class="btn rounded btn-success">Update</a>
+                  <a href="#" class="btn rounded btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ branch.pk }}">Delete</a>
+
+                  <!-- Added Hanifah - Modal Delete Confirmation -->
+                  <div class="modal fade" id="deleteModal{{ branch.pk }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <p class="text-wrap">Are you sure you want to delete <strong>{{ branch.branch_name }}</strong> branch?</p> 
+                      </div>                      
+                        <div class="modal-footer">  
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                          <a href="{% url 'dashboard:delete-branch' pk=branch.pk %}" class="btn btn-danger" style="background-color: #cda45e;">Yes</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End Modal Delete Confimration -->
+
                 </td>
               </tr>
-              <tr>
-                <td>Lobster Bisque</td>
-                <td>Lorem, deren, trataro, filede, nerada</td>
-                <td>Starters</td>
-                <td>5.9$</td>
-                <td>
-                  <a href="#" class="btn rounded btn-success">Update</a>
-                  <a href="#" class="btn rounded btn-danger">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td>Lobster Bisque</td>
-                <td>Lorem, deren, trataro, filede, nerada</td>
-                <td>Starters</td>
-                <td>5.9$</td>
-                <td>
-                  <a href="#" class="btn rounded btn-success">Update</a>
-                  <a href="#" class="btn rounded btn-danger">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td>Lobster Bisque</td>
-                <td>Lorem, deren, trataro, filede, nerada</td>
-                <td>Starters</td>
-                <td>5.9$</td>
-                <td>
-                  <a href="#" class="btn rounded btn-success">Update</a>
-                  <a href="#" class="btn rounded btn-danger">Delete</a>
-                </td>
-              </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>
@@ -90,4 +95,14 @@
   <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
   <script src="{% static 'js/dataTables.bootstrap5.min.js' %}"></script>
   <script src="{% static 'js/datatables.init.js' %}"></script>
+
+  <!--Added Hanifah - Function to remove success message after 5 seconds -->
+  <script>
+  setTimeout(function() {
+        var successMessage = document.getElementById('success-message');
+        if (successMessage) {
+            successMessage.parentNode.removeChild(successMessage);
+        }
+    }, 5000);  // 5000 milliseconds = 5 seconds
+</script>
 {% endblock %}

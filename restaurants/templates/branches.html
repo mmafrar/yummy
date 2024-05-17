@@ -3,54 +3,43 @@
 {% load static %}
 
 {% block content %}
-  <!-- ======= Branches Section ======= -->
-  <section id="specials" class="about specials mt-5">
-    <div class="container mt-5" data-aos="fade-up">
-      <div class="row">
-        <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
-          <div class="about-img">
-            <img src="{% static 'assets/img/bukit_bintang.jpg' %}" alt="" />
-          </div>
+ <!-- ======= Branches Section ======= -->
+ <section id="specials" class="about specials mt-5">
+    <div class="content" style="text-align: center; color: #cda45e; padding: 20px;">
+      <h2>Our Locations</h2>
+    </div>
+  {% for branch in all_branches %}
+  <div class="container mt-5" data-aos="fade-up">
+    <div class="row">
+      <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
+        <div class="about-img">
+          <img src="{% static 'assets/img/bukit_bintang.jpg' %}" alt="" />
         </div>
-        <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
-          <h3>Yummy Food Restaurant - Bukit Bintang</h3>
-          <p class="fst-italic">Address: 123 Jalan Bukit Bintang, Bukit Bintang, 55100 Kuala Lumpur, Malaysia</p>
-          <ul>
-            <li>
-              <i class="bi bi-phone-fill"></i> Contact: +60 3-1234 5678.
-            </li>
-            <li>
-              <i class="bi bi-clock-fill"></i> Hours: Monday-Sunday, 11:00 AM - 10:00 PM
-            </li>
-          </ul>
-          <p>Thank you for choosing Yummy Food Restaurant. We look forward to serving you and being a part of your culinary journey</p>
-        </div>
+      </div>
+      <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
+        <h3>{{ branch.branch_name }}</h3>
+        <p class="fst-italic">Address: {{ branch.branch_address }}</p>
+        <ul>
+          <li>
+            <i class="bi bi-phone-fill"></i> Contact: {{ branch.branch_contact }}.
+          </li>
+          <li>
+            <i class="bi bi-clock-fill"></i> Hours: 
+            {%if branch.is_closed %}
+              Closed
+            {% else %}
+            {{ branch.day }}, {{ branch.opening_time }} - {{ branch.closing_time }}
+            {% endif %}
+          </li>
+        </ul>
       </div>
     </div>
+  </div><br>
+  {% endfor %}
+  <div class="content" data-aos="fade-up" style="text-align: center; color: #cda45e; padding: 20px;">
+    <p>Thank you for choosing Yummy Food Restaurant. We look forward to serving you and being a part of your culinary journey</p>
+  </div>
+</section>
 
-    <div class="container mt-5" data-aos="fade-up">
-        <div class="row">
-          <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1" data-aos="zoom-in" data-aos-delay="100">
-            <div class="about-img">
-              <img src="{% static 'assets/img/bukit_bintang.jpg' %}" alt="" />
-            </div>
-          </div>
-          <div class="col-lg-6 order-1 order-lg-2 content">
-            <h3>Yummy Food Restaurant - Bukit Bintang</h3>
-            <p class="fst-italic">Address: 123 Jalan Bukit Bintang, Bukit Bintang, 55100 Kuala Lumpur, Malaysia</p>
-            <ul>
-              <li>
-                <i class="bi bi-phone-fill"></i> Contact: +60 3-1234 5678.
-              </li>
-              <li>
-                <i class="bi bi-clock-fill"></i> Hours: Monday-Sunday, 11:00 AM - 10:00 PM
-              </li>
-            </ul>
-            <p>Thank you for choosing Yummy Food Restaurant. We look forward to serving you and being a part of your culinary journey</p>
-          </div>
-        </div>
-      </div>
-
-  </section>
-  <!-- End About Section -->
+<!-- End About Section -->
 {% endblock %}

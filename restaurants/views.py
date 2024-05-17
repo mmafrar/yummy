@@ -1,8 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
+from .models import Branch
+
 
 
 class ViewResturantView(View):
     
     def get(self,request):
-        return render(request,"branches.html")
+        all_branches = Branch.objects.all()
+        context = {'all_branches': all_branches}
+        return render(request,"branches.html", context)
+  
