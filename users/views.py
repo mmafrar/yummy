@@ -1,13 +1,12 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
 from django.contrib import messages
-from django.contrib.messages.views import SuccessMessageMixin
 from django.views import View
 from django.contrib.auth.decorators import login_required
 
 from .forms import RegisterForm, LoginForm, UpdateUserForm, UpdateProfileForm
 from .models import Profile
+
 
 def home(request):
     return render(request, 'users/home.html')
@@ -17,7 +16,7 @@ class RegisterView(View):
     form_class = RegisterForm
     initial = {'key': 'value'}
     # template_name = 'users/register.html'
-    
+
     # added by naqibullah
     template_name = 'register.html'
 
@@ -42,9 +41,9 @@ class RegisterView(View):
             username = form.cleaned_data.get('username')
 
             # return redirect(to='login')
-            #added by naqibullah
+            # added by naqibullah
             return redirect('users:login')
-            
+
         return render(request, self.template_name, {'form': form})
 
 
@@ -84,7 +83,6 @@ def profile(request):
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
     return render(request, 'users/profile.html', {'user_form': user_form, 'profile_form': profile_form})
-    
 
 
 class ViewUserProfileView(View):

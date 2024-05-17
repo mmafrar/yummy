@@ -1,5 +1,7 @@
 {% extends "users/base.html" %}
+
 {% block title %} Home Page {% endblock title%}
+
 {% block content %}
 
 <div class="jumbotron" style="background-color: black">
@@ -10,9 +12,10 @@
     </p>
     <hr class="my-4">
     <p class="lead">
-        {% if user.is_authenticated %}
+
+    {% if user.is_authenticated %}
     <form id="logoutform2" action="{% url 'logout' %}" method="post">
-        {% csrf_token %}
+    {% csrf_token %}
     </form>
     <a href="#" class="btn btn-warning btn-lg" onclick="document.getElementById('logoutform2').submit();">Logout</a>
     {% else %}

@@ -9,7 +9,7 @@ class Profile(models.Model):
 
     avatar = models.ImageField(
         default='users/default.jpg', upload_to='users')
-    # email = models.EmailField(max_length = 254)
+
     address = models.TextField()
 
     def __str__(self):

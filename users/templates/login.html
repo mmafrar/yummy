@@ -3,34 +3,37 @@
 {% load static %}
 
 {% block css_files %}
-  <link href="{% static 'users.css' %}" rel="stylesheet" />
+
+<link href="{% static 'users.css' %}" rel="stylesheet" />
+
 {% endblock %}
 
 {% block content %}
-  <section id="menu" class="menu mt-1">
+
+<section id="menu" class="menu mt-1">
     <div class="login-container">
-      <h2>Sign in</h2>
-      
+        <h2>Sign in</h2>
 
-      {% if form.errors %}
+        {% if form.errors %}
         <div class="alert alert-danger alert-dismissible" role="alert">
-          <div id="form_errors">
-            {% for key, value in form.errors.items %}
-              <strong>{{ value }}</strong>
-            {% endfor %}
-          </div>
+            <div id="form_errors">
+                {% for key, value in form.errors.items %}
+                    <strong>{{ value }}</strong>
+                {% endfor %}
+            </div>
         </div>
-      {% endif %}
+        {% endif %}
 
-      <form method="POST" class="login-form">
-        {% csrf_token %}
-        {{ form.username }}
-        {{ form.password }}
-        <input type="submit" value="Login" />
-        <p>
-          Don't have an account? <a href="{% url 'users:users-register' %}">Sign up</a>
-        </p>
-      </form>
+        <form method="POST" class="login-form">
+            {% csrf_token %}
+            {{ form.username }}
+            {{ form.password }}
+            <input type="submit" value="Login" />
+            <p>
+                Don't have an account? <a href="{% url 'users:users-register' %}">Sign up</a>
+            </p>
+        </form>
     </div>
-  </section>
+</section>
+
 {% endblock %}
