@@ -60,7 +60,6 @@ INSTALLED_APPS = [
     'menus.apps.MenusConfig',
     'orders.apps.OrdersConfig',
     'contacts.apps.ContactsConfig',
-     'reset_migrations',
 ]
 
 MIDDLEWARE = [
@@ -72,7 +71,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'yummy.urls'
@@ -149,3 +147,5 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'

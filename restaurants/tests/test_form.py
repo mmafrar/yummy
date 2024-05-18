@@ -7,7 +7,7 @@ class TestBranchForm(TestCase):
     def test_add_branch_success(self):
 
         # Create a Day instance with the correct field
-        day = Day.objects.create(day_of_week='Monday')
+        day = Day.MONDAY
 
         valid_data = {
             'branch_name': 'Test Branch',

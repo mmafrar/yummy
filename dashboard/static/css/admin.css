@@ -80,32 +80,34 @@ body {
     /* Set border color for button */
 }
 
-.menu-title{
-    font-size: 30px; 
+.menu-title {
+    font-size: 30px;
     margin-left: 18px;
     color: #cda45e;
     border-color: white;
 }
 
-.page-link{
-background-color: white !important;
-color: #cda45e !important;
-border-color: #c5c1bb !important;
+.page-link {
+    background-color: white !important;
+    color: #cda45e !important;
+    border-color: #c5c1bb !important;
 }
 
-.menu-label, .label-color{
+.menu-label,
+.label-color {
     color: #cda45e !important;
     font-weight: bold;
 }
 
 /* Added Hanifah */
-.modal-dialog{
+.modal-dialog {
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 .modal-body {
-    overflow: auto; 
+    overflow: auto;
 }
 
 .text-wrap {
@@ -121,5 +123,4 @@ border-color: #c5c1bb !important;
     margin-bottom: 1rem;
     border: 1px solid transparent;
     border-radius: 0.25rem;
-    }
 }
