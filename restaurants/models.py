@@ -12,7 +12,7 @@ class Branch(models.Model):
     branch_name = models.CharField(max_length=150)
     branch_address = models.CharField(max_length=200)
     branch_contact = models.CharField(max_length=150)
-    branch_image = models.ImageField(upload_to='file_uploads/', null=True, blank=True)
+    branch_image = models.ImageField(upload_to='media/restaurants/', null=True, blank=True)
     opening_time = models.TimeField(null=True, blank=True)
     closing_time = models.TimeField(null=True, blank=True)
     day = models.ForeignKey(Day, on_delete=models.CASCADE)

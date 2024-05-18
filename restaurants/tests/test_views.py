@@ -2,9 +2,7 @@ from django.test import TestCase, RequestFactory
 from dashboard.views import ViewAdminBranchs,ViewAddBranchView, ViewUpdateBranchView, ViewDeleteBranchView
 from django.contrib import messages
 from django.urls import reverse
-from django.core.files.uploadedfile import SimpleUploadedFile
 from restaurants.models import Branch, Day
-from yummy.settings import MIDDLEWARE, INSTALLED_APPS
 
 
 
@@ -15,6 +13,7 @@ class TestAdminBranchView(TestCase):
     
     def test_get_admin_branch_view(self):
         request = self.factory.get(self.url)
+        request._messages = messages.storage.default_storage(request)
         response = ViewAdminBranchs.as_view()(request)
         self.assertEqual(response.status_code, 200)
 
@@ -25,6 +24,7 @@ class TestAddBranchView(TestCase):
 
     def test_get_add_branch_view(self):
         request = self.factory.get(self.url)
+        request._messages = messages.storage.default_storage(request)
         response = ViewAddBranchView.as_view()(request)
         self.assertEqual(response.status_code, 200)
 
@@ -44,6 +44,7 @@ class TestUpdateBranchView(TestCase):
 
     def test_get_update_branch_view(self):
         request = self.factory.get(self.url)
+        request._messages = messages.storage.default_storage(request)
         response = ViewUpdateBranchView.as_view()(request, pk=self.branch.pk)
         self.assertEqual(response.status_code, 200)
 
@@ -63,7 +64,8 @@ class TestDeleteBranchView(TestCase):
 
     def test_get_delete_branch_view(self):
         request = self.factory.get(self.url)
+        request._messages = messages.storage.default_storage(request)
         response = ViewDeleteBranchView.as_view()(request, pk=self.branch.pk)
         # Check if the response is a redirect
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response.url, 'dashboard:view-admin-branch')
+        self.assertEqual(response.url, '/dashboard/branches')

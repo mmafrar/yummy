@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='branch',
             name='branch_image',
-            field=models.ImageField(blank=True, null=True, upload_to='file_uploads/'),
+            field=models.ImageField(blank=True, null=True, upload_to='media/restaurants/'),
         ),
     ]
