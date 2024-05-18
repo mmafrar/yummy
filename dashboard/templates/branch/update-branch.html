@@ -16,7 +16,7 @@
                 <h4 class="mt-0 header-title menu-title">Branch Details</h4>
             </div>
             <div class="card-body">
-                <!-- Add New Branch Form -->
+                <!-- Update Branch Form -->
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="mb-3">
@@ -33,9 +33,9 @@
                     </div>                 
                     <div class="mb-3">
                         <label for="branchImage" class="form-label label-color">Branch Image</label><br>
-                        <!--{{ form.branch_image }}-->
-                        {% if branch.branch_image %}
-                            <img src="{{ branch.branch_image.url }}" alt="Branch Image">
+                        {% if form.instance.branch_image %}
+                            <img src="{{ form.instance.branch_image.url }}" alt="Branch Image"><br>
+                            {{ form.branch_image }}
                         {% else %}
                             {{ form.branch_image }}
                         {% endif %}

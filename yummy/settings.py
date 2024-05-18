@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import environ
 from pathlib import Path
+import os
 
 env = environ.Env()
 environ.Env.read_env()
@@ -30,10 +31,10 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = [
-  '0.0.0.0',
-  '127.0.0.1',
-  'localhost',
-  'yummy-food-ordering-f9f48591304f.herokuapp.com'
+    '0.0.0.0',
+    '127.0.0.1',
+    'localhost',
+    'yummy-food-ordering-f9f48591304f.herokuapp.com'
 ]
 
 # Application definition
@@ -47,7 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dashboard.apps.DashboardConfig',
     'users.apps.UsersConfig',
-    'restaurants.apps.RestaurantsConfig',
+    'branches',
     'menus.apps.MenusConfig',
     'orders.apps.OrdersConfig',
     'contacts.apps.ContactsConfig',
@@ -71,7 +72,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR / "templates"
-            ],
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -140,3 +141,6 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

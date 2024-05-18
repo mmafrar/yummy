@@ -39,8 +39,7 @@
             <thead>
               <tr>
                 <th>Branch Name</th>
-                <!--<th>Branch Contact</th>-->
-                <th>Day</th>
+                <th>Branch Contact</th>
                 <th>Opening Time</th>
                 <th>Closing Time</th>
                 <th>Action</th>
@@ -51,8 +50,7 @@
               {% for branch in all_branches %}
               <tr>
                 <td>{{ branch.branch_name }}</td>
-                <!--<td>{{ branch.branch_contact}}</td>-->
-                <td>{{ branch.day}}</td>
+                <td>{{ branch.branch_contact }}</td>
                 <td>{{ branch.opening_time}}</td>
                 <td>{{ branch.closing_time}}</td>
                 <td>

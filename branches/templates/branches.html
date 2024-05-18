@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+ <!-- ======= Branches Section ======= -->
+ <section id="specials" class="about specials mt-5">
+    <div class="content" style="text-align: center; color: #cda45e; padding: 20px;">
+      <h2>Our Locations</h2>
+    </div>
+  {% for branch in all_branches %}
+  <div class="container mt-5" data-aos="fade-up">
+    <div class="row">
+      <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
+        <div class="about-img">
+          <img src="{% static 'assets/img/bukit_bintang.jpg' %}" alt="" />
+        </div>
+      </div>
+      <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
+        <h3>{{ branch.branch_name }}</h3>
+        <p class="fst-italic">Address: {{ branch.branch_address }}</p>
+        <ul>
+          <li>
+            <i class="bi bi-phone-fill"></i> Contact: {{ branch.branch_contact }}.
+          </li>
+          <li>
+            <i class="bi bi-clock-fill"></i> Open Hours: 
+            {% if branch.day.all.count == 7 %}
+          <li>Every day, {{ branch.opening_time }} - {{ branch.closing_time }}</li>
+            {% elif branch.day.all.count == 0 %}
+          <li>Closed</li>
+            {% else %}
+          {% for day in branch.day.all %}
+          <li>{{ day.day_of_week }}, {{ branch.opening_time }} - {{ branch.closing_time }}</li>
+          {% endfor %}
+          {% endif %}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div><br>
+  {% endfor %}
+  <div class="content" data-aos="fade-up" style="text-align: center; color: #cda45e; padding: 20px;">
+    <p>Thank you for choosing Yummy Food Restaurant. We look forward to serving you and being a part of your culinary journey</p>
+  </div>
+</section>
+
+<!-- End About Section -->
+{% endblock %}
