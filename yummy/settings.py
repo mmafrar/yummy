@@ -29,20 +29,20 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-#Send Email to Gmail
+# Send Email to Gmail
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587  # Gmail SMTP port
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'asmahnh95@gmail.com'
-EMAIL_HOST_PASSWORD = 'npdvesrmjkfcbfin'
-NOREPLY_EMAIL = 'noreply@yummy.com'
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+NOREPLY_EMAIL = 'noreply@yummy.com.my'
 
 ALLOWED_HOSTS = [
-  '0.0.0.0',
-  '127.0.0.1',
-  'localhost',
-  'yummy-food-ordering-f9f48591304f.herokuapp.com'
+    '0.0.0.0',
+    '127.0.0.1',
+    'localhost',
+    'yummy-food-ordering-f9f48591304f.herokuapp.com'
 ]
 
 # Application definition
@@ -80,7 +80,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR / "templates"
-            ],
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

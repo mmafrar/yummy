@@ -16,7 +16,8 @@ class ViewContactView(View):
             subject = form.cleaned_data.get('subject', '')
             message = form.cleaned_data.get('message', '')
             email_from = settings.NOREPLY_EMAIL
-            recipient_list = [settings.EMAIL_HOST_USER]  # Send email to yourself or any other recipient
+            # Send email to yourself or any other recipient
+            recipient_list = [settings.EMAIL_HOST_USER]
 
             # Sending email
             send_mail(subject, message, email_from, recipient_list)
@@ -35,4 +36,3 @@ class ViewAbouttView(View):
 
     def get(self, request):
         return render(request, "about.html")
-
