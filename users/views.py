@@ -1,13 +1,15 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views import View
 from django.contrib.auth.decorators import login_required
-
-from .forms import RegisterForm, LoginForm, UpdateUserForm, UpdateProfileForm
+from .forms import UserUpdateForm
+from .forms import RegisterForm, LoginForm, UpdateProfileForm
 from .models import Profile
+from django.contrib.auth.models import User
+from .forms import UserUpdateForm
 
 def home(request):
     return render(request, 'users/home.html')
@@ -67,23 +69,25 @@ class CustomLoginView(LoginView):
 
 
 @login_required
-def profile(request):
+def update_user(request):
     Profile.objects.get_or_create(user=request.user)
+    user = get_object_or_404(User, pk=request.user.id)
+    if request.user != user:
+        return redirect(to='users:view-profile')  # Redirect if the logged-in user is not the same as the user to be edited
+
     if request.method == 'POST':
-        user_form = UpdateUserForm(request.POST, instance=request.user)
+        form = UserUpdateForm(request.POST, instance=user)
         profile_form = UpdateProfileForm(
             request.POST, request.FILES, instance=request.user.profile)
-
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
+        if form.is_valid() and profile_form.is_valid():
+            form.save()
             profile_form.save()
-            messages.success(request, 'Your profile is updated successfully')
-            return redirect(to='users:users-profile')
+            return redirect(to='users:view-profile')  # Redirect to a success page
     else:
-        user_form = UpdateUserForm(instance=request.user)
+        form = UserUpdateForm(instance=user)
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
-    return render(request, 'users/profile.html', {'user_form': user_form, 'profile_form': profile_form})
+    return render(request, 'edit-profile.html', {'form': form,  'profile_form': profile_form})
     
 
 
@@ -93,7 +97,8 @@ class ViewUserProfileView(View):
         return render(request, "user-profile.html")
 
 
-class ViewEditProfileView(View):
+# class ViewEditProfileView(View):
 
-    def get(self, request):
-        return render(request, "edit-profile.html")
+#     def get(self, request):
+#         return render(request, "edit-profile.html")
+

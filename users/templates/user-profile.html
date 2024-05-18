@@ -11,7 +11,7 @@
           <!-- Photo icon -->
           <div class="form-group">
             <label for="profile-image"></label>
-            <img src="{% static 'assets/img/gallery/gallery-1.jpg' %}" alt="Profile Image" class="img-fluid" />
+            <img src="{{ user.profile.avatar.url }}" width="800" height="600" alt="Profile Image" class="img-fluid" />
           </div>
         </div>
         <div class="col-md-6">
@@ -19,15 +19,15 @@
           <div class="profile-info">
             <div class="form-group">
               <label for="fullname">Full Name:</label>
-              <p class="form-control-static" id="fullname">John Doe</p>
+              <p class="form-control-static" id="fullname">{{ user.first_name }} {{ user.last_name }}</p>
             </div>
             <div class="form-group">
               <label for="address">Address:</label>
-              <p class="form-control-static" id="address">123 Main St, City, Country</p>
+              <p class="form-control-static" id="address">{{ user.profile.address }}</p>
             </div>
             <div class="form-group">
               <label for="email">Email:</label>
-              <p class="form-control-static" id="email">john@example.com</p>
+              <p class="form-control-static" id="email">{{ user.email }}</p>
             </div>
           </div>
         </div>

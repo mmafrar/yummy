@@ -37,7 +37,7 @@
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <div class="navbar-nav ml-auto">
                             {% if user.is_authenticated %}
-                            <a href="{% url 'users:users-profile' %}" class="nav-item nav-link">Profile</a>
+                            <a href="{% url 'users:view-profile' %}" class="nav-item nav-link">Profile</a>
                             <form id="logoutform" action="{% url 'logout' %}" method="post">
                                 {% csrf_token %}
                             </form>
