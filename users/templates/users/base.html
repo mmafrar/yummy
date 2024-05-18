@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
-
 <head>
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,7 +22,8 @@
         /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
     </style>
 
-    <title>{% block title %} {% endblock %} </title>
+    <title>{% block title %} {% endblock %}</title>
+
 </head>
 
 <body>
@@ -36,20 +37,25 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <div class="navbar-nav ml-auto">
+
                             {% if user.is_authenticated %}
                             <a href="{% url 'users:view-profile' %}" class="nav-item nav-link">Profile</a>
                             <form id="logoutform" action="{% url 'logout' %}" method="post">
                                 {% csrf_token %}
+                                <button class="nav-item nav-link book-a-table-btn scrollto d-none d-lg-flex"
+                                    type="submit">Logout</button>
                             </form>
-                            <a href="#" class="nav-item nav-link"
-                                onclick="document.getElementById('logoutform').submit();">Logout</a>
+
                             {% else %}
+
                             <a href="{% url 'login' %}" class="nav-item nav-link">Sign in</a>
+
                             {% endif %}
 
                         </div>
                     </div>
                 </nav>
+
                 <!--Any flash messages pop up in any page because this is the base template-->
                 {% if messages %}
                 <div class="alert alert-dismissible" role="alert">
@@ -61,7 +67,9 @@
                     </button>
                 </div>
                 {% endif %}
-                {% block content %}{% endblock %}
+
+                {% block content %} {% endblock %}
+
             </div>
         </div>
     </div>
@@ -70,9 +78,11 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
@@ -81,5 +91,4 @@
     <script src="https://unpkg.com/bootstrap-show-password@1.2.1/dist/bootstrap-show-password.min.js"></script>
 
 </body>
-
 </html>

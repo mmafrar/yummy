@@ -1,8 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
-from django.contrib import messages
-from django.contrib.messages.views import SuccessMessageMixin
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from .forms import UserUpdateForm
@@ -11,6 +8,7 @@ from .models import Profile
 from django.contrib.auth.models import User
 from .forms import UserUpdateForm
 
+
 def home(request):
     return render(request, 'users/home.html')
 
@@ -18,9 +16,6 @@ def home(request):
 class RegisterView(View):
     form_class = RegisterForm
     initial = {'key': 'value'}
-    # template_name = 'users/register.html'
-    
-    # added by naqibullah
     template_name = 'register.html'
 
     def dispatch(self, request, *args, **kwargs):
@@ -40,13 +35,8 @@ class RegisterView(View):
 
         if form.is_valid():
             form.save()
-
-            username = form.cleaned_data.get('username')
-
-            # return redirect(to='login')
-            #added by naqibullah
             return redirect('users:login')
-            
+
         return render(request, self.template_name, {'form': form})
 
 
@@ -73,7 +63,8 @@ def update_user(request):
     Profile.objects.get_or_create(user=request.user)
     user = get_object_or_404(User, pk=request.user.id)
     if request.user != user:
-        return redirect(to='users:view-profile')  # Redirect if the logged-in user is not the same as the user to be edited
+        # Redirect if the logged-in user is not the same as the user to be edited
+        return redirect(to='users:view-profile')
 
     if request.method == 'POST':
         form = UserUpdateForm(request.POST, instance=user)
@@ -82,23 +73,16 @@ def update_user(request):
         if form.is_valid() and profile_form.is_valid():
             form.save()
             profile_form.save()
-            return redirect(to='users:view-profile')  # Redirect to a success page
+            # Redirect to a success page
+            return redirect(to='users:view-profile')
     else:
         form = UserUpdateForm(instance=user)
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
     return render(request, 'edit-profile.html', {'form': form,  'profile_form': profile_form})
-    
 
 
 class ViewUserProfileView(View):
 
     def get(self, request):
         return render(request, "user-profile.html")
-
-
-# class ViewEditProfileView(View):
-
-#     def get(self, request):
-#         return render(request, "edit-profile.html")
-

@@ -3,14 +3,14 @@
 {% load static %}
 
 {% block css_files %}
+
 <link href="{% static 'users.css' %}" rel="stylesheet">
 
 {% endblock %}
 
 {% block content %}
 
-
-  <section id="menu" class="menu section-bg mt-5">
+<section id="menu" class="menu section-bg mt-5">
     <div class="container mt-5">
       <h2>Edit Profile</h2>
       <form method="post"  enctype="multipart/form-data">
@@ -51,10 +51,6 @@
         </div>
         <br />
         <button type="submit" class="btn btn-primary">Save Changes</button>
-
-        {% comment %} <button type="button" class="btn btn-secondary ml-2" onclick="cancelEdit()">Cancel</button> {% endcomment %}
-
-        {% comment %} <a href="{% url 'users:view-profile'%}" class="btn btn-primary"><input type = "submit">Save Changes</a> {% endcomment %}
         <a href="{% url 'users:view-profile'%}" class="btn btn-secondary ml-2">Cancel</a>
 
 
