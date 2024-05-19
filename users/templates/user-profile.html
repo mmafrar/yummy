@@ -6,32 +6,33 @@
 
 <section id="menu" class="menu section-bg mt-5">
     <div class="container mt-5">
-      <h2 class="mb-4">My Profile</h2>
-      <div class="row">
-        <div class="col-md-3">
-          <!-- Photo icon -->
-          <div class="form-group">
-            <label for="profile-image"></label>
-            <img src="{{ user.profile.avatar.url }}" width="800" height="600" alt="Profile Image" class="img-fluid" />
-          </div>
-        </div>
-        <div class="col-md-6">
-          <!-- Content -->
-          <div class="profile-info">
-            <div class="form-group">
-              <label for="fullname">Full Name:</label>
-              <p class="form-control-static" id="fullname">{{ user.first_name }} {{ user.last_name }}</p>
+        <h2 class="mb-4">My Profile</h2>
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Photo icon -->
+                <div class="form-group">
+                    <label for="profile-image"></label>
+                    <img src="{{ user.profile.avatar.url }}" width="800" height="600" alt="Profile Image"
+                        class="img-fluid" />
+                </div>
             </div>
-            <div class="form-group">
-              <label for="address">Address:</label>
-              <p class="form-control-static" id="address">{{ user.profile.address }}</p>
+            <div class="col-md-6">
+                <!-- Content -->
+                <div class="profile-info">
+                    <div class="form-group">
+                        <label for="fullname">Full Name:</label>
+                        <p class="form-control-static" id="fullname">{{ user.first_name }} {{ user.last_name }}</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address:</label>
+                        <p class="form-control-static" id="address">{{ user.profile.address }}</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <p class="form-control-static" id="email">{{ user.email }}</p>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-              <label for="email">Email:</label>
-              <p class="form-control-static" id="email">{{ user.email }}</p>
-            </div>
-          </div>
-        </div>
 
             <div class="col-md-3">
                 <!-- Edit Button -->
