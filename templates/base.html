@@ -68,7 +68,7 @@
       {% if user.is_authenticated %}
       <form id="logoutform" action="{% url 'users:logout' %}" method="post">
         {% csrf_token %}
-        <button type="submit" class="book-a-table-btn scrollto d-none d-lg-flex">Sign Out</button>
+        <button type="submit" class="nav-link book-a-table-btn scrollto d-none d-lg-flex">Sign Out</button>
       </form>
       {% else %}
       <a href="{% url 'users:login' %}" class="book-a-table-btn scrollto d-none d-lg-flex">Sign In</a>
