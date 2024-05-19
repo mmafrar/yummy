@@ -28,6 +28,6 @@ jobs:
     - name: Run Tests
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        DATABASE_URL: sqlite:////tmp/db.sqlite3
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
       run: |
         python manage.py test
