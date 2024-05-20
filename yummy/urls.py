@@ -38,11 +38,6 @@ urlpatterns = [
     path('menus/', include(('menus.urls', 'menus'), namespace='menus')),
     path('orders/', include(('orders.urls', 'orders'), namespace='orders')),
     path('contacts/', include(('contacts.urls', 'contacts'), namespace='contacts')),
-
-
-    # added by mash      # need to remove this --> comment by naqibullah
-    path('login/', CustomLoginView.as_view(redirect_authenticated_user=True, template_name='users/login.html',
-         authentication_form=LoginForm), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+  
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # ended by mash
