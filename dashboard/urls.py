@@ -8,9 +8,10 @@ app_name = 'dashboard'
 urlpatterns = [
     path('', views.ViewDashboardView.as_view(), name='view-dashboard'),
     path('menu', views.ViewAdminMenu.as_view(), name='view-admin-menu'),
-    path('add-menu', views.ViewAddMenuView.as_view(), name='add-menu'),
-    path('update-menu/<int:pk>',
+    path('add-menu', views.AddMenuView.as_view(), name='add-menu'),
+    path('update-menu/<int:pk>/',
          views.ViewUpdateMenuView.as_view(), name='update-menu'),
+    path('delete-menu/<int:pk>', views.DeleteMenuView.as_view(), name='delete-menu'),
     path('branches', views.ViewAdminBranchs.as_view(), name='view-admin-branch'),
     path('add-branch', views.ViewAddBranchView.as_view(), name='add-branch'),
     path('update-branch/<int:pk>',
@@ -24,6 +25,4 @@ urlpatterns = [
          name='view-order-details'),
     path('order-status/<int:pk>', views.ViewOrderAfterStatus.as_view(),
          name='order-after-status'),
-
-
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

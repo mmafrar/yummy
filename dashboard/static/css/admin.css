@@ -226,3 +226,36 @@ body {
     background-color: #f44336;
     /* Red */
 }
+
+.btn-change-image {
+    background-color: #cda45e !important;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-change-image:hover {
+    background-color: #cda45e !important;
+    color: white;
+    font-weight: bold;
+}
+
+.img-circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.update-image {
+    display: none;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9em;
+}
+
+.msg {
+    background-color: #cda45e;
+    color: white;
+}
