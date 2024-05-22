@@ -13,17 +13,6 @@
 <section id="menu" class="menu mt-1">
     <div class="signup-container">
         <h2>Sign up</h2>
-
-        {% if form.errors %}
-        <div class="alert alert-danger alert-dismissible" role="alert">
-            <div id="form_errors">
-                {% for key, value in form.errors.items %}
-                <strong>{{ value }}</strong>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
-
         <form method="POST" class="signup-form">
             {% csrf_token %}
 

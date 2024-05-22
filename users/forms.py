@@ -76,6 +76,10 @@ class RegisterForm(UserCreationForm):
             "password2",
         ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'autofocus': False})
+
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(

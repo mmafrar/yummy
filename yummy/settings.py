@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'menus.apps.MenusConfig',
     'orders.apps.OrdersConfig',
     'contacts.apps.ContactsConfig',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
