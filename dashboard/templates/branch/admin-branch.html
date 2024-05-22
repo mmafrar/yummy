@@ -40,8 +40,8 @@
               <tr>
                 <th>Branch Name</th>
                 <th>Branch Contact</th>
-                <th>Opening Time</th>
-                <th>Closing Time</th>
+                <th>Created Date</th>
+                <th>Modified Date</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -51,8 +51,8 @@
               <tr>
                 <td>{{ branch.branch_name }}</td>
                 <td>{{ branch.branch_contact }}</td>
-                <td>{{ branch.opening_time}}</td>
-                <td>{{ branch.closing_time}}</td>
+                <td>{{ branch.created_at }}</td>
+                <td>{{ branch.modified_at }}</td>
                 <td>
                   <a href="{% url 'dashboard:update-branch' pk=branch.pk %}" class="btn rounded btn-success">Update</a>
                   <a href="#" class="btn rounded btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ branch.pk }}">Delete</a>
@@ -69,8 +69,8 @@
                           <p class="text-wrap">Are you sure you want to delete <strong>{{ branch.branch_name }}</strong> branch?</p> 
                       </div>                      
                         <div class="modal-footer">  
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                          <a href="{% url 'dashboard:delete-branch' pk=branch.pk %}" class="btn btn-danger" style="background-color: #cda45e;">Yes</a>
+                          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                          <a href="{% url 'dashboard:delete-branch' pk=branch.pk %}" class="btn btn-secondary">Yes</a>
                         </div>
                       </div>
                     </div>

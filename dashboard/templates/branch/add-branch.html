@@ -16,45 +16,53 @@
                 <h4 class="mt-0 header-title menu-title">Add New Branch</h4>
             </div><br>
 
-             <!--error message-->
-            {% if error_message %}
-            <div id="error-message" class="error-message">{{ error_message }}</div>
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="message {{ message.tags }}"><strong>{{ message }}</strong></div>
+                {% endfor %}
+            </div>
             {% endif %}
 
             <div class="card-body">
                 <!-- Add New Branch Form -->
-                <form method="POST" enctype="multipart/form-data">
+                <form id="branch-form" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="branchName" class="form-label label-color">Branch Name</label>
-                        {{ form.branch_name }}
+                        {{ branch_form.branch_name }}
                     </div>
                     <div class="mb-3">
                         <label for="branchAddress" class="form-label label-color">Branch Address</label>
-                        {{ form.branch_address}}
+                        {{ branch_form.branch_address }}
                     </div>
                     <div class="mb-3">
-                        <label for="menuPrice" class="form-label label-color">Contact</label>
-                        {{ form.branch_contact}}
+                        <label for="branchContact" class="form-label label-color">Contact</label>
+                        {{ branch_form.branch_contact }}
                     </div>                    
                     <div class="mb-3">
                         <label for="branchImage" class="form-label label-color">Branch Image</label><br>
-                        {{ form.branch_image }}
+                        {{ branch_form.branch_image }}
                     </div>
                     <br>
-                    <h5 class="mt-3">Opening Hours</h5>
-                    <div class="form-group mt-3">
-                        <label for="days" class="label-color">Days</label><br>
-                        {{ form.day }}
+                    <h5 class="mt-3">Opening Hours</h5><br>
+                    {{ opening_hour_formset.management_form }}
+                    <div id="opening-hours-forms">
+                        {% for form in opening_hour_formset %}
+                        <div class="opening-hour-form">
+                            <label for="{{ form.day.id_for_label }}"><strong>Day</strong></label>
+                            {{ form.day }}
+                            <br>
+                            <label for="{{ form.open_time.id_for_label }}"><strong>Opening Time</strong></label>
+                            <input type="time" id="{{ form.open_time.id_for_label }}" name="{{ form.open_time.html_name }}" value="{{ form.open_time.value }}">
+                            <br>
+                            <label for="{{ form.close_time.id_for_label }}"><strong>Closing Time</strong></label>
+                            <input type="time" id="{{ form.close_time.id_for_label }}" name="{{ form.close_time.html_name }}" value="{{ form.close_time.value }}">
+                            <br>
+                        </div>
+                        {% endfor %}
                     </div>
-                    <div class="form-group mt-3">
-                        <label for="opening-time" class="label-color mt-3">Opening Time:</label>
-                        {{ form.opening_time }}
-                    </div>
-                    <div class="form-group mt-3">
-                        <label for="closing-time" class="label-color">Closing Time:</label>
-                        {{ form.closing_time }}
-                    </div>    
+                    <button id="add-opening-hour-btn" class="btn add-btn mt-3" type="button">Add Opening Hour</button>
                     <div class="d-flex justify-content-center mt-5">
                         <a href="{% url 'dashboard:view-admin-branch' %}" class="btn btn-danger me-2">Cancel</a>
                         <button type="submit" class="btn btn-custom ms-2">Add Branch</button>
@@ -68,13 +76,7 @@
 
 {% block script %}
 
-<script>
-    $(document).ready(function() {
-        var delay = 5000; //for 5 seconds
-        setTimeout(function() {
-            $('#error-message').fadeOut('slow');
-        }, delay);
-    });
-</script>
+<script src="{% static 'js/error-message.js' %} "></script>
+<script src="{% static 'js/addManyDayTime.js' %} "></script>
 
 {% endblock %}

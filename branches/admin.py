@@ -1,14 +1,14 @@
 from django.contrib import admin
-from .models import Branch, Day
+from .models import Branch, OpeningHour
 
 
-# Register your models here.
-admin.site.register(Day)
+class OpeningHourInline(admin.TabularInline):
+    model = OpeningHour
+    extra = 1
 
 
 class BranchAdmin(admin.ModelAdmin):
-    list_display = ('branch_name', 'branch_address',
-                    'branch_contact', 'opening_time', 'closing_time')
+    inlines = [OpeningHourInline]
 
 
 admin.site.register(Branch, BranchAdmin)

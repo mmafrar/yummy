@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import environ
 from pathlib import Path
 import os
+from django.contrib.messages import constants as message_constants
 
 env = environ.Env()
 environ.Env.read_env()
@@ -48,7 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dashboard.apps.DashboardConfig',
     'users.apps.UsersConfig',
-    'branches',
+    'branches.apps.BranchesConfig',
     'menus.apps.MenusConfig',
     'orders.apps.OrdersConfig',
     'contacts.apps.ContactsConfig',
@@ -144,3 +145,9 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MESSAGE_TAGS = {
+    message_constants.INFO: 'info',
+    message_constants.SUCCESS: 'success',
+    message_constants.ERROR: 'error',
+}

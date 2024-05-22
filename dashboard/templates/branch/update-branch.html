@@ -15,48 +15,43 @@
             <div>
                 <h4 class="mt-0 header-title menu-title">Branch Details</h4>
             </div>
+
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="message {{ message.tags }}"><strong>{{ message }}</strong></div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
             <div class="card-body">
                 <!-- Update Branch Form -->
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="branchName" class="form-label label-color">Branch Name</label>
-                        {{ form.branch_name }}
+                        {{ branch_form.branch_name }}
                     </div>
                     <div class="mb-3">
                         <label for="branchAddress" class="form-label label-color">Branch Address</label>
-                        {{ form.branch_address }}
+                        {{ branch_form.branch_address }}
                     </div>
                     <div class="mb-3">
                         <label for="menuPrice" class="form-label label-color">Contact</label>
-                        {{ form.branch_contact }}
+                        {{ branch_form.branch_contact }}
                     </div>                 
                     <div class="mb-3">
                         <label for="branchImage" class="form-label label-color">Branch Image</label><br>
-                        {% if form.instance.branch_image %}
-                            <img src="{{ form.instance.branch_image.url }}" alt="Branch Image"><br>
-                            {{ form.branch_image }}
-                        {% else %}
-                            {{ form.branch_image }}
-                        {% endif %}
+                        {{ branch_form.branch_image }}
                     </div>
-                    <br>
-                    <h5 class="mt-3">Opening Hours</h5>
-                    <div class="form-group mt-3">
-                        <label for="days" class="label-color">Days</label><br>
-                        {{ form.day }}
+                    <div class="mb-3">
+                        <label for="openingHours" class="form-label label-color">Opening Hours</label>
+                        <a href="{% url 'dashboard:update-opening-hours' branch_id=branch_id %}" class="btn btn-danger me-2">Edit</a>
                     </div>
-                    <div class="form-group mt-3">
-                        <label for="opening-time" class="label-color mt-3">Opening Time:</label>
-                        {{ form.opening_time }}
-                    </div>
-                    <div class="form-group mt-3">
-                        <label for="closing-time" class="label-color">Closing Time:</label>
-                        {{ form.closing_time }}
-                    </div>    
                     <div class="d-flex justify-content-center mt-5">
                         <a href="{% url 'dashboard:view-admin-branch' %}" class="btn btn-danger me-2">Cancel</a>
                         <button type="submit" class="btn btn-custom ms-2">Save</button>
+                        
                     </div>
                 </form>
             </div>
@@ -65,4 +60,8 @@
 </div>
 {% endblock %}
 
-{% block script %}{% endblock %}
+{% block script %}
+<script src="{% static 'js/error-message.js' %}"></script>
+
+{% endblock %}
+

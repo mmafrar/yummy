@@ -1,22 +1,5 @@
+import os
 from django.db import models
-
-
-# Create your models here.
-class Day(models.Model):
-    DAY_CHOICES = [
-        ('Monday', 'Monday'),
-        ('Tuesday', 'Tuesday'),
-        ('Wednesday', 'Wednesday'),
-        ('Thursday', 'Thursday'),
-        ('Friday', 'Friday'),
-        ('Saturday', 'Saturday'),
-        ('Sunday', 'Sunday'),
-    ]
-    day_of_week = models.CharField(
-        max_length=9, choices=DAY_CHOICES, unique=True)
-
-    def __str__(self):
-        return self.day_of_week
 
 
 class Branch(models.Model):
@@ -25,13 +8,54 @@ class Branch(models.Model):
     branch_contact = models.CharField(max_length=150)
     branch_image = models.ImageField(
         upload_to='branches', null=True, blank=True)
-    opening_time = models.TimeField(null=True, blank=True)
-    closing_time = models.TimeField(null=True, blank=True)
-    day = models.ManyToManyField(
-        Day, related_name='branches', blank=True)
-
-    def is_closed(self):
-        return self.opening_time is None and self.closing_time is None
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.branch_name
+
+    def delete(self, *args, **kwargs):
+        # If there's an associated image, delete it
+        if self.branch_image and os.path.isfile(self.branch_image.path):
+            os.remove(self.branch_image.path)
+        super().delete(*args, **kwargs)
+
+    def save(self, *args, **kwargs):
+        # If updating an instance, delete the old image
+        if self.pk:
+            try:
+                old_instance = Branch.objects.get(pk=self.pk)
+                if old_instance.branch_image and old_instance.branch_image != self.branch_image:
+                    if os.path.isfile(old_instance.branch_image.path):
+                        os.remove(old_instance.branch_image.path)
+            except Branch.DoesNotExist:
+                pass
+        super().save(*args, **kwargs)
+
+
+class OpeningHour(models.Model):
+    DAYS_OF_WEEK = [
+        ('MO', 'Monday'),
+        ('TU', 'Tuesday'),
+        ('WE', 'Wednesday'),
+        ('TH', 'Thursday'),
+        ('FR', 'Friday'),
+        ('SA', 'Saturday'),
+        ('SU', 'Sunday'),
+        ('CL', 'Closed'),
+    ]
+
+    branch = models.ForeignKey(
+        Branch, related_name='opening_hours', on_delete=models.CASCADE)
+    day = models.CharField(max_length=2, choices=DAYS_OF_WEEK)
+    open_time = models.TimeField(default='00:00')
+    close_time = models.TimeField(default='23:59')
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        # Ensure no duplicate days for the same branch
+        unique_together = ('branch', 'day')
+
+    def __str__(self):
+        return f"{self.branch.branch_name} - {dict(self.DAYS_OF_WEEK).get(self.day)}: {self.open_time} to {self.close_time}"
