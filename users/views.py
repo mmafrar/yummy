@@ -7,6 +7,7 @@ from .forms import RegisterForm, LoginForm, UpdateProfileForm
 from .models import Profile
 from django.contrib.auth.models import User
 from .forms import UserUpdateForm
+import os
 
 
 def home(request):
@@ -64,8 +65,16 @@ def update_user(request):
         profile_form = UpdateProfileForm(
             request.POST, request.FILES, instance=request.user.profile)
         if form.is_valid() and profile_form.is_valid():
+
+            profile, created = Profile.objects.get_or_create(user=request.user)
+            image_path = profile.avatar.path
+
+            if 'avatar' in request.FILES:
+                if os.path.exists(image_path):
+                    os.remove(image_path)
             form.save()
             profile_form.save()
+
             # Redirect to a success page
             return redirect(to='users:view-profile')
     else:
