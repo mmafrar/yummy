@@ -8,6 +8,7 @@ from .models import Profile
 from django.contrib.auth.models import User
 from .forms import UserUpdateForm
 import os
+from django.contrib import messages
 
 
 def home(request):
@@ -36,6 +37,7 @@ class RegisterView(View):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Registration successful!')
             return redirect('users:login')
 
         return render(request, self.template_name, {'form': form})
