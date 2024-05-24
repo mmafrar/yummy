@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 import environ
 from pathlib import Path
 
@@ -142,6 +142,29 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
+
+# added by mash
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# ended by mash
+
+# added by naqibullah : if user is admin after log
+
+
+# if user is customer
+LOGIN_REDIRECT_URL = '/'
+
+# if the user is admin ?
+# LOGIN_REDIRECT_URL = '/dashboard'
+
+
+LOGIN_URL = 'users/login'
+LOGOUT_REDIRECT_URL = '/'
+
+# added by naqibullah finished
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

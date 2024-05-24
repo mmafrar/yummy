@@ -18,13 +18,26 @@ from . import views
 from django.contrib import admin
 from django.urls import include, path
 
+from django.urls import path, include
+from django.conf import settings
+
+from django.conf.urls.static import static
+
+from django.contrib.auth import views as auth_views
+from users.views import CustomLoginView
+
+from users.forms import LoginForm
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('admin/', admin.site.urls),
     path('dashboard/', include(('dashboard.urls', 'dashboard'), namespace='dashboard')),
-    path('users/', include(('users.urls', 'users'), namespace='users')),
-    path('restaurants/', include(('restaurants.urls', 'restaurants'), namespace='restaurants')),
+    path('users/', include('users.urls')),
+    path('restaurants/', include(('restaurants.urls',
+         'restaurants'), namespace='restaurants')),
     path('menus/', include(('menus.urls', 'menus'), namespace='menus')),
     path('orders/', include(('orders.urls', 'orders'), namespace='orders')),
     path('contacts/', include(('contacts.urls', 'contacts'), namespace='contacts')),
-]
+  
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# ended by mash
