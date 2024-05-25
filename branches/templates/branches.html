@@ -38,8 +38,8 @@
                         <ul>
                             {% for opening_hour in branch.opening_hours.all %}
                             {% if opening_hour.day != 'CL' %}
-                            <li>{{ opening_hour.get_day_display }} {{ opening_hour.open_time|time:"H:i" }} - {{
-                                opening_hour.close_time|time:"H:i" }}</li>
+                            <li>{{ opening_hour.get_day_display }}
+                                {{ opening_hour.open_time|time:"H:i" }} - {{ opening_hour.close_time|time:"H:i" }}</li>
                             {% else %}
                             <li>{{ opening_hour.get_day_display }}</li>
                             {% endif %}
