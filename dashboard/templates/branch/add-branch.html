@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block css_files %}
-  <link href="{% static 'css/admin.css' %}" rel="stylesheet" />
+<link href="{% static 'css/admin.css' %}" rel="stylesheet" />
 {% endblock %}
 
 {% block content %}
@@ -39,7 +39,7 @@
                     <div class="mb-3">
                         <label for="branchContact" class="form-label label-color">Contact</label>
                         {{ branch_form.branch_contact }}
-                    </div>                    
+                    </div>
                     <div class="mb-3">
                         <label for="branchImage" class="form-label label-color">Branch Image</label><br>
                         {{ branch_form.branch_image }}
@@ -54,10 +54,12 @@
                             {{ form.day }}
                             <br>
                             <label for="{{ form.open_time.id_for_label }}"><strong>Opening Time</strong></label>
-                            <input type="time" id="{{ form.open_time.id_for_label }}" name="{{ form.open_time.html_name }}" value="{{ form.open_time.value }}">
+                            <input type="time" id="{{ form.open_time.id_for_label }}"
+                                name="{{ form.open_time.html_name }}" value="{{ form.open_time.value }}">
                             <br>
                             <label for="{{ form.close_time.id_for_label }}"><strong>Closing Time</strong></label>
-                            <input type="time" id="{{ form.close_time.id_for_label }}" name="{{ form.close_time.html_name }}" value="{{ form.close_time.value }}">
+                            <input type="time" id="{{ form.close_time.id_for_label }}"
+                                name="{{ form.close_time.html_name }}" value="{{ form.close_time.value }}">
                             <br>
                         </div>
                         {% endfor %}

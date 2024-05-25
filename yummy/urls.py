@@ -17,8 +17,6 @@ Including another URLconf
 from . import views
 from django.contrib import admin
 from django.urls import include, path
-from django.conf import settings
-from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -29,4 +27,4 @@ urlpatterns = [
     path('menus/', include(('menus.urls', 'menus'), namespace='menus')),
     path('orders/', include(('orders.urls', 'orders'), namespace='orders')),
     path('contacts/', include(('contacts.urls', 'contacts'), namespace='contacts')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]

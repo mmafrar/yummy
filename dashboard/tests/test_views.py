@@ -3,9 +3,8 @@ from django.http import HttpResponseRedirect
 from django.test import Client, TestCase, RequestFactory
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.urls import reverse
-from branches.models import Branch, OpeningHour
-from branches.form import BranchForm, OpeningHourFormSet
-from dashboard.views import ViewAddBranchView, ViewDeleteBranchView
+from branches.models import Branch
+from dashboard.views import ViewAddBranchView
 
 
 class ViewAddBranchViewTest(TestCase):

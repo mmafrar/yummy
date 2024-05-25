@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block css_files %}
-  <link href="{% static 'css/admin.css' %}" rel="stylesheet" />
+<link href="{% static 'css/admin.css' %}" rel="stylesheet" />
 {% endblock %}
 
 {% block content %}
@@ -44,13 +44,16 @@
                             <br>
                             <label><strong>Delete</strong></label>
                             {{ form.DELETE }}
-                            <button type="button" class="remove-opening-hour-btn btn btn-danger-remove mt-3 {% if forloop.first %}d-none{% endif %}">Remove</button>
+                            <button type="button"
+                                class="remove-opening-hour-btn btn btn-danger-remove mt-3 {% if forloop.first %}d-none{% endif %}">Remove</button>
                         </div>
                         {% endfor %}
                     </div>
-                    <button type="button" id="add-opening-hours-btn" class="btn btn-secondary mt-3">Add Opening Hours</button>
+                    <button type="button" id="add-opening-hours-btn" class="btn btn-secondary mt-3">Add Opening
+                        Hours</button>
                     <div class="d-flex justify-content-center mt-5">
-                        <a href="{% url 'dashboard:update-branch' pk=branch.pk %}" class="btn btn-danger me-2">Cancel</a>
+                        <a href="{% url 'dashboard:update-branch' pk=branch.pk %}"
+                            class="btn btn-danger me-2">Cancel</a>
                         <button type="submit" class="btn btn-custom ms-2">Save</button>
                     </div>
                 </form>
@@ -66,4 +69,3 @@
 
 
 {% endblock %}
-

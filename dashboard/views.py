@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required
 
 from branches.models import Branch, OpeningHour
 from branches.form import BranchForm, OpeningHourFormSet
-import logging
 
 
 class ViewDashboardView(View):
@@ -30,6 +29,24 @@ class ViewUpdateMenuView(View):
 
     def get(self, request, pk):
         return render(request, "menu/update-menu.html")
+
+
+class ViewOrder(View):
+
+    def get(self, request):
+        return render(request, "order/order-management.html")
+
+
+class ViewOrderDetails(View):
+
+    def get(self, request):
+        return render(request, "order/order-details.html")
+
+
+class ViewOrderAfterStatus(View):
+
+    def get(self, request, pk):
+        return render(request, "order/order-after-status.html")
 
 # Added by Hanifah
 
@@ -170,21 +187,3 @@ class ViewDeleteBranchView(View):
         branch.delete()
         messages.success(request, 'Branch deleted sucessfully')
         return redirect('dashboard:view-admin-branch')
-
-
-class ViewOrder(View):
-
-    def get(self, request):
-        return render(request, "order/order-management.html")
-
-
-class ViewOrderDetails(View):
-
-    def get(self, request):
-        return render(request, "order/order-details.html")
-
-
-class ViewOrderAfterStatus(View):
-
-    def get(self, request, pk):
-        return render(request, "order/order-after-status.html")
