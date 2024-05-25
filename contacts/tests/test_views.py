@@ -4,6 +4,7 @@ from django.core import mail
 from contacts.form import ContactForm
 from contacts.models import Contact
 
+
 class TestContactView(TestCase):
 
     def setUp(self):
@@ -26,7 +27,8 @@ class TestContactView(TestCase):
 
     def test_view_contact_post_valid_form(self):
         # Verify valid POST request
-        response = self.client.post(self.view_contact_url, data=self.valid_form_data)
+        response = self.client.post(
+            self.view_contact_url, data=self.valid_form_data)
         self.assertEqual(response.status_code, 302)  # Redirect status code
         self.assertRedirects(response, self.view_contact_url)
 
@@ -42,18 +44,21 @@ class TestContactView(TestCase):
         invalid_data = self.valid_form_data.copy()
         invalid_data['email'] = ''  # Email is required (Empty string)
         response = self.client.post(self.view_contact_url, data=invalid_data)
-        self.assertEqual(response.status_code, 200) 
+        self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'contact.html')
         self.assertFalse(response.context['form'].is_valid())
-        self.assertEqual(Contact.objects.count(), 0)  # No contact should be saved
+        # No contact should be saved
+        self.assertEqual(Contact.objects.count(), 0)
         self.assertEqual(len(mail.outbox), 0)  # No email should be sent
+
 
 class TestAboutView(TestCase):
     # Verifying by setting up client defining URL for the about view
     def setUp(self):
         self.client = Client()
         self.view_about_url = reverse('contacts:view-about')
-    # Verify the response status code is 200 (indicating success), and verifies that the correct template  
+    # Verify the response status code is 200 (indicating success), and verifies that the correct template
+
     def test_view_about_get(self):
         response = self.client.get(self.view_about_url)
         self.assertEqual(response.status_code, 200)

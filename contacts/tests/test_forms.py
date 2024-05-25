@@ -2,6 +2,7 @@ from django.test import TestCase
 from contacts.form import ContactForm
 from contacts.models import Contact
 
+
 class TestContactForm(TestCase):
 
     def test_contact_form_valid(self):
@@ -23,7 +24,7 @@ class TestContactForm(TestCase):
         # Negative scenario data with actual users
         invalid_data = {
             'name': 'Mashkur',
-            'email': '',  
+            'email': '',
             'subject': 'Complaint',
             'message': 'Less menu items'
         }
@@ -35,7 +36,7 @@ class TestContactForm(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_contact_form_invalid_missing_name(self):
-        # Invalid data 
+        # Invalid data
         invalid_data = {
             'name': '',
             'email': 'Mash@hotmail.com',
