@@ -143,28 +143,17 @@ STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
 
-# added by mash
-
+# Image uploads
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# ended by mash
 
-# added by naqibullah : if user is admin after log
-
-
-# if user is customer
-LOGIN_REDIRECT_URL = '/'
-
-# if the user is admin ?
-# LOGIN_REDIRECT_URL = '/dashboard'
-
-
+# User authentication
 LOGIN_URL = 'users/login'
+LOGIN_REDIRECT_URL = '/'  # if the user is Customer
+# LOGIN_REDIRECT_URL = '/dashboard' # if the user is Admin
 LOGOUT_REDIRECT_URL = '/'
 
-# added by naqibullah finished
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
