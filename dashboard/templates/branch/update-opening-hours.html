@@ -1,0 +1,71 @@
+{% extends 'base-dashboard.html' %}
+
+{% load static %}
+
+{% block css_files %}
+<link href="{% static 'css/admin.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="offset-3 col-7">
+        <div class="card">
+            <br>
+            <div>
+                <h4 class="mt-0 header-title menu-title">Opening hours Branch</h4>
+            </div>
+
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="message {{ message.tags }}"><strong>{{ message }}</strong></div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="card-body">
+                <!-- Update Opening hours Form -->
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ opening_hour_formset.management_form }}
+                    <div id="update-opening-hours-forms">
+                        {% for form in opening_hour_formset %}
+                        <div class="opening-hour-form form-row">
+                            {{ form.id }}
+                            <label for="{{ form.day.id_for_label }}"><strong>Day</strong></label>
+                            {{ form.day }}
+                            <br>
+                            <label for="{{ form.open_time.id_for_label }}"><strong>Opening Time</strong></label>
+                            {{ form.open_time }}
+                            <br>
+                            <label for="{{ form.close_time.id_for_label }}"><strong>Closing Time</strong></label>
+                            {{ form.close_time }}
+                            <br>
+                            <label><strong>Delete</strong></label>
+                            {{ form.DELETE }}
+                            <button type="button"
+                                class="remove-opening-hour-btn btn btn-danger-remove mt-3 {% if forloop.first %}d-none{% endif %}">Remove</button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <button type="button" id="add-opening-hours-btn" class="btn btn-secondary mt-3">Add Opening
+                        Hours</button>
+                    <div class="d-flex justify-content-center mt-5">
+                        <a href="{% url 'dashboard:update-branch' pk=branch.pk %}"
+                            class="btn btn-danger me-2">Cancel</a>
+                        <button type="submit" class="btn btn-custom ms-2">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'js/error-message.js' %}"></script>
+<script src="{% static 'js/updateData.js' %}"></script>
+
+
+{% endblock %}

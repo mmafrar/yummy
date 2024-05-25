@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css_files %}
+<link href="{% static 'css/branches.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+<!-- ======= Branches Section ======= -->
+<section id="specials" class="about specials mt-5">
+    <div class="content-title">
+        <h2><strong>Our Locations</strong></h2>
+    </div>
+    {% for branch in all_branches %}
+    <div class="container mt-5" data-aos="fade-up">
+        <div class="row">
+            <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
+                <div class="about-img">
+                    {% if branch.branch_image %}
+                    <img src="{{ branch.branch_image.url }}" alt="{{ branch.branch_name }}" width="550px"
+                        height="306px">
+                    {% else %}
+                    <img src="{% static 'assets/img/bukit_bintang.jpg' %}" alt="" width="550px" height="306px">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
+                <h3>{{ branch.branch_name }}</h3>
+                <p class="fst-italic">Address: {{ branch.branch_address }}</p>
+                <ul>
+                    <li>
+                        <i class="bi bi-phone-fill"></i> Contact: {{ branch.branch_contact }}
+                    </li>
+                    <li>
+                        <i class="bi bi-clock-fill"></i> Open Hours:
+                        <br>
+                        <ul>
+                            {% for opening_hour in branch.opening_hours.all %}
+                            {% if opening_hour.day != 'CL' %}
+                            <li>{{ opening_hour.get_day_display }} {{ opening_hour.open_time|time:"H:i" }} - {{
+                                opening_hour.close_time|time:"H:i" }}</li>
+                            {% else %}
+                            <li>{{ opening_hour.get_day_display }}</li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <br>
+    {% endfor %}
+    <div class="content-title" data-aos="fade-up">
+        <p>Thank you for choosing Yummy Food Restaurant. We look forward to serving you and being a part of your
+            culinary journey.</p>
+    </div>
+</section>
+<!-- End About Section -->
+{% endblock %}

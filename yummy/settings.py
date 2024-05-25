@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 import environ
 from pathlib import Path
+from django.contrib.messages import constants as message_constants
 
 env = environ.Env()
 environ.Env.read_env()
@@ -56,7 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dashboard.apps.DashboardConfig',
     'users.apps.UsersConfig',
-    'restaurants.apps.RestaurantsConfig',
+    'branches.apps.BranchesConfig',
     'menus.apps.MenusConfig',
     'orders.apps.OrdersConfig',
     'contacts.apps.ContactsConfig',
@@ -159,3 +160,11 @@ LOGOUT_REDIRECT_URL = '/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+
+MESSAGE_TAGS = {
+    message_constants.INFO: 'info',
+    message_constants.SUCCESS: 'success',
+    message_constants.ERROR: 'error',
+}

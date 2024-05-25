@@ -29,6 +29,7 @@ body {
     /* Set text color for button */
     border-color: #cda45e;
     /* Set border color for button */
+
 }
 
 /* Style hover state for button */
@@ -56,18 +57,18 @@ body {
 }
 
 .btn-danger {
-    background-color: #b4b3b0;
+    background-color: grey;
     /* Set background color for button */
     color: white;
     /* Set text color for button */
-    border-color: #b4b3b0;
+    border-color: white;
     /* Set border color for button */
 }
 
 .btn-danger:hover {
-    background-color: #757573;
+    background-color: #cda45e;
     /* Change background color on hover */
-    border-color: #757573;
+    border-color: #bb821f;
     /* Change border color on hover */
 }
 
@@ -80,20 +81,148 @@ body {
     /* Set border color for button */
 }
 
-.menu-title{
-    font-size: 30px; 
+.menu-title {
+    font-size: 30px;
     margin-left: 18px;
     color: #cda45e;
     border-color: white;
 }
 
-.page-link{
-background-color: white !important;
-color: #cda45e !important;
-border-color: #c5c1bb !important;
+.page-link {
+    background-color: white !important;
+    color: #cda45e !important;
+    border-color: #c5c1bb !important;
 }
 
-.menu-label, .label-color{
+.menu-label,
+.label-color {
     color: #cda45e !important;
     font-weight: bold;
+}
+
+/* Added Hanifah */
+.modal-dialog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-body {
+    overflow: auto;
+}
+
+.text-wrap {
+    overflow-wrap: break-word;
+}
+
+.error-message {
+    color: #721c24;
+    text-align: center;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+
+.opening-hour-form {
+    margin-bottom: 20px;
+}
+
+.opening-hour-form .form-group {
+    display: flex;
+    align-items: center;
+}
+
+.opening-hour-form label {
+    width: 130px;
+    /* Adjust width as needed */
+    margin-right: 10px;
+    /* Add spacing between label and input */
+    margin-bottom: 10px;
+    color: #cda45e;
+}
+
+.opening-hour-form input[type="text"] {
+    width: 50px;
+}
+
+.opening-hour-form select {
+    flex: 1;
+    /* Allow input to take remaining space */
+}
+
+.add-opening-hour-btn {
+    padding: 20px;
+}
+
+.remove-btn {
+    background-color: grey;
+    color: white;
+    margin-left: 530px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+
+.add-btn {
+    background-color: #cda45e;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.add-btn:hover {
+    background-color: #b28f4b;
+    border-color: #b28f4b;
+}
+
+.btn-secondary {
+    background-color: #cda45e;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.btn-secondary:hover {
+    background-color: #b28f4b;
+    border-color: #b28f4b;
+}
+
+.btn-danger-remove {
+    background-color: grey;
+    color: white;
+    border-color: white;
+    margin-left: 500px;
+}
+
+.btn-danger-remove:hover {
+    background-color: #cda45e;
+    border-color: #bb821f;
+}
+
+.messages {
+    margin: 20px 0;
+    padding: 0;
+    list-style: none;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    color: #fff;
+    text-align: center;
+}
+
+.message.success {
+    background-color: #4CAF50;
+    /* Green */
+}
+
+.message.error {
+    background-color: #f44336;
+    /* Red */
 }
