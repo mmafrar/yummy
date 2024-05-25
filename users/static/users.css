@@ -3,7 +3,8 @@ h2 {
 }
 
 .btn-primary {
-    background-color: #cda45e; /* Green */
+    background-color: #cda45e;
+    /* Green */
     border: none;
     color: white;
     padding: 10px 24px;
@@ -22,7 +23,8 @@ h2 {
 }
 
 .btn-secondary {
-    background-color: #b4b3b0; /* Green */
+    background-color: #b4b3b0;
+    /* Green */
     border: none;
     color: white;
     padding: 10px 24px;
@@ -38,4 +40,56 @@ h2 {
 
 .btn-secondary:hover {
     background-color: #f19c09;
+}
+
+/* login page  */
+
+.login-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(12, 11, 9, 0.6);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 100px;
+    padding-right: 20px;
+    /* Added padding */
+    padding-left: 20px;
+    /* Added padding */
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"],
+.login-form input[type="submit"] {
+    width: calc(100% - 20px);
+    /* Adjusted width */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1a1814;
+    color: #fff !important;
+    box-sizing: border-box;
+    /* Include padding and border in width calculation */
+}
+
+.login-form input[type="submit"] {
+    background-color: #cda45e;
+    color: #1a1814;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-form input[type="submit"]:hover {
+    background-color: #d9ba85;
+}
+
+.login-form p {
+    margin-top: 15px;
+    text-align: center;
 }

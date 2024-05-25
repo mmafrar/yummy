@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 import environ
 from pathlib import Path
 from django.contrib.messages import constants as message_constants
@@ -29,6 +29,15 @@ SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+# Send Email to Gmail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587  # Gmail SMTP port
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+NOREPLY_EMAIL = 'noreply@yummy.com.my'
 
 ALLOWED_HOSTS = [
     '0.0.0.0',
@@ -134,6 +143,18 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
+
+# Image uploads
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+
+# User authentication
+LOGIN_URL = 'users/login'
+LOGIN_REDIRECT_URL = '/'  # if the user is Customer
+# LOGIN_REDIRECT_URL = '/dashboard' # if the user is Admin
+LOGOUT_REDIRECT_URL = '/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

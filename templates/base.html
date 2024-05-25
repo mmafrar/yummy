@@ -57,14 +57,22 @@
           <li><a class="nav-link scrollto" href="{% url 'branches:view-branches' %}">Branches</a></li>
           <li><a class="nav-link scrollto" href="{% url 'contacts:view-about' %}">About</a></li>
           <li><a class="nav-link scrollto" href="{% url 'contacts:view-contact' %}">Contact</a></li>
+          {% if user.is_authenticated %}
           <li><a class="nav-link scrollto" href="{% url 'users:view-profile' %}">My Profile</a></li>
+          {% endif %}
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
       <!-- .navbar -->
-      <a href="#book-a-table" class="book-a-table-btn scrollto d-none d-lg-flex">Sign In</a>
 
-      {% comment %} <a href="#book-a-table" class="book-a-table-btn scrollto d-none d-lg-flex">Sign Out</a> {% endcomment %}
+      {% if user.is_authenticated %}
+      <form id="logoutform" action="{% url 'users:logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="nav-link book-a-table-btn scrollto d-none d-lg-flex">Sign Out</button>
+      </form>
+      {% else %}
+      <a href="{% url 'users:login' %}" class="book-a-table-btn scrollto d-none d-lg-flex">Sign In</a>
+      {% endif %}
 
     </div>
   </header><!-- End Header -->
@@ -94,7 +102,7 @@
                 Bukit Bintang <br>
                Kuala Lumpor, Malaysia<br><br>
                 <strong>Phone:</strong> +60113507898<br>
-                <strong>Email:</strong> info@yummy.com<br>
+                <strong>Email:</strong> info@yummy.com.my<br>
               </p>
               
             </div>
@@ -136,6 +144,8 @@
   <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js'%}"></script>
   <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js'%}"></script>
   <script src="{% static 'assets/vendor/php-email-form/validate.js'%}"></script>
+  <!--For contact message successful-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <script src="{% static 'assets/js/main.js'%}"></script>
 

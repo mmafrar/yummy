@@ -49,8 +49,6 @@ class ViewOrderAfterStatus(View):
         return render(request, "order/order-after-status.html")
 
 # Added by Hanifah
-
-
 class ViewAdminBranchs(View):
 
     def get(self, request):
@@ -60,8 +58,6 @@ class ViewAdminBranchs(View):
 
 # Added by Hanifah
 # @login_required
-
-
 class ViewAddBranchView(View):
     def get(self, request):
         branch_form = BranchForm()
@@ -138,8 +134,6 @@ class ViewUpdateBranchView(View):
 
 # Added by Hanifah
 # @login_required
-
-
 class ViewUpdateOpeningHoursView(View):
     def get(self, request, branch_id):
         branch = get_object_or_404(Branch, id=branch_id)
@@ -179,8 +173,6 @@ class ViewUpdateOpeningHoursView(View):
 
 # Added by Hanifah
 # @login_required
-
-
 class ViewDeleteBranchView(View):
     def get(self, request, pk):
         branch = get_object_or_404(Branch, pk=pk)

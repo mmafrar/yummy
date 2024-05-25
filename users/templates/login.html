@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css_files %}
+
+<link href="{% static 'users.css' %}" rel="stylesheet" />
+
+{% endblock %}
+
+{% block content %}
+
+<section id="menu" class="menu mt-1">
+    <div class="login-container">
+        <h2>Sign in</h2>
+        <!--Displaying Messages-->
+        {% if messages %}
+        {% for message in messages %}
+          <div class="alert {{ message.tags }} alert-success alert-dismissible fade show" role="alert">
+            {{message}}
+          </div>
+        {% endfor %}
+        {% endif %}
+
+        {% if form.errors %}
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <div id="form_errors">
+                {% for key, value in form.errors.items %}
+                <strong>{{ value }}</strong>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <form method="POST" class="login-form">
+            {% csrf_token %}
+            {{ form.username }}
+            {{ form.password }}
+            <input type="submit" value="Login" />
+            <p>
+                Don't have an account? <a href="{% url 'users:users-register' %}">Sign up</a>
+            </p>
+        </form>
+    </div>
+</section>
+
+{% endblock %}
