@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css_files %}
+<link href="{% static 'order.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<section id="menu" class="menu section-bg mt-5">
+    <div class="container mt-5">
+        <h2>Order Food</h2>
+        <form id="order-food-form" action="{% url 'orders:place-order' %}" method="post">
+            {% csrf_token %}
+            <br />
+            <div class="form-group">
+                <label for="id_street">Street:</label>
+                {{ form.street }}
+            </div>
+            <br />
+            <div class="form-group">
+                <label for="id_city">City:</label>
+                {{ form.city }}
+            </div>
+            <br />
+            <div class="form-group">
+                <label for="id_state">State:</label>
+                {{ form.state }}
+            </div>
+            <br />
+            <div class="form-group">
+                <label for="id_zipcode">ZIP Code:</label>
+                {{ form.zipcode }}
+            </div>
+            <br />
+            <div class="form-group">
+                <label for="id_mobile">Mobile:</label>
+                {{ form.mobile }}
+            </div>
+            <br />
+            <div class="form-group">
+                <label>Select Payment Method:</label><br />
+                <div class="form-check form-check-inline">
+                    {{ form.payment_method }}
+                </div>
+                <br />
+            </div>
+            <br />
+            <div class="form-group">
+                <label for="restaurant-branch">Select Restaurant Branch:</label>
+                {{ form.branch }}
+            </div>
+            <br />
+            <hr />
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Review Order</h4>
+                    <p>
+                        <strong>{{ menu.category }}:</strong> {{ menu.name }}
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <h4>Total Amount</h4>
+                    <p>
+                        <strong>{{ menu.amount }}</strong>
+                    </p>
+                </div>
+            </div>
+            <hr />
+            <button style="margin-left: 850px;" type="submit" class="btn btn-primary">Place Order</button>
+            <a href="{% url 'menus:view-menu' %}" class="btn btn-secondary ml-2"> Cancel</a>
+            {% comment %} <button style="margin-left: 20px;" type="button" class="btn btn-secondary ml-2"
+                onclick="cancelOrder()">Cancel</button> {% endcomment %}
+        </form>
+    </div>
+</section>
+<!-- End Menu Section -->
+{% endblock %}
