@@ -27,5 +27,7 @@ jobs:
         pip install -r requirements.txt
         ln -f -s ./yummy/.env.actions ./yummy/.env
     - name: Run Tests
+      env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
       run: |
         python manage.py test
