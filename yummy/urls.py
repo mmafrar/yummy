@@ -23,10 +23,6 @@ from django.conf import settings
 
 from django.conf.urls.static import static
 
-from django.contrib.auth import views as auth_views
-from users.views import CustomLoginView
-
-from users.forms import LoginForm
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -38,6 +34,5 @@ urlpatterns = [
     path('menus/', include(('menus.urls', 'menus'), namespace='menus')),
     path('orders/', include(('orders.urls', 'orders'), namespace='orders')),
     path('contacts/', include(('contacts.urls', 'contacts'), namespace='contacts')),
-  
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-# ended by mash
