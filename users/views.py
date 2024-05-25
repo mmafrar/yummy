@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.views import LoginView
 from django.views import View
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import UserUpdateForm
 from .forms import RegisterForm, LoginForm, UpdateProfileForm
 from .models import Profile
@@ -9,10 +9,6 @@ from django.contrib.auth.models import User
 from .forms import UserUpdateForm
 import os
 from django.contrib import messages
-
-
-def home(request):
-    return render(request, 'users/home.html')
 
 
 class RegisterView(View):
@@ -54,20 +50,25 @@ class CustomLoginView(LoginView):
         return '/'
 
 
-@login_required
-def update_user(request):
-    Profile.objects.get_or_create(user=request.user)
-    user = get_object_or_404(User, pk=request.user.id)
-    if request.user != user:
-        # Redirect if the logged-in user is not the same as the user to be edited
-        return redirect(to='users:view-profile')
+class UpdateUserView(LoginRequiredMixin, View):
+    template_name = 'edit-profile.html'
 
-    if request.method == 'POST':
+    def get(self, request, *args, **kwargs):
+        user = get_object_or_404(User, pk=request.user.id)
+        form = UserUpdateForm(instance=user)
+        profile_form = UpdateProfileForm(instance=request.user.profile)
+        return render(request, self.template_name, {'form': form, 'profile_form': profile_form})
+
+    def post(self, request, *args, **kwargs):
+        user = get_object_or_404(User, pk=request.user.id)
+        if request.user != user:
+            # Redirect if the logged-in user is not the same as the user to be edited
+            return redirect(to='users:view-profile')
+
         form = UserUpdateForm(request.POST, instance=user)
         profile_form = UpdateProfileForm(
             request.POST, request.FILES, instance=request.user.profile)
         if form.is_valid() and profile_form.is_valid():
-
             profile, created = Profile.objects.get_or_create(user=request.user)
             image_path = profile.avatar.path
 
@@ -79,14 +80,10 @@ def update_user(request):
 
             # Redirect to a success page
             return redirect(to='users:view-profile')
-    else:
-        form = UserUpdateForm(instance=user)
-        profile_form = UpdateProfileForm(instance=request.user.profile)
-
-    return render(request, 'edit-profile.html', {'form': form,  'profile_form': profile_form})
+        return render(request, self.template_name, {'form': form, 'profile_form': profile_form})
 
 
-class ViewUserProfileView(View):
+class ViewUserProfileView(LoginRequiredMixin, View):
 
     def get(self, request):
         return render(request, "user-profile.html")
