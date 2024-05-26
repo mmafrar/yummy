@@ -72,9 +72,10 @@ class UpdateUserView(LoginRequiredMixin, View):
             profile, created = Profile.objects.get_or_create(user=request.user)
             image_path = profile.avatar.path
 
-            if 'avatar' in request.FILES:
-                if os.path.exists(image_path):
-                    os.remove(image_path)
+            if profile.avatar != 'users/default.jpg':
+                if 'avatar' in request.FILES:
+                    if os.path.exists(image_path):
+                        os.remove(image_path)
             form.save()
             profile_form.save()
 
