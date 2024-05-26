@@ -24,10 +24,10 @@ body {
     width: 80%;
     margin: auto;
   }
-  canvas {
+  /*canvas {
     display: block;
     margin: auto;
-  }
+  }*/
 
   /* h4 {
     border-bottom: 1px solid black;
