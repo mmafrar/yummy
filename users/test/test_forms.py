@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 from users.forms import RegisterForm, LoginForm, UserUpdateForm, UpdateProfileForm
-from users.models import Profile  # Don't forget to import the Profile model
+from users.models import Profile
 
 class TestUserForms(TestCase):
 
@@ -51,14 +51,14 @@ class TestUserForms(TestCase):
             password='pg030399'
         )
 
-        # Create a Profile instance for the user
-        profile = Profile.objects.create(user=user)
-
         # Prepare valid form data for profile update
         form_data = {
             'avatar': 'user/desktop/pravin.jpg',
             'address': 'Tamilnadu, Chennai',
         }
+
+        # Retrieve the user's profile or create one if it doesn't exist
+        profile, created = Profile.objects.get_or_create(user=user)
 
         # Create form instance with valid data
         form = UpdateProfileForm(data=form_data, instance=profile)
