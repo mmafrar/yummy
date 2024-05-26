@@ -13,7 +13,7 @@ class PlaceOrderView(LoginRequiredMixin, View):
 
     def get(self, request):
         menu = {'id': 1, 'name': 'Caesar Salad',
-                'category': 'Salad', 'amount': '$10.99'}
+                'category': 'Salad', 'amount': '10.99'}
 
         form = PlaceOrderForm()
         args = {'form': form, 'menu': menu}

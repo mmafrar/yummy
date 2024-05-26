@@ -15,28 +15,23 @@
             {% csrf_token %}
             <br />
             <div class="form-group">
-                <label for="id_street">Street:</label>
-                {{ form.street }}
+                {{ form.street.as_field_group }}
             </div>
             <br />
             <div class="form-group">
-                <label for="id_city">City:</label>
-                {{ form.city }}
+                {{ form.city.as_field_group }}
             </div>
             <br />
             <div class="form-group">
-                <label for="id_state">State:</label>
-                {{ form.state }}
+                {{ form.state.as_field_group }}
             </div>
             <br />
             <div class="form-group">
-                <label for="id_zipcode">ZIP Code:</label>
-                {{ form.zipcode }}
+                {{ form.zipcode.as_field_group }}
             </div>
             <br />
             <div class="form-group">
-                <label for="id_mobile">Mobile:</label>
-                {{ form.mobile }}
+                {{ form.mobile.as_field_group }}
             </div>
             <br />
             <div class="form-group">
@@ -48,8 +43,7 @@
             </div>
             <br />
             <div class="form-group">
-                <label for="restaurant-branch">Select Restaurant Branch:</label>
-                {{ form.branch }}
+                {{ form.branch.as_field_group }}
             </div>
             <br />
             <hr />
@@ -63,15 +57,14 @@
                 <div class="col-md-6">
                     <h4>Total Amount</h4>
                     <p>
-                        <strong>{{ menu.amount }}</strong>
+                        <input type="hidden" name="total_amount" value="{{ menu.amount }}">
+                        <strong>${{ menu.amount }}</strong>
                     </p>
                 </div>
             </div>
             <hr />
             <button style="margin-left: 850px;" type="submit" class="btn btn-primary">Place Order</button>
             <a href="{% url 'menus:view-menu' %}" class="btn btn-secondary ml-2"> Cancel</a>
-            {% comment %} <button style="margin-left: 20px;" type="button" class="btn btn-secondary ml-2"
-                onclick="cancelOrder()">Cancel</button> {% endcomment %}
         </form>
     </div>
 </section>
