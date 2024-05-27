@@ -7,55 +7,43 @@
 {% endblock %}
 
 {% block content %}
-<div class="container" style="padding: 20px; background-color: #f5f5f5;">
-    <div class="section" style="margin-bottom: 20px;">
-        <h1 style="font-size: 24px; color: #333;">Dashboard</h1>
-        <p style="color: #555;">Hi, Admin. Welcome back!</p>
+<div class="dashboardcontainer">
+    <div class="section">
+        <h1>Dashboard</h1>
+        <p>Hi, Admin. Welcome back!</p>
     </div>
 
     <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-        <div class="section card" id="totalOrdersSection"
-            style="background: white; border-radius: 8px; padding: 20px; text-align: center; flex: 1; margin: 0 10px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
-            <h4 style="margin-bottom: 10px; font-size: 16px; color: #333;">Total Orders</h4>
-            <p style="font-size: 24px; color: #333;"><span id="totalOrders">0</span></p>
+        <div class="section card" id="totalOrdersSection">
+            <h4>Total Orders</h4>
+            <p><span id="totalOrders">0</span></p>
         </div>
-        <div class="section card" id="acceptedOrdersSection"
-            style="background: white; border-radius: 8px; padding: 20px; text-align: center; flex: 1; margin: 0 10px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
-            <h4 style="margin-bottom: 10px; font-size: 16px; color: #333;">Total Accepted</h4>
-            <p style="font-size: 24px; color: #333;"><span id="acceptedOrders">0</span></p>
+        <div class="section card" id="acceptedOrdersSection">
+            <h4>Total Accepted</h4>
+            <p><span id="acceptedOrders">0</span></p>
         </div>
-        <div class="section card" id="rejectedOrdersSection"
-            style="background: white; border-radius: 8px; padding: 20px; text-align: center; flex: 1; margin: 0 10px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
-            <h4 style="margin-bottom: 10px; font-size: 16px; color: #333;">Total Rejected</h4>
-            <p style="font-size: 24px; color: #333;"><span id="rejectedOrders">0</span></p>
+        <div class="section card" id="rejectedOrdersSection">
+            <h4>Total Rejected</h4>
+            <p><span id="rejectedOrders">0</span></p>
         </div>
-        <div class="section card" id="revenueSection"
-            style="background: white; border-radius: 8px; padding: 20px; text-align: center; flex: 1; margin: 0 10px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
-            <h4 style="margin-bottom: 10px; font-size: 16px; color: #333;">Total Revenue</h4>
-            <p style="font-size: 24px; color: #333;">RM <span id="totalRevenue">0.00</span></p>
+        <div class="section card" id="revenueSection">
+            <h4>Total Revenue</h4>
+            <p>RM <span id="totalRevenue">0.00</span></p>
         </div>
     </div>
 
-    <div class="section card" id="popularItemsSection"
-        style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
-        <h4 style="margin-bottom: 10px; font-size: 18px; color: #333;">Popular Menu Items</h4>
-        <ul id="popularItems" style="list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px;">
-            <li
-                style="flex: 1 1 calc(33.333% - 10px); background: #f9f9f9; border-radius: 8px; padding: 10px; text-align: center; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
-                TUNA SAN</li>
-            <li
-                style="flex: 1 1 calc(33.333% - 10px); background: #f9f9f9; border-radius: 8px; padding: 10px; text-align: center; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
-                BERRY GRAPEFUL</li>
-            <li
-                style="flex: 1 1 calc(33.333% - 10px); background: #f9f9f9; border-radius: 8px; padding: 10px; text-align: center; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
-                PEANUT BUTTER COCONUT OATMEAL</li>
+    <div class="section card" id="popularItemsSection">
+        <h4>Popular Menu Items</h4>
+        <ul id="popularItems">
+            <li>TUNA SAN</li>
+            <li>BERRY GRAPEFUL</li>
+            <li>PEANUT BUTTER COCONUT OATMEAL</li>
         </ul>
     </div>
 
     <!-- Revenue Chart Section -->
-    <div class="section card" id="revenueChartSection"
-        style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
-        <h4 style="margin-bottom: 10px; font-size: 18px; color: #333;">Revenue Chart (Monthly)</h4>
+    <div class="section card" id="revenueChartSection">
+        <h4>Revenue Chart (Monthly)</h4>
         <div class="chart-container">
             <canvas id="revenueChart"></canvas>
         </div>
