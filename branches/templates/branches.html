@@ -10,7 +10,7 @@
 <!-- ======= Branches Section ======= -->
 <section id="specials" class="about specials mt-5">
     <div class="content-title">
-        <h2><strong>Our Locations</strong></h2>
+        <h2 style="position: relative; z-index: 10;"><strong>Our Locations</strong></h2>
     </div>
     {% for branch in all_branches %}
     <div class="container mt-5" data-aos="fade-up">
@@ -39,7 +39,7 @@
                             {% for opening_hour in branch.opening_hours.all %}
                             {% if opening_hour.day != 'CL' %}
                             <li>{{ opening_hour.get_day_display }}
-                                {{ opening_hour.open_time|time:"H:i" }} - {{ opening_hour.close_time|time:"H:i" }}</li>
+                                {{ opening_hour.open_time|time:"H:i" }} AM - {{ opening_hour.close_time|time:"H:i" }} PM</li>
                             {% else %}
                             <li>{{ opening_hour.get_day_display }}</li>
                             {% endif %}
@@ -53,8 +53,8 @@
     <br>
     {% endfor %}
     <div class="content-title" data-aos="fade-up">
-        <p>Thank you for choosing Yummy Food Restaurant. We look forward to serving you and being a part of your
-            culinary journey.</p>
+        <p style="position: relative; z-index: 10;"><strong>Thank you for choosing Yummy Food Restaurant. We look forward to serving you and being a part of your
+            culinary journey.</strong></p>
     </div>
 </section>
 <!-- End About Section -->
