@@ -1,10 +1,9 @@
-
 // Dummy data for demonstration purposes
 const totalOrders = 100;
 const acceptedOrders = 90;
 const rejectedOrders = 10;
 const totalRevenue = 5000.00;
-const popularItems = ['TUNA SAN', 'BERRY GRAPEFUL', 'PEANUT BUTTER COCONUT OATMEAL']; // Dummy popular items
+
 const monthlyRevenueData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     datasets: [{
@@ -21,14 +20,6 @@ document.getElementById('totalOrders').innerText = totalOrders;
 document.getElementById('acceptedOrders').innerText = acceptedOrders;
 document.getElementById('rejectedOrders').innerText = rejectedOrders;
 document.getElementById('totalRevenue').innerText = totalRevenue.toFixed(2);
-
-// Populate popular items
-const popularItemsList = document.getElementById('popularItems');
-popularItems.forEach(item => {
-    const li = document.createElement('li');
-    li.textContent = item;
-    popularItemsList.appendChild(li);
-});
 
 // Render revenue chart
 const ctx = document.getElementById('revenueChart').getContext('2d');

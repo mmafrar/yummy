@@ -3,57 +3,64 @@
 {% load static %}
 
 {% block content %}
-  <div class="container">
-    <div class="section">
-      <h4 style="color: black;">Total Orders</h4>
-      <p>
-        Total number of orders: <span id="totalOrders">0</span>
-      </p>
+<div class="container" style="padding: 20px; background-color: #f5f5f5;">
+    <div class="section" style="margin-bottom: 20px;">
+        <h1 style="font-size: 24px; color: #333;">Dashboard</h1>
+        <p style="color: #555;">Hi, Admin. Welcome back!</p>
     </div>
 
-    <div class="section">
-      <h4>Total Accepted Orders</h4>
-      <p>
-        Total number of accepted orders: <span id="acceptedOrders">0</span>
-      </p>
+    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+        <div
+            style="background: white; border-radius: 8px; padding: 20px; text-align: center; flex: 1; margin: 0 10px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
+            <h4 style="margin-bottom: 10px; font-size: 16px; color: #333;">Total Orders</h4>
+            <p style="font-size: 24px; color: #333;"><span id="totalOrders">0</span></p>
+        </div>
+        <div
+            style="background: white; border-radius: 8px; padding: 20px; text-align: center; flex: 1; margin: 0 10px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
+            <h4 style="margin-bottom: 10px; font-size: 16px; color: #333;">Total Accepted</h4>
+            <p style="font-size: 24px; color: #333;"><span id="acceptedOrders">0</span></p>
+        </div>
+        <div
+            style="background: white; border-radius: 8px; padding: 20px; text-align: center; flex: 1; margin: 0 10px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
+            <h4 style="margin-bottom: 10px; font-size: 16px; color: #333;">Total Rejected</h4>
+            <p style="font-size: 24px; color: #333;"><span id="rejectedOrders">0</span></p>
+        </div>
+        <div
+            style="background: white; border-radius: 8px; padding: 20px; text-align: center; flex: 1; margin: 0 10px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
+            <h4 style="margin-bottom: 10px; font-size: 16px; color: #333;">Total Revenue</h4>
+            <p style="font-size: 24px; color: #333;">RM <span id="totalRevenue">0.00</span></p>
+        </div>
     </div>
 
-    <div class="section">
-      <h4>Total Rejected Orders</h4>
-      <p>
-        Total number of rejected orders: <span id="rejectedOrders">0</span>
-      </p>
+    <div class="section"
+        style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
+        <h4 style="margin-bottom: 10px; font-size: 18px; color: #333;">Popular Menu Items</h4>
+        <ul id="popularItems" style="list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px;">
+            <li
+                style="flex: 1 1 calc(33.333% - 10px); background: #f9f9f9; border-radius: 8px; padding: 10px; text-align: center; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
+                TUNA SAN</li>
+            <li
+                style="flex: 1 1 calc(33.333% - 10px); background: #f9f9f9; border-radius: 8px; padding: 10px; text-align: center; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
+                BERRY GRAPEFUL</li>
+            <li
+                style="flex: 1 1 calc(33.333% - 10px); background: #f9f9f9; border-radius: 8px; padding: 10px; text-align: center; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
+                PEANUT BUTTER COCONUT OATMEAL</li>
+        </ul>
     </div>
 
-    <div class="section">
-      <h4>Total Revenue</h4>
-      <p>
-        Total revenue: RM
-        <span id="totalRevenue">0.00</span>
-      </p>
+    <!-- Revenue Chart Section -->
+    <div class="section"
+        style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
+        <h4 style="margin-bottom: 10px; font-size: 18px; color: #333;">Revenue Chart (Monthly)</h4>
+        <div class="chart-container">
+            <canvas id="revenueChart"></canvas>
+        </div>
     </div>
-
-    <div class="section">
-      <h4>Popular Menu Items</h4>
-      <ul id="popularItems">
-        <!-- Populate with popular menu items -->
-        <li>TUNA SAN</li>
-        <li>BERRY GRAPEFUL</li>
-        <li>EANUT BUTTER COCONUT OATMEAL</li>
-        <!-- Add more items here -->
-      </ul>
-    </div>
-    <div class="section">
-      <h4>Revenue Chart (Monthly)</h4>
-      <div class="chart-container">
-        <canvas id="revenueChart"></canvas>
-      </div>
-    </div>
-  </div>
+    <!-- End Revenue Chart Section -->
+</div>
 {% endblock %}
 
 {% block script %}
-
 <script src="{% static 'js/chart.js' %}"></script>
 <script src="{% static 'js/dashboard-chart.js' %}"></script>
 {% endblock %}
