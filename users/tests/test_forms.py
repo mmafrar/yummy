@@ -1,7 +1,8 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from users.forms import RegisterForm, LoginForm, UserUpdateForm, UpdateProfileForm
+from users.forms import RegisterForm, UserUpdateForm, UpdateProfileForm
 from users.models import Profile
+
 
 class TestUserForms(TestCase):
 
