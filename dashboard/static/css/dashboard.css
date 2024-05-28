@@ -1,21 +1,30 @@
-/* dashboard.css */
+.dashboardcontainer {
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+}
 
-.container {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.section {
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+p {
+    color: #555;
 }
 
 .card {
-    background-color: #191313;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin: 3.5 auto;
-    background-color: #171111;
-    background-image: linear-gradient(to bottom, #ffffff, #f0f0f0);
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: white;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    flex: 1;
+    margin: 0 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .card:hover {
@@ -23,59 +32,22 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-#popularItems {
-    list-style: none;
-    padding: 0;
-}
 
-#popularItems li {
-    padding: 8px 0;
-    border-bottom: 1px solid #eee;
-    font-size: 16px;
-    color: #555555;
-}
-
-#popularItems li:last-child {
-    border-bottom: none;
-}
-
-.dashboard-container {
-    padding: 20px;
-    background-color: #f5f5f5;
-}
-
-.dashboard-header {
-    margin-bottom: 20px;
-}
-
-.dashboard-stats {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.stat-block {
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
-    text-align: center;
-    flex: 1;
-    margin: 0 10px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.stat-block h4 {
+h4 {
     margin-bottom: 10px;
     font-size: 16px;
     color: #333;
 }
 
-.stat-block p {
+#totalOrdersSection p,
+#acceptedOrdersSection p,
+#rejectedOrdersSection p,
+#revenueSection p {
     font-size: 24px;
     color: #333;
 }
 
-.dashboard-section {
+#popularItemsSection {
     background: white;
     border-radius: 8px;
     padding: 20px;
@@ -83,22 +55,31 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.dashboard-section h4 {
-    margin-bottom: 10px;
-    font-size: 18px;
-    color: #333;
-}
-
 #popularItems {
     list-style: none;
     padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 #popularItems li {
-    margin-bottom: 5px;
+    flex: 1 1 calc(33.333% - 10px);
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#revenueChartSection {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .chart-container {
-    position: relative;
-    height: 600px;
+    width: 100%;
+    height: auto;
 }
