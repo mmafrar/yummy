@@ -55,10 +55,10 @@
           <li><a class="nav-link scrollto" href="{% url 'index' %}">Home</a></li>
           <li><a class="nav-link scrollto" href="{% url 'menus:view-menu' %}">Menu</a></li>
           <li><a class="nav-link scrollto" href="{% url 'branches:view-branches' %}">Branches</a></li>
-          <li><a class="nav-link scrollto" href="{% url 'contacts:view-about' %}">About</a></li>
-          <li><a class="nav-link scrollto" href="{% url 'contacts:view-contact' %}">Contact</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'contacts:about' %}">About</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'contacts:contact' %}">Contact</a></li>
           {% if user.is_authenticated %}
-          <li><a class="nav-link scrollto" href="{% url 'users:view-profile' %}">My Profile</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'users:profile.show' %}">My Profile</a></li>
           {% endif %}
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -114,8 +114,8 @@
               <li><a class="nav-link scrollto" href="{% url 'index' %}">Home</a></li>
               <li><a class="nav-link scrollto" href="{% url 'menus:view-menu' %}">Menu</a></li>
               <li><a class="nav-link scrollto" href="{% url 'branches:view-branches' %}">Branches</a></li>
-              <li><a class="nav-link scrollto" href="{% url 'contacts:view-about' %}">About</a></li>
-              <li><a class="nav-link scrollto" href="{% url 'contacts:view-contact' %}">Contact</a></li>
+              <li><a class="nav-link scrollto" href="{% url 'contacts:about' %}">About</a></li>
+              <li><a class="nav-link scrollto" href="{% url 'contacts:contact' %}">Contact</a></li>
             </ul>
           </div>
 

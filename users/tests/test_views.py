@@ -13,7 +13,7 @@ class TestViews(TestCase):
 
     def test_register_view_get(self):
         # Test GET request to register view
-        request = self.factory.get(reverse('users:users-register'))
+        request = self.factory.get(reverse('users:register'))
         request.user = self.user
         response = RegisterView.as_view()(request)
 
@@ -38,7 +38,7 @@ class TestViews(TestCase):
 
     def test_update_user_view_get(self):
         # Test GET request to update_user view
-        request = self.factory.get(reverse('users:edit-profile'))
+        request = self.factory.get(reverse('users:profile.edit'))
         request.user = self.user  # Set the user attribute on the request
         response = UpdateUserView.as_view()(request)
         # Check if the view returns 200 OK
@@ -46,7 +46,7 @@ class TestViews(TestCase):
 
     def test_view_user_profile_view(self):
         # Test GET request to view_user_profile view
-        request = self.factory.get(reverse('users:view-profile'))
+        request = self.factory.get(reverse('users:profile.show'))
         request.user = self.user  # Set the user attribute on the request
         response = ViewUserProfileView.as_view()(request)
         # Check if the view returns 200 OK

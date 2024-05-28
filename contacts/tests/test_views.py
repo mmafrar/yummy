@@ -9,8 +9,8 @@ class TestContactView(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.view_contact_url = reverse('contacts:view-contact')
-        self.view_about_url = reverse('contacts:view-about')
+        self.view_contact_url = reverse('contacts:contact')
+        self.view_about_url = reverse('contacts:about')
         self.valid_form_data = {
             'name': 'Pravin',
             'email': 'irpravin@gmail.com',
@@ -56,7 +56,7 @@ class TestAboutView(TestCase):
     # Verifying by setting up client defining URL for the about view
     def setUp(self):
         self.client = Client()
-        self.view_about_url = reverse('contacts:view-about')
+        self.view_about_url = reverse('contacts:about')
     # Verify the response status code is 200 (indicating success), and verifies that the correct template
 
     def test_view_about_get(self):

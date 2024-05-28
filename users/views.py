@@ -63,7 +63,7 @@ class UpdateUserView(LoginRequiredMixin, View):
         user = get_object_or_404(User, pk=request.user.id)
         if request.user != user:
             # Redirect if the logged-in user is not the same as the user to be edited
-            return redirect(to='users:view-profile')
+            return redirect(to='users:profile.show')
 
         form = UserUpdateForm(request.POST, instance=user)
         profile_form = UpdateProfileForm(
@@ -80,7 +80,7 @@ class UpdateUserView(LoginRequiredMixin, View):
             profile_form.save()
 
             # Redirect to a success page
-            return redirect(to='users:view-profile')
+            return redirect(to='users:profile.show')
         return render(request, self.template_name, {'form': form, 'profile_form': profile_form})
 
 
