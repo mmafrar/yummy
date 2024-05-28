@@ -22,7 +22,7 @@ class ViewContactView(View):
             # Sending email
             send_mail(subject, message, email_from, recipient_list)
 
-            return redirect('contacts:view-contact')
+            return redirect('contacts:contact')
         context = {'form': form}
         return render(request, 'contact.html', context)
 
