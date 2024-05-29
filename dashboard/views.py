@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views import View
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.views import View
+import os
 
+from .models import Menu
+from .forms import MenuForm
 from branches.models import Branch, OpeningHour
 from branches.form import BranchForm, OpeningHourFormSet
 
@@ -11,42 +13,6 @@ class ViewDashboardView(View):
 
     def get(self, request):
         return render(request, "dashboard.html")
-
-
-class ViewAdminMenu(View):
-
-    def get(self, request):
-        return render(request, "menu/admin-menu.html")
-
-
-class ViewAddMenuView(View):
-
-    def get(self, request):
-        return render(request, "menu/add-menu.html")
-
-
-class ViewUpdateMenuView(View):
-
-    def get(self, request, pk):
-        return render(request, "menu/update-menu.html")
-
-
-class ViewOrder(View):
-
-    def get(self, request):
-        return render(request, "order/order-management.html")
-
-
-class ViewOrderDetails(View):
-
-    def get(self, request):
-        return render(request, "order/order-details.html")
-
-
-class ViewOrderAfterStatus(View):
-
-    def get(self, request, pk):
-        return render(request, "order/order-after-status.html")
 
 
 class ViewAdminBranchs(View):
@@ -94,7 +60,7 @@ class ViewAddBranchView(View):
                     opening_hour_instance.branch = branch_instance
                     opening_hour_instance.save()
                 messages.success(request, 'Branch added successfully')
-                return redirect('dashboard:view-admin-branch')
+                return redirect('dashboard:branches.index')
         return render(request, 'branch/add-branch.html', {
             'branch_form': branch_form,
             'opening_hour_formset': opening_hour_formset})
@@ -122,7 +88,7 @@ class ViewUpdateBranchView(View):
 
                 branch_instance = branch_form.save()
                 messages.success(request, 'Branch updated successfully')
-                return redirect('dashboard:view-admin-branch')
+                return redirect('dashboard:branches.index')
 
         return render(request, 'branch/update-branch.html', {
             'branch_form': branch_form,
@@ -156,7 +122,7 @@ class ViewUpdateOpeningHoursView(View):
             for obj in opening_hour_formset.deleted_objects:
                 obj.delete()
             messages.success(request, 'Opening hours updated successfully')
-            return redirect('dashboard:update-branch', pk=branch_id)
+            return redirect('dashboard:branches.edit', pk=branch_id)
         else:
             # If formset is invalid, display the formset with errors
             print(opening_hour_formset.errors)
@@ -173,4 +139,86 @@ class ViewDeleteBranchView(View):
         branch = get_object_or_404(Branch, pk=pk)
         branch.delete()
         messages.success(request, 'Branch deleted sucessfully')
-        return redirect('dashboard:view-admin-branch')
+        return redirect('dashboard:branches.index')
+
+
+class ViewAdminMenu(View):
+
+    def get(self, request):
+        menus = Menu.objects.all()
+        return render(request, "menu/admin-menu.html", {'menus': menus})
+
+
+class AddMenuView(View):
+
+    def get(self, request):
+        form = MenuForm()
+        return render(request, "menu/add-menu.html", {'form': form})
+
+    def post(self, request):
+        form = MenuForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Menu added successfully')
+            return redirect('dashboard:menus.index')
+        else:
+            return render(request, "menu/add-menu.html", {'form': form})
+
+
+class ViewUpdateMenuView(View):
+
+    def get(self, request, pk):
+        menu = get_object_or_404(Menu, pk=pk)
+        form = MenuForm(instance=menu)
+        return render(request, "menu/update-menu.html", {'form': form, 'menu': menu})
+
+    def post(self, request, pk):
+        menu = get_object_or_404(Menu, pk=pk)
+        form = MenuForm(request.POST, request.FILES, instance=menu)
+
+        if form.is_valid():
+
+            old_image = Menu.objects.get(id=pk)
+            image_path = old_image.image.path
+
+            if 'image' in request.FILES:
+                if os.path.exists(image_path):
+                    os.remove(image_path)
+            form.save()
+            messages.success(request, 'Menu updated successfully')
+            return redirect('dashboard:menus.index')
+        else:
+            errors = form.errors
+            return render(request, "menu/update-menu.html", {'form': form, 'menu': menu, 'errors': errors})
+
+
+class DeleteMenuView(View):
+
+    def get(self, request, pk):
+
+        menu = get_object_or_404(Menu, pk=pk)
+        image_path = menu.image.path
+
+        if os.path.exists(image_path):
+            os.remove(image_path)
+            menu.delete()
+            messages.success(request, 'Menu Deleted')
+        return redirect('dashboard:menus.index')
+
+
+class ViewOrder(View):
+
+    def get(self, request):
+        return render(request, "order/order-management.html")
+
+
+class ViewOrderDetails(View):
+
+    def get(self, request):
+        return render(request, "order/order-details.html")
+
+
+class ViewOrderAfterStatus(View):
+
+    def get(self, request, pk):
+        return render(request, "order/order-after-status.html")

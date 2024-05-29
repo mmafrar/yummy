@@ -139,6 +139,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+
+FILE_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB limit for example
+
+
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [

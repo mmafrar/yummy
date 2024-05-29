@@ -46,10 +46,10 @@
                     </div>
                     <div class="mb-3">
                         <label for="openingHours" class="form-label label-color">Opening Hours</label>
-                        <a href="{% url 'dashboard:update-opening-hours' branch_id=branch_id %}" class="btn btn-danger me-2">Edit</a>
+                        <a href="{% url 'dashboard:branches.edit.opening-hours' branch_id=branch_id %}" class="btn btn-danger me-2">Edit</a>
                     </div>
                     <div class="d-flex justify-content-center mt-5">
-                        <a href="{% url 'dashboard:view-admin-branch' %}" class="btn btn-danger me-2">Cancel</a>
+                        <a href="{% url 'dashboard:branches.index' %}" class="btn btn-danger me-2">Cancel</a>
                         <button type="submit" class="btn btn-custom ms-2">Save</button>
                         
                     </div>
