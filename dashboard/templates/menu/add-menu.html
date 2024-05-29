@@ -3,41 +3,51 @@
 {% load static %}
 
 {% block css_files %}
-  <link href="{% static 'css/admin.css' %}" rel="stylesheet" />
+<link href="{% static 'css/admin.css' %}" rel="stylesheet" />
 {% endblock %}
 
 {% block content %}
-  <div class="row">
+<div class="row">
     <div class="offset-3 col-7">
-      <div class="card">
-        <br />
-        <div>
-          <h4 class="mt-0 header-title menu-title">Add Menu</h4>
-        </div>
-        <div class="card-body">
-          <!-- Add New Menu Form -->
-          <form action="{% url 'dashboard:add-menu' %}" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="my-3">{{ form.name.label_tag }}
-              {{ form.name }}</div>
-            <div class="mt-4">{{ form.description.label_tag }}
-              {{ form.description }}</div>
-            <div class="mt-4">{{ form.image.label_tag }}
-              {{ form.image }}</div>
-            <div class="mt-4">{{ form.category.label_tag }}
-              {{ form.category }}</div>
-            <div class="mt-4">{{ form.price.label_tag }}
-              {{ form.price }}</div>
+        <div class="card">
             <br />
-            <div class="d-flex justify-content-center">
-              <a href="{% url 'dashboard:view-admin-menu' %}" class="btn btn-danger me-2">Cancel</a>
-              <button type="submit" class="btn btn-custom ms-2">Add Menu</button>
+            <div>
+                <h4 class="mt-0 header-title menu-title">Add Menu</h4>
             </div>
-          </form>
+            <div class="card-body">
+                <!-- Add New Menu Form -->
+                <form action="{% url 'dashboard:menus.create' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="my-3">
+                        {{ form.name.label_tag }}
+                        {{ form.name }}
+                    </div>
+                    <div class="mt-4">
+                        {{ form.description.label_tag }}
+                        {{ form.description }}
+                    </div>
+                    <div class="mt-4">
+                        {{ form.image.label_tag }}
+                        {{ form.image }}
+                    </div>
+                    <div class="mt-4">
+                        {{ form.category.label_tag }}
+                        {{ form.category }}
+                    </div>
+                    <div class="mt-4">
+                        {{ form.price.label_tag }}
+                        {{ form.price }}
+                    </div>
+                    <br />
+                    <div class="d-flex justify-content-center">
+                        <a href="{% url 'dashboard:menus.index' %}" class="btn btn-danger me-2">Cancel</a>
+                        <button type="submit" class="btn btn-custom ms-2">Add Menu</button>
+                    </div>
+                </form>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 {% endblock %}
 
 {% block script %}

@@ -60,7 +60,7 @@ class ViewAddBranchView(View):
                     opening_hour_instance.branch = branch_instance
                     opening_hour_instance.save()
                 messages.success(request, 'Branch added successfully')
-                return redirect('dashboard:view-admin-branch')
+                return redirect('dashboard:branches.index')
         return render(request, 'branch/add-branch.html', {
             'branch_form': branch_form,
             'opening_hour_formset': opening_hour_formset})
@@ -88,7 +88,7 @@ class ViewUpdateBranchView(View):
 
                 branch_instance = branch_form.save()
                 messages.success(request, 'Branch updated successfully')
-                return redirect('dashboard:view-admin-branch')
+                return redirect('dashboard:branches.index')
 
         return render(request, 'branch/update-branch.html', {
             'branch_form': branch_form,
@@ -122,7 +122,7 @@ class ViewUpdateOpeningHoursView(View):
             for obj in opening_hour_formset.deleted_objects:
                 obj.delete()
             messages.success(request, 'Opening hours updated successfully')
-            return redirect('dashboard:update-branch', pk=branch_id)
+            return redirect('dashboard:branches.edit', pk=branch_id)
         else:
             # If formset is invalid, display the formset with errors
             print(opening_hour_formset.errors)
@@ -139,7 +139,7 @@ class ViewDeleteBranchView(View):
         branch = get_object_or_404(Branch, pk=pk)
         branch.delete()
         messages.success(request, 'Branch deleted sucessfully')
-        return redirect('dashboard:view-admin-branch')
+        return redirect('dashboard:branches.index')
 
 
 class ViewAdminMenu(View):
@@ -160,7 +160,7 @@ class AddMenuView(View):
         if form.is_valid():
             form.save()
             messages.success(request, 'Menu added successfully')
-            return redirect('dashboard:view-admin-menu')
+            return redirect('dashboard:menus.index')
         else:
             return render(request, "menu/add-menu.html", {'form': form})
 
@@ -186,7 +186,7 @@ class ViewUpdateMenuView(View):
                     os.remove(image_path)
             form.save()
             messages.success(request, 'Menu updated successfully')
-            return redirect('dashboard:view-admin-menu')
+            return redirect('dashboard:menus.index')
         else:
             errors = form.errors
             return render(request, "menu/update-menu.html", {'form': form, 'menu': menu, 'errors': errors})
@@ -203,7 +203,7 @@ class DeleteMenuView(View):
             os.remove(image_path)
             menu.delete()
             messages.success(request, 'Menu Deleted')
-        return redirect('dashboard:view-admin-menu')
+        return redirect('dashboard:menus.index')
 
 
 class ViewOrder(View):

@@ -34,17 +34,17 @@
     <!-- ======= Header ======= -->
     <header id="header" class="fixed-top d-flex align-items-center fixed-top">
       <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
-        <h1 class="logo me-auto me-lg-0"><a href="{% url 'dashboard:view-dashboard' %}">Yummy</a></h1>
+        <h1 class="logo me-auto me-lg-0"><a href="{% url 'dashboard:dashboard' %}">Yummy</a></h1>
         <nav id="navbar" class="navbar order-last order-lg-0">
           <ul>
             <li>
-              <a class="nav-link scrollto " href="{% url 'dashboard:view-dashboard' %}">Dashboard</a>
+              <a class="nav-link scrollto " href="{% url 'dashboard:dashboard' %}">Dashboard</a>
             </li>
             <li>
-              <a class="nav-link scrollto" href="{% url 'dashboard:view-admin-menu' %}">Menu</a>
+              <a class="nav-link scrollto" href="{% url 'dashboard:menus.index' %}">Menu</a>
             </li>
             <li>
-              <a class="nav-link scrollto" href="{% url 'dashboard:view-admin-branch' %}">Branches</a>
+              <a class="nav-link scrollto" href="{% url 'dashboard:branches.index' %}">Branches</a>
             </li>
             <li>
               <a class="nav-link scrollto" href="{% url 'dashboard:view-order'%}">Order</a>
@@ -95,13 +95,13 @@
               <h4>Useful Links</h4>
               <ul>
                 <li>
-                  <a class="nav-link scrollto " href="{% url 'dashboard:view-dashboard' %}">Dashboard</a>
+                  <a class="nav-link scrollto " href="{% url 'dashboard:dashboard' %}">Dashboard</a>
                 </li>
                 <li>
-                  <a class="nav-link scrollto" href="{% url 'dashboard:view-admin-menu' %}">Menu</a>
+                  <a class="nav-link scrollto" href="{% url 'dashboard:menus.index' %}">Menu</a>
                 </li>
                 <li>
-                  <a class="nav-link scrollto" href="{% url 'dashboard:view-admin-branch' %}">Branches</a>
+                  <a class="nav-link scrollto" href="{% url 'dashboard:branches.index' %}">Branches</a>
                 </li>
                 <li>
                   <a class="nav-link scrollto" href="{% url 'dashboard:view-order'%}">Order</a>

@@ -52,7 +52,7 @@
                     <button type="button" id="add-opening-hours-btn" class="btn btn-secondary mt-3">Add Opening
                         Hours</button>
                     <div class="d-flex justify-content-center mt-5">
-                        <a href="{% url 'dashboard:update-branch' pk=branch.pk %}"
+                        <a href="{% url 'dashboard:branches.edit' pk=branch.pk %}"
                             class="btn btn-danger me-2">Cancel</a>
                         <button type="submit" class="btn btn-custom ms-2">Save</button>
                     </div>

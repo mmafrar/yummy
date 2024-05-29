@@ -27,7 +27,7 @@ class MenuFormTest(TestCase):
             # Test with missing required fields
             form_missing_data = MenuForm(data={})
             self.assertFalse(form_missing_data.is_valid())
-            self.assertEqual(len(form_missing_data.errors), 4) 
+            self.assertEqual(len(form_missing_data.errors), 4)
 
         # Test with invalid price (non-numeric)
         form_invalid_price = MenuForm(data={
@@ -37,6 +37,7 @@ class MenuFormTest(TestCase):
             'price': 'InvalidPrice',
             'category': 'Starters'
         })
+
         self.assertFalse(form_invalid_price.is_valid())
         self.assertIn('price', form_invalid_price.errors)
 
@@ -47,5 +48,6 @@ class MenuFormTest(TestCase):
             'price': 12.50,
             'category': 'Salads'
         })
+
         self.assertFalse(form_missing_image.is_valid())
         self.assertIn('image', form_missing_image.errors)

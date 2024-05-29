@@ -35,4 +35,9 @@ urlpatterns = [
     path('menus/', include(('menus.urls', 'menus'), namespace='menus')),
     path('orders/', include(('orders.urls', 'orders'), namespace='orders')),
     path('contacts/', include(('contacts.urls', 'contacts'), namespace='contacts')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+# This is used for serving files uploaded by a user during development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

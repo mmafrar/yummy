@@ -7,7 +7,7 @@ class MenuForm(forms.ModelForm):
         max_digits=6,
         decimal_places=2,
         widget=forms.NumberInput(
-            attrs={'class': 'form-control', 'placeholder': 'rm', 'id': 'menuPrice'})
+            attrs={'class': 'form-control', 'placeholder': 'RM', 'id': 'menuPrice'})
     )
 
     class Meta:

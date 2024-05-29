@@ -3,101 +3,107 @@
 {% load static %}
 
 {% block css_files %}
-  <link href="{% static 'css/admin.css' %}" rel="stylesheet" />
-  <link href="{% static 'css/dataTables.bootstrap5.min.css' %}" rel="stylesheet" />
+<link href="{% static 'css/admin.css' %}" rel="stylesheet" />
+<link href="{% static 'css/dataTables.bootstrap5.min.css' %}" rel="stylesheet" />
 {% endblock %}
 
 {% block content %}
-  <div class="row">
+<div class="row">
     <div class="col-12">
-      <div class="card">
-        <div>
-          <h4 class="mt-0 menu-title">Menu</h4>
-        </div>
-        <div class="card-body">
-          {% if messages %}
-            <div class="alert msg" id="success-message">
-              {% for message in messages %}
-                {{ message }}
-              {% endfor %}
-            </div>
-          {% endif %}
-
-          <div class="d-flex justify-content-between align-items-center">
+        <div class="card">
             <div>
-              <h4 class="mt-0 header-title menu-title"></h4>
+                <h4 class="mt-0 menu-title">Menu</h4>
             </div>
-            <div>
-              <a class="btn rounded btn-custom my-3" href="{% url 'dashboard:add-menu' %}">New Menu</a>
-            </div>
-          </div>
+            <div class="card-body">
+                {% if messages %}
+                <div class="alert msg" id="success-message">
+                    {% for message in messages %}
+                    {{ message }}
+                    {% endfor %}
+                </div>
+                {% endif %}
 
-          <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>description</th>
-                <th>Catagory</th>
-                <th>Price</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {% for item in menus %}
-                <tr>
-                  <td>{{ item.name }}</td>
-                  <td>{{ item.description }}</td>
-                  <td>{{ item.category }}</td>
-                  <td>{{ item.price }}</td>
-                  <td>
-                    <a href="{% url 'dashboard:update-menu' pk=item.id %}" class="btn rounded btn-success">Update</a>
-                    <a href="#" class="btn rounded btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ item.pk }}">Delete</a>
-
-                    <!-- Added Hanifah - Modal Delete Confirmation -->
-                    <div class="modal fade" id="deleteModal{{ item.id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="deleteModalLabel">Delete Confirmation</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            <p class="text-wrap">
-                              Are you sure you want to delete <strong>{{ item.name }}</strong> Menu?
-                            </p>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <a href="{% url 'dashboard:delete-menu' pk=item.id %}" class="btn btn-danger" style="background-color: #cda45e;">Yes</a>
-                          </div>
-                        </div>
-                      </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h4 class="mt-0 header-title menu-title"></h4>
                     </div>
-                    <!-- End Modal Delete Confimration -->
-                  </td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+                    <div>
+                        <a class="btn rounded btn-custom my-3" href="{% url 'dashboard:menus.create' %}">New Menu</a>
+                    </div>
+                </div>
+
+                <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>description</th>
+                            <th>Catagory</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for item in menus %}
+                        <tr>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.description }}</td>
+                            <td>{{ item.category }}</td>
+                            <td>{{ item.price }}</td>
+                            <td>
+                                <a href="{% url 'dashboard:menus.edit' pk=item.id %}"
+                                    class="btn rounded btn-success">Update</a>
+                                <a href="#" class="btn rounded btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal{{ item.pk }}">Delete</a>
+
+                                <!-- Added Hanifah - Modal Delete Confirmation -->
+                                <div class="modal fade" id="deleteModal{{ item.id }}" tabindex="-1"
+                                    aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteModalLabel">Delete Confirmation</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p class="text-wrap">Are you sure you want to delete 
+                                                    <strong>{{ item.name }}</strong> Menu?
+                                                </p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Cancel</button>
+                                                <a href="{% url 'dashboard:menus.delete' pk=item.id %}"
+                                                    class="btn btn-danger" style="background-color: #cda45e;">Yes</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Modal Delete Confimration -->
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 {% endblock %}
 
 {% block script %}
-  <script src="{% static 'js/jquery.min.js' %}"></script>
-  <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
-  <script src="{% static 'js/dataTables.bootstrap5.min.js' %}"></script>
-  <script src="{% static 'js/datatables.init.js' %}"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap5.min.js' %}"></script>
+<script src="{% static 'js/datatables.init.js' %}"></script>
 
-  <script>
+<script>
     setTimeout(function () {
-      var successMessage = document.getElementById('success-message')
-      if (successMessage) {
-        successMessage.parentNode.removeChild(successMessage)
-      }
+        var successMessage = document.getElementById('success-message')
+        if (successMessage) {
+            successMessage.parentNode.removeChild(successMessage)
+        }
     }, 5000) // 5000 milliseconds = 5 seconds
-  </script>
+</script>
 {% endblock %}
