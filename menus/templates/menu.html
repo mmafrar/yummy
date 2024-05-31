@@ -24,14 +24,11 @@
         <div class="row menu-container" data-aos="fade-up" data-aos-delay="200">
             {% for menu in menus %}
             <div class="col-lg-6 menu-item 
-            {% if menu.category == 'Starters' %}
-            
-            {% elif menu.category == 'Salads' %}
-            
-            {% elif menu.category == 'Specialty' %}
-            
+            {% if menu.category == 'Starters' %}filter-starters
+            {% elif menu.category == 'Salads' %}filter-salads
+            {% elif menu.category == 'Specialty' %}filter-specialty
             {% endif %}">
-                <img src="{{ menu.image.url }}" class="menu-img" alt=" {{ menu.name }} Not found" />
+                <img src="{{ menu.image.url }}" class="menu-img" alt="{{ menu.name }} Not found" />
                 <div class="menu-content">
                     <a href="">{{ menu.name }}</a><span>RM {{ menu.price }}</span>
                 </div>
