@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'yummy.html' %}
 
 {% load static %}
 
@@ -24,17 +24,17 @@
         <div class="row menu-container" data-aos="fade-up" data-aos-delay="200">
             {% for menu in menus %}
             <div class="col-lg-6 menu-item 
-            {% if menu.category == 'Starters' %}filter-starters
-            {% elif menu.category == 'Salads' %}filter-salads
-            {% elif menu.category == 'Specialty' %}filter-specialty
-            {% endif %}">
+                {% if menu.category == 'Starters' %} filter-starters
+                {% elif menu.category == 'Salads' %} filter-salads
+                {% elif menu.category == 'Specialty' %} filter-specialty
+                {% endif %}">
                 <img src="{{ menu.image.url }}" class="menu-img" alt="{{ menu.name }} Not found" />
                 <div class="menu-content">
                     <a href="">{{ menu.name }}</a><span>RM {{ menu.price }}</span>
                 </div>
                 <div class="menu-ingredients">{{ menu.description }}</div>
                 <div class="menu-content">
-                    <a href="{% url 'orders:view-order-form' %}"><span>Order Now</span></a>
+                    <a href="{% url 'orders:order' %}?menu_id={{ menu.id }}"><span>Order Now</span></a>
                 </div>
             </div>
             {% endfor %}

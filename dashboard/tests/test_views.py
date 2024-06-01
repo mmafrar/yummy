@@ -94,7 +94,7 @@ class MenuViewTest(TestCase):
 
     def test_menu_view(self):
         # Simulate a GET request to the menu view
-        response = self.client.get(reverse('menus:view-menu'))
+        response = self.client.get(reverse('menus:menu'))
 
         self.assertEqual(response.status_code, 200)
 

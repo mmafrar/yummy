@@ -27,7 +27,7 @@
   <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
   <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
-  {% block css_files %}
+  {% block stylesheet %}
   {% endblock %}
 </head>
 
@@ -48,13 +48,13 @@
   <header id="header" class="fixed-top d-flex align-items-cente">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
 
-      <h1 class="logo me-auto me-lg-0"><a href="{% url 'index' %}">Yummy</a></h1>
+      <h1 class="logo me-auto me-lg-0"><a href="{% url 'yummy' %}">Yummy</a></h1>
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           
-          <li><a class="nav-link scrollto" href="{% url 'index' %}">Home</a></li>
-          <li><a class="nav-link scrollto" href="{% url 'menus:view-menu' %}">Menu</a></li>
-          <li><a class="nav-link scrollto" href="{% url 'branches:view-branches' %}">Branches</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'yummy' %}">Home</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'menus:menu' %}">Menu</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'branches:branch' %}">Branches</a></li>
           <li><a class="nav-link scrollto" href="{% url 'contacts:about' %}">About</a></li>
           <li><a class="nav-link scrollto" href="{% url 'contacts:contact' %}">Contact</a></li>
           {% if user.is_authenticated %}
@@ -111,9 +111,9 @@
           <div class="col-lg-2 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
-              <li><a class="nav-link scrollto" href="{% url 'index' %}">Home</a></li>
-              <li><a class="nav-link scrollto" href="{% url 'menus:view-menu' %}">Menu</a></li>
-              <li><a class="nav-link scrollto" href="{% url 'branches:view-branches' %}">Branches</a></li>
+              <li><a class="nav-link scrollto" href="{% url 'yummy' %}">Home</a></li>
+              <li><a class="nav-link scrollto" href="{% url 'menus:menu' %}">Menu</a></li>
+              <li><a class="nav-link scrollto" href="{% url 'branches:branch' %}">Branches</a></li>
               <li><a class="nav-link scrollto" href="{% url 'contacts:about' %}">About</a></li>
               <li><a class="nav-link scrollto" href="{% url 'contacts:contact' %}">Contact</a></li>
             </ul>

@@ -51,7 +51,7 @@ class CustomLoginView(LoginView):
 
 
 class UpdateUserView(LoginRequiredMixin, View):
-    template_name = 'edit-profile.html'
+    template_name = 'profile-edit.html'
 
     def get(self, request, *args, **kwargs):
         user = get_object_or_404(User, pk=request.user.id)
@@ -87,4 +87,4 @@ class UpdateUserView(LoginRequiredMixin, View):
 class ViewUserProfileView(LoginRequiredMixin, View):
 
     def get(self, request):
-        return render(request, "user-profile.html")
+        return render(request, "profile-detail.html")
