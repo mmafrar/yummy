@@ -4,5 +4,5 @@ from . import views
 app_name = 'orders'
 
 urlpatterns = [
-    path("", views.PlaceOrderView.as_view(), name="place-order"),
+    path("", views.OrderPlaceView.as_view(), name="order"),
 ]

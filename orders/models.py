@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 
 from branches.models import Branch
+from dashboard.models import Menu
 
 
 class PaymentMethod(models.TextChoices):
@@ -10,10 +11,9 @@ class PaymentMethod(models.TextChoices):
 
 
 class OrderStatus(models.TextChoices):
-    RECEIVED = "1", _("Received")
-    PREPARING = "2", _("Preparing")
-    OUT_FOR_DELIVERY = "3", _("Out for Delivery")
-    DELIVERED = "4", _("Delivered")
+    NEW = "1", _("New")
+    ACCEPTED = "2", _("Accepted")
+    REJECTED = "3", _("Rejected")
 
 
 class Order(models.Model):
@@ -27,11 +27,17 @@ class Order(models.Model):
     payment_method = models.CharField(
         max_length=15, choices=PaymentMethod, default=PaymentMethod.CASH)
     order_status = models.CharField(
-        max_length=15, choices=OrderStatus, default=OrderStatus.RECEIVED)
+        max_length=15, choices=OrderStatus, default=OrderStatus.NEW)
 
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     branch = models.ForeignKey(Branch, on_delete=models.DO_NOTHING)
-    # menu = models.OneToOneField(Menu, on_delete=models.DO_NOTHING)
+    menu = models.ForeignKey(Menu, on_delete=models.DO_NOTHING)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def get_name(self):
+        return self.user.first_name + ' ' + self.user.last_name
+
+    def get_address(self):
+        return self.street + ', ' + self.city + ', ' + self.state + ', ' + self.zipcode

@@ -26,7 +26,7 @@
 
     <link href="{% static 'assets/css/style.css' %}" rel="stylesheet" />
     <link href="{% static 'assets/css/dashboard.css' %}" rel="stylesheet" />
-    {% block css_files %}{% endblock %}
+    {% block stylesheet %}{% endblock %}
 
   </head>
 
@@ -47,7 +47,7 @@
               <a class="nav-link scrollto" href="{% url 'dashboard:branches.index' %}">Branches</a>
             </li>
             <li>
-              <a class="nav-link scrollto" href="{% url 'dashboard:view-order'%}">Order</a>
+              <a class="nav-link scrollto" href="{% url 'dashboard:orders.index'%}">Order</a>
             </li>
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
@@ -104,7 +104,7 @@
                   <a class="nav-link scrollto" href="{% url 'dashboard:branches.index' %}">Branches</a>
                 </li>
                 <li>
-                  <a class="nav-link scrollto" href="{% url 'dashboard:view-order'%}">Order</a>
+                  <a class="nav-link scrollto" href="{% url 'dashboard:orders.index'%}">Order</a>
                 </li>
               </ul>
             </div>

@@ -1,15 +1,16 @@
 from django import forms
 
-from .models import Order, PaymentMethod
+from dashboard.models import Menu
 from branches.models import Branch
+from .models import Order, PaymentMethod
 
 
-class PlaceOrderForm(forms.ModelForm):
+class OrderPlaceForm(forms.ModelForm):
 
     class Meta:
         model = Order
-        fields = ['street', 'city', 'state', 'zipcode',
-                  'mobile', 'payment_method', 'total_amount', 'branch']
+        fields = ['street', 'city', 'state', 'zipcode', 'mobile',
+                  'payment_method', 'total_amount', 'branch', 'menu']
 
     street = forms.CharField(
         required=True,
@@ -86,6 +87,18 @@ class PlaceOrderForm(forms.ModelForm):
         empty_label='Select branch',
         queryset=Branch.objects.all(),
         label='Select Restaurant Branch',
+        widget=forms.Select(
+            attrs={
+                "class": "form-control",
+            }
+        ),
+    )
+
+    menu = forms.ModelChoiceField(
+        required=True,
+        empty_label='Select menu',
+        queryset=Menu.objects.all(),
+        label='Select Menu',
         widget=forms.Select(
             attrs={
                 "class": "form-control",

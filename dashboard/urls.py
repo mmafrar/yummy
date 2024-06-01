@@ -23,9 +23,6 @@ urlpatterns = [
     path('branches/<int:pk>/delete',
          views.ViewDeleteBranchView.as_view(), name='branches.delete'),
 
-    path('order', views.ViewOrder.as_view(), name='view-order'),
-    path('order-details', views.ViewOrderDetails.as_view(),
-         name='view-order-details'),
-    path('order-status/<int:pk>', views.ViewOrderAfterStatus.as_view(),
-         name='order-after-status'),
+    path('orders', views.OrderListView.as_view(), name='orders.index'),
+    path('orders/<int:pk>', views.OrderDetailView.as_view(), name='orders.show'),
 ]

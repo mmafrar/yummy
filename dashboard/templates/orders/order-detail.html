@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block css_files %}
+{% block stylesheet %}
   <link href="{% static 'css/admin.css' %}" rel="stylesheet" />
 {% endblock %}
 
@@ -24,19 +24,19 @@
                     <br>
                     <div class="mb-3">
                         <label for="menuName" class="form-label">Name</label>
-                        <p><b>Asma Hanifah</b></p>
+                        <p><b>{{ order.get_name }}</b></p>
                     </div>
                     <div class="mb-3">
                         <label for="menuName" class="form-label">Email</label>
-                        <p><b>asma@yopmail.com</b></p>
+                        <p><b>{{ order.user.email }}</b></p>
                     </div>
                     <div class="mb-3">
                         <label for="menuDescription" class="form-label">Address</label>
-                        <p><b>81, Jalan SS2/47 Petaling Jaya</b></p>
+                        <p><b>{{ order.get_address }}</b></p>
                     </div>
                     <div class="mb-3">
                         <label for="menuImage" class="form-label">Contact</label>
-                        <p><b>+60176512286</b></p>
+                        <p><b>{{ order.mobile }}</b></p>
                     </div>
 
                 <br>
@@ -44,27 +44,33 @@
                 <h5>Order View</h5>
                 <br>
                 <div class="mb-3">
-                    <label for="menuPrice" class="form-label">Restaurant</label>
-                    <p><b>Yummy Food Restaurant - Bukit Bintang</b></p>
+                    <label for="menuPrice" class="form-label">Branch</label>
+                    <p><b>{{ order.branch }}</b></p>
                 </div>
                     <div class="mb-3">
-                        <label for="menuPrice" class="form-label">Order</label>
-                        <p><b>1x TUNA SAN</b></p>
+                        <label for="menuPrice" class="form-label">Menu</label>
+                        <p><b>{{ order.menu.name }}</b></p>
                     </div>
                     <div class="mb-3">
-                        <label for="menuPrice" class="form-label">Price</label>
-                        <p><b>RM 12</b></p>
+                        <label for="menuPrice" class="form-label">Total Amount</label>
+                        <p><b>RM {{ order.total_amount }}</b></p>
                     </div>
                     <div class="mb-3">
                         <label for="menuPrice" class="form-label">Payment Method</label>
-                        <p><b>Cash</b></p>
-                        <br>
-                        <br>
-                        <br>
+                        <p><b>{{ order.get_payment_method_display }}</b></p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="menuPrice" class="form-label">Order Status</label>
+                        <p><b>{{ order.get_order_status_display }}</b></p>
                     </div>
                     <div class="d-flex justify-content-end mt-5">
-                        <a href="{% url 'dashboard:view-order' %}" class="btn btn-danger me-2">Reject</a>
-                        <button type="submit" class="btn btn-custom ms-2">Accept</button>
+                        <form action="{% url 'dashboard:orders.show' pk=order.id %}" method="get">
+                            <a class="btn btn-custom me-2" href="{% url 'dashboard:orders.index' %}">Back</a>
+                            {% if order.get_order_status_display == 'New' %}
+                            <button class="btn btn-danger me-2" type="submit" name="order_status" value="3">Reject</button>
+                            <button class="btn btn-custom ms-2" type="submit" name="order_status" value="2">Accept</button>
+                            {% endif %}
+                        </form>
                     </div>
                 </form>
             </div>
