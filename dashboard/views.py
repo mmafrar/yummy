@@ -137,7 +137,7 @@ class ViewUpdateOpeningHoursView(View):
             print(opening_hour_formset.errors)
             messages.error(request, 'Please correct the errors below.')
 
-        return render(request, 'branch/update-opening-hours.html', {
+        return render(request, 'branches/update-opening-hours.html', {
             'branch': branch,
             'opening_hour_formset': opening_hour_formset,
         })
@@ -146,9 +146,14 @@ class ViewUpdateOpeningHoursView(View):
 class ViewDeleteBranchView(View):
     def get(self, request, pk):
         branch = get_object_or_404(Branch, pk=pk)
-        branch.delete()
-        messages.success(request, 'Branch deleted sucessfully')
-        return redirect('dashboard:branches.index')
+        if Order.objects.filter(branch=branch).exists():
+            messages.error(
+                request, 'Cannot delete branch as there are orders associated with it.')
+            return redirect('dashboard:branches.index')
+        else:
+            branch.delete()
+            messages.success(request, 'Branch deleted successfully')
+            return redirect('dashboard:branches.index')
 
 
 class ViewAdminMenu(View):
@@ -208,10 +213,15 @@ class DeleteMenuView(View):
         menu = get_object_or_404(Menu, pk=pk)
         image_path = menu.image.path
 
+        if Order.objects.filter(menu=menu).exists():
+            messages.error(
+                request, 'Cannot delete menu as there are orders associated with it.')
+            return redirect('dashboard:menus.index')
+
         if os.path.exists(image_path):
             os.remove(image_path)
             menu.delete()
-            messages.success(request, 'Menu Deleted')
+            messages.success(request, 'Menu Deleted Successfully')
         return redirect('dashboard:menus.index')
 
 
