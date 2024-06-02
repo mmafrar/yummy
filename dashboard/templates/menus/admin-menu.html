@@ -16,9 +16,9 @@
             </div>
             <div class="card-body">
                 {% if messages %}
-                <div class="alert msg" id="success-message">
+                <div class="messages">
                     {% for message in messages %}
-                    {{ message }}
+                    <div class="message {{ message.tags }}"><strong>{{ message }}</strong></div>
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -72,7 +72,7 @@
                                                 </p>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
+                                                <button type="button" class="btn btn-danger"
                                                     data-bs-dismiss="modal">Cancel</button>
                                                 <a href="{% url 'dashboard:menus.delete' pk=item.id %}"
                                                     class="btn btn-danger" style="background-color: #cda45e;">Yes</a>
@@ -99,11 +99,11 @@
 <script src="{% static 'js/datatables.init.js' %}"></script>
 
 <script>
-    setTimeout(function () {
-        var successMessage = document.getElementById('success-message')
-        if (successMessage) {
-            successMessage.parentNode.removeChild(successMessage)
-        }
-    }, 5000) // 5000 milliseconds = 5 seconds
+    setTimeout(function() {
+            var messages = document.querySelector('.messages');
+            if (messages) {
+                messages.style.display = 'none';
+            }
+        }, 5000);
 </script>
 {% endblock %}
