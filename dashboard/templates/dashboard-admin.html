@@ -1,0 +1,99 @@
+{% extends 'dashboard.html' %}
+
+{% load static %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboardcontainer">
+    <div class="section">
+        <h1>Dashboard</h1>
+        <p>Hi, {{ user.first_name | default:"Admin" }}. Welcome back!</p>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+        <div class="section card" id="totalOrdersSection">
+            <h4>Total Orders</h4>
+            <p><span id="totalOrders">{{ total_orders | default:0 }}</span></p>
+        </div>
+        <div class="section card" id="acceptedOrdersSection">
+            <h4>Total Accepted</h4>
+            <p><span id="acceptedOrders">{{ total_accepted | default:0 }}</span></p>
+        </div>
+        <div class="section card" id="rejectedOrdersSection">
+            <h4>Total Rejected</h4>
+            <p><span id="rejectedOrders">{{ total_rejected | default:0 }}</span></p>
+        </div>
+        <div class="section card" id="revenueSection">
+            <h4>Total Revenue</h4>
+            <p>RM <span id="totalRevenue">{{ total_revenue | default:0 }}</span></p>
+        </div>
+    </div>
+
+    <div class="section card" id="popularItemsSection">
+        <h4>Popular Menu Items</h4>
+        <ul id="popularItems">
+            {% for popular_menu_name in popular_menu_names %}
+            <li>{{ popular_menu_name | upper }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Revenue Chart Section -->
+    <div class="section card" id="revenueChartSection">
+        <h4>Revenue Chart (Weekly)</h4>
+        <div class="chart-container">
+            <input type="hidden" id="myVar" name="variable" value="{{ variable }}">
+            <canvas id="revenueChart"></canvas>
+        </div>
+    </div>
+    <!-- End Revenue Chart Section -->
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'js/chart.js' %}"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const weeks = JSON.parse('{{ weeks | escapejs }}');
+    const revenues = JSON.parse('{{ revenues | escapejs }}');
+    const ctx = document.getElementById('revenueChart').getContext('2d');
+
+    const weeklyRevenueData = {
+        labels: weeks,
+        datasets: [{
+            label: 'Revenue',
+            data: revenues,
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            tension: 0.4
+        }]
+    };
+
+    const revenueChart = new Chart(ctx, {
+        type: 'line',
+        data: weeklyRevenueData,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Revenue (RM)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Week'
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

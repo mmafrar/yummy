@@ -1,41 +1,44 @@
-from django.db import IntegrityError
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
-from django.views import View
 import os
+import json
+from django.views import View
+from django.contrib import messages
+from django.db import IntegrityError
+from django.db.models import Sum, Count
+from django.db.models.functions import TruncWeek
+from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Menu
 from .forms import MenuForm
-from orders.models import Order
+from orders.models import Order, OrderStatus
 from branches.models import Branch, OpeningHour
-from branches.form import BranchForm, OpeningHourFormSet
-from django.db.models import Sum, Count
-from django.db.models.functions import TruncWeek
-import json
+from branches.forms import BranchForm, OpeningHourFormSet
 
 
-class ViewDashboardView(View):
+class DashboardAdminView(View):
 
     def get(self, request):
         total_orders = Order.objects.count()
-        total_accepted = Order.objects.filter(order_status='2').count()
-        total_rejected = Order.objects.filter(order_status='3').count()
-        total_revenue = Order.objects.filter(order_status='2').aggregate(
+
+        total_accepted = Order.objects.filter(
+            order_status=OrderStatus.ACCEPTED).count()
+
+        total_rejected = Order.objects.filter(
+            order_status=OrderStatus.REJECTED).count()
+
+        total_revenue = Order.objects.filter(order_status=OrderStatus.ACCEPTED).aggregate(
             total_revenue=Sum('total_amount'))['total_revenue']
 
-        popular_menu_item_data = Order.objects.values('menu_id').annotate(
-            count=Count('menu_id')).order_by('-count').first()
-        popular_menu_item = None
-        if popular_menu_item_data:
-            popular_menu_item = Menu.objects.get(
-                id=popular_menu_item_data['menu_id']).name
+        popular_menu_names = []
+        popular_menus = Order.objects.values('menu_id').annotate(
+            count=Count('menu_id')).order_by('-count')[:3]
+
+        for popular_menu in popular_menus:
+            popular_menu_names.append(Menu.objects.get(
+                id=popular_menu['menu_id']).name)
 
         # Aggregate monthly revenue data
-        weekly_revenue = Order.objects.filter(order_status='2').annotate(
-            week=TruncWeek('created_at')
-        ).values('week').annotate(
-            total_revenue=Sum('total_amount')
-        ).order_by('week')
+        weekly_revenue = Order.objects.filter(order_status=OrderStatus.ACCEPTED).annotate(week=TruncWeek(
+            'created_at')).values('week').annotate(total_revenue=Sum('total_amount')).order_by('week')
 
         # Prepare data for Chart.js
         weeks = [entry['week'].strftime('%Y-%m-%d')
@@ -43,32 +46,33 @@ class ViewDashboardView(View):
         revenues = [entry['total_revenue'] for entry in weekly_revenue]
 
         context = {
+            'user': request.user,
             'total_orders': total_orders,
             'total_accepted': total_accepted,
             'total_rejected': total_rejected,
             'total_revenue': total_revenue,
-            'popular_menu_item': popular_menu_item,
-            'weekly': json.dumps(weeks),
+            'popular_menu_names': popular_menu_names,
+            'weeks': json.dumps(weeks),
             'revenues': json.dumps(revenues),
         }
 
-        return render(request, "dashboard/index.html", context)
+        return render(request, "dashboard-admin.html", context)
 
 
-class ViewAdminBranchs(View):
+class BranchAdminView(View):
 
     def get(self, request):
         all_branches = Branch.objects.all().order_by('-id')
         context = {'all_branches': all_branches}
-        return render(request, "branches/admin-branch.html", context)
+        return render(request, "branches/branch-admin.html", context)
 
 
-class ViewAddBranchView(View):
+class BranchCreateView(View):
     def get(self, request):
         branch_form = BranchForm()
         opening_hour_formset = OpeningHourFormSet(
             queryset=OpeningHour.objects.none())
-        return render(request, 'branches/add-branch.html', {'branch_form': branch_form, 'opening_hour_formset': opening_hour_formset})
+        return render(request, 'branches/branch-create.html', {'branch_form': branch_form, 'opening_hour_formset': opening_hour_formset})
 
     def post(self, request):
         branch_form = BranchForm(request.POST, request.FILES)
@@ -78,7 +82,7 @@ class ViewAddBranchView(View):
             branch_name = branch_form.cleaned_data['branch_name']
             if Branch.objects.filter(branch_name=branch_name).exists():
                 messages.error(request, 'Branch already exists.')
-                return render(request, 'branches/add-branch.html', {
+                return render(request, 'branches/branch-create.html', {
                     'branch_form': branch_form,
                     'opening_hour_formset': opening_hour_formset, })
             else:
@@ -88,7 +92,7 @@ class ViewAddBranchView(View):
                     if day in days:
                         messages.error(
                             request, 'Duplicate day found in opening hours.')
-                        return render(request, 'branches/add-branch.html', {
+                        return render(request, 'branches/branch-create.html', {
                             'branch_form': branch_form,
                             'opening_hour_formset': opening_hour_formset, })
                     days.add(day)
@@ -101,16 +105,16 @@ class ViewAddBranchView(View):
                     opening_hour_instance.save()
                 messages.success(request, 'Branch added successfully')
                 return redirect('dashboard:branches.index')
-        return render(request, 'branches/add-branch.html', {
+        return render(request, 'branches/branch-create.html', {
             'branch_form': branch_form,
             'opening_hour_formset': opening_hour_formset})
 
 
-class ViewUpdateBranchView(View):
+class BranchEditView(View):
     def get(self, request, pk):
         branch_instance = get_object_or_404(Branch, pk=pk)
         branch_form = BranchForm(instance=branch_instance)
-        return render(request, 'branches/update-branch.html', {
+        return render(request, 'branches/branch-edit.html', {
             'branch_form': branch_form,
             'branch_id': pk
         })
@@ -130,18 +134,18 @@ class ViewUpdateBranchView(View):
                 messages.success(request, 'Branch updated successfully')
                 return redirect('dashboard:branches.index')
 
-        return render(request, 'branches/update-branch.html', {
+        return render(request, 'branches/branch-edit.html', {
             'branch_form': branch_form,
             'branch_id': pk
         })
 
 
-class ViewUpdateOpeningHoursView(View):
+class BranchEditOpeningHoursView(View):
     def get(self, request, branch_id):
         branch = get_object_or_404(Branch, id=branch_id)
         opening_hours = OpeningHour.objects.filter(branch=branch)
         opening_hour_formset = OpeningHourFormSet(queryset=opening_hours)
-        return render(request, 'branches/update-opening-hours.html', {
+        return render(request, 'branches/branch-edit-opening-hours.html', {
             'branch': branch,
             'opening_hour_formset': opening_hour_formset,
         })
@@ -175,13 +179,13 @@ class ViewUpdateOpeningHoursView(View):
             print(opening_hour_formset.errors)
             messages.error(request, 'Please correct the errors below.')
 
-        return render(request, 'branches/update-opening-hours.html', {
+        return render(request, 'branches/branch-edit-opening-hours.html', {
             'branch': branch,
             'opening_hour_formset': opening_hour_formset,
         })
 
 
-class ViewDeleteBranchView(View):
+class BranchDeleteView(View):
     def get(self, request, pk):
         branch = get_object_or_404(Branch, pk=pk)
         if Order.objects.filter(branch=branch).exists():
@@ -194,18 +198,18 @@ class ViewDeleteBranchView(View):
             return redirect('dashboard:branches.index')
 
 
-class ViewAdminMenu(View):
+class MenuAdminView(View):
 
     def get(self, request):
         menus = Menu.objects.all()
-        return render(request, "menus/admin-menu.html", {'menus': menus})
+        return render(request, "menus/menu-admin.html", {'menus': menus})
 
 
-class AddMenuView(View):
+class MenuCreateView(View):
 
     def get(self, request):
         form = MenuForm()
-        return render(request, "menus/add-menu.html", {'form': form})
+        return render(request, "menus/menu-create.html", {'form': form})
 
     def post(self, request):
         form = MenuForm(request.POST, request.FILES)
@@ -214,15 +218,15 @@ class AddMenuView(View):
             messages.success(request, 'Menu added successfully')
             return redirect('dashboard:menus.index')
         else:
-            return render(request, "menus/add-menu.html", {'form': form})
+            return render(request, "menus/menu-create.html", {'form': form})
 
 
-class ViewUpdateMenuView(View):
+class MenuEditView(View):
 
     def get(self, request, pk):
         menu = get_object_or_404(Menu, pk=pk)
         form = MenuForm(instance=menu)
-        return render(request, "menus/update-menu.html", {'form': form, 'menu': menu})
+        return render(request, "menus/menu-edit.html", {'form': form, 'menu': menu})
 
     def post(self, request, pk):
         menu = get_object_or_404(Menu, pk=pk)
@@ -241,10 +245,10 @@ class ViewUpdateMenuView(View):
             return redirect('dashboard:menus.index')
         else:
             errors = form.errors
-            return render(request, "menus/update-menu.html", {'form': form, 'menu': menu, 'errors': errors})
+            return render(request, "menus/menu-edit.html", {'form': form, 'menu': menu, 'errors': errors})
 
 
-class DeleteMenuView(View):
+class MenuDeleteView(View):
 
     def get(self, request, pk):
 
@@ -259,16 +263,15 @@ class DeleteMenuView(View):
         if os.path.exists(image_path):
             os.remove(image_path)
             menu.delete()
-            messages.success(request, 'Menu Deleted Successfully')
+            messages.success(request, 'Menu deleted successfully')
         return redirect('dashboard:menus.index')
 
 
-class OrderListView(View):
+class OrderAdminView(View):
 
     def get(self, request):
         all_orders = Order.objects.all()
-        args = {'all_orders': all_orders}
-        return render(request, "orders/order-list.html", args)
+        return render(request, "orders/order-admin.html", {'all_orders': all_orders})
 
 
 class OrderDetailView(View):
@@ -279,5 +282,5 @@ class OrderDetailView(View):
         if order_status is not None:
             order.order_status = order_status
             order.save()
-        args = {'order': order}
-        return render(request, "orders/order-detail.html", args)
+            messages.success(request, 'Order status updated successfully')
+        return render(request, "orders/order-detail.html", {'order': order})

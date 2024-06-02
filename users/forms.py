@@ -1,11 +1,18 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.exceptions import ValidationError
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+
 from .models import Profile
 
 
-class RegisterForm(UserCreationForm):
+class UserRegisterForm(UserCreationForm):
+
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "username",
+                  "email", "password1", "password2"]
+
     # fields we want to include and customize in our form
     first_name = forms.CharField(
         max_length=100,
@@ -16,6 +23,7 @@ class RegisterForm(UserCreationForm):
             }
         ),
     )
+
     last_name = forms.CharField(
         max_length=100,
         required=True,
@@ -25,6 +33,7 @@ class RegisterForm(UserCreationForm):
             }
         ),
     )
+
     username = forms.CharField(
         max_length=100,
         required=True,
@@ -34,6 +43,7 @@ class RegisterForm(UserCreationForm):
             }
         ),
     )
+
     email = forms.EmailField(
         required=True,
         widget=forms.TextInput(
@@ -42,6 +52,7 @@ class RegisterForm(UserCreationForm):
             }
         ),
     )
+
     password1 = forms.CharField(
         max_length=50,
         required=True,
@@ -53,6 +64,7 @@ class RegisterForm(UserCreationForm):
             }
         ),
     )
+
     password2 = forms.CharField(
         max_length=50,
         required=True,
@@ -65,34 +77,29 @@ class RegisterForm(UserCreationForm):
         ),
     )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'autofocus': False})
+
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if User.objects.filter(email=email).exists():
             raise ValidationError("This email is already registered.")
         return email
 
+
+class UserLoginForm(AuthenticationForm):
+
     class Meta:
         model = User
-        fields = [
-            "first_name",
-            "last_name",
-            "username",
-            "email",
-            "password1",
-            "password2",
-        ]
+        fields = ["username", "password"]
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs.update({'autofocus': False})
-
-
-class LoginForm(AuthenticationForm):
     username = forms.CharField(
         max_length=100,
         required=True,
         widget=forms.TextInput(attrs={"placeholder": "Username"}),
     )
+
     password = forms.CharField(
         max_length=50,
         required=True,
@@ -105,14 +112,16 @@ class LoginForm(AuthenticationForm):
             }
         ),
     )
+
     remember_me = forms.BooleanField(required=False)
+
+
+class UserEditForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ["username", "password"]
+        fields = ['first_name', 'last_name', 'email']
 
-
-class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField(
         required=True, widget=forms.TextInput(attrs={"class": "form-control"})
     )
@@ -127,6 +136,7 @@ class UserUpdateForm(forms.ModelForm):
             }
         ),
     )
+
     last_name = forms.CharField(
         max_length=100,
         required=False,
@@ -138,19 +148,17 @@ class UserUpdateForm(forms.ModelForm):
         ),
     )
 
-    class Meta:
-        model = User
-        fields = ['first_name', 'last_name', 'email']
 
-
-class UpdateProfileForm(forms.ModelForm):
-    avatar = forms.ImageField(
-        widget=forms.FileInput(attrs={"class": "form-control-file"})
-    )
-    address = forms.CharField(
-        widget=forms.Textarea(attrs={"class": "form-control", "rows": 5})
-    )
+class ProfileEditForm(forms.ModelForm):
 
     class Meta:
         model = Profile
         fields = ["avatar", "address"]
+
+    avatar = forms.ImageField(
+        widget=forms.FileInput(attrs={"class": "form-control-file"})
+    )
+
+    address = forms.CharField(
+        widget=forms.Textarea(attrs={"class": "form-control", "rows": 5})
+    )

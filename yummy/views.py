@@ -1,5 +1,8 @@
+from django.views import View
 from django.shortcuts import render
 
 
-def index(request):
-    return render(request, "index.html")
+class YummyIndexView(View):
+
+    def get(self, request):
+        return render(request, "yummy-index.html")

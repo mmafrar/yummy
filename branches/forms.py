@@ -1,6 +1,7 @@
 from django import forms
-from .models import Branch, OpeningHour
 from django.forms.models import modelformset_factory
+
+from .models import Branch, OpeningHour
 
 
 class BranchForm(forms.ModelForm):

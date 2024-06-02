@@ -1,5 +1,5 @@
 from django.test import TestCase
-from branches.form import BranchForm, OpeningHourForm
+from branches.forms import BranchForm, OpeningHourForm
 
 
 class BranchFormTest(TestCase):
