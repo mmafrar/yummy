@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.views import View
@@ -114,25 +115,32 @@ class ViewUpdateOpeningHoursView(View):
             request.POST, queryset=opening_hours)
 
         if opening_hour_formset.is_valid():
-            # Proceed with saving the formset if it's valid
-            opening_hour_instances = opening_hour_formset.save(commit=False)
-            for opening_hour_instance in opening_hour_instances:
-                opening_hour_instance.branch = branch  # Set the branch before saving
-                opening_hour_instance.save()
+            try:
+                # Save the formset if it's valid
+                opening_hour_instances = opening_hour_formset.save(
+                    commit=False)
+                for opening_hour_instance in opening_hour_instances:
+                    opening_hour_instance.branch = branch  # Set the branch before saving
+                    opening_hour_instance.save()
 
-            for obj in opening_hour_formset.deleted_objects:
-                obj.delete()
-            messages.success(request, 'Opening hours updated successfully')
-            return redirect('dashboard:branches.edit', pk=branch_id)
+                for obj in opening_hour_formset.deleted_objects:
+                    obj.delete()
+
+                messages.success(request, 'Opening hours updated successfully')
+                return redirect('dashboard:branches.edit', pk=branch_id)
+            except IntegrityError as e:
+                # Handle the integrity error for duplicate days
+                messages.error(
+                    request, 'A duplicate entry exists for the same day.')
         else:
             # If formset is invalid, display the formset with errors
             print(opening_hour_formset.errors)
-            messages.error(
-                request, 'Please correct the days or time errors below.')
-            return render(request, 'branches/update-opening-hours.html', {
-                'branch': branch,
-                'opening_hour_formset': opening_hour_formset,
-            })
+            messages.error(request, 'Please correct the errors below.')
+
+        return render(request, 'branch/update-opening-hours.html', {
+            'branch': branch,
+            'opening_hour_formset': opening_hour_formset,
+        })
 
 
 class ViewDeleteBranchView(View):

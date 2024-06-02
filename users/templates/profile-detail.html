@@ -2,10 +2,25 @@
 
 {% load static %}
 
+{% block css_files %}
+
+<link href="{% static 'users.css' %}" rel="stylesheet" />
+
+{% endblock %}
+
 {% block content %}
 
 <section id="menu" class="menu section-bg mt-5">
     <div class="container mt-5">
+
+        {% if messages %}
+        <div class="alert alert-success" id="success-message">
+            {% for message in messages %}
+            {{ message }}
+            {% endfor %}
+        </div>
+        {% endif %}
+
         <h2 class="mb-4">My Profile</h2>
         <div class="row">
             <div class="col-md-3">
@@ -45,3 +60,17 @@
 </section>
 
 {% endblock %}
+
+{% block script %}
+
+<!--Added Hanifah - Function to remove success message after 5 seconds -->
+<script>
+    setTimeout(function () {
+        var successMessage = document.getElementById('success-message');
+        if (successMessage) {
+            successMessage.parentNode.removeChild(successMessage);
+        }
+    }, 5000);  // 5000 milliseconds = 5 seconds
+</script>
+{% endblock %}
+

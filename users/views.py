@@ -80,6 +80,7 @@ class UpdateUserView(LoginRequiredMixin, View):
             profile_form.save()
 
             # Redirect to a success page
+            messages.success(request, 'Profile has been updated succesfully')
             return redirect(to='users:profile.show')
         return render(request, self.template_name, {'form': form, 'profile_form': profile_form})
 

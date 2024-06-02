@@ -93,3 +93,8 @@ h2 {
     margin-top: 15px;
     text-align: center;
 }
+
+.alert-success {
+    background-color: #cda45e;
+    color: white;
+}

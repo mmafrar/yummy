@@ -217,7 +217,7 @@ body {
 }
 
 .message.success {
-    background-color: #4CAF50;
+    background-color: #cda45e;
     /* Green */
 }
 
@@ -255,6 +255,11 @@ body {
 }
 
 .msg {
+    background-color: #cda45e;
+    color: white;
+}
+
+.alert-success {
     background-color: #cda45e;
     color: white;
 }
