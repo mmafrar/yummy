@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from users.forms import RegisterForm, UserUpdateForm, UpdateProfileForm
+from users.forms import UserRegisterForm, UserEditForm, ProfileEditForm
 from users.models import Profile
 
 
@@ -18,7 +18,7 @@ class TestUserForms(TestCase):
         }
 
         # Create form instance with valid data
-        form = RegisterForm(data=form_data)
+        form = UserRegisterForm(data=form_data)
 
         # Check if the form is valid
         self.assertTrue(form.is_valid())
@@ -39,7 +39,7 @@ class TestUserForms(TestCase):
         }
 
         # Create form instance with valid data
-        form = UserUpdateForm(data=form_data, instance=user)
+        form = UserEditForm(data=form_data, instance=user)
 
         # Check if the form is valid
         self.assertTrue(form.is_valid())
@@ -62,7 +62,7 @@ class TestUserForms(TestCase):
         profile, created = Profile.objects.get_or_create(user=user)
 
         # Create form instance with valid data
-        form = UpdateProfileForm(data=form_data, instance=profile)
+        form = ProfileEditForm(data=form_data, instance=profile)
 
         # Check if the form is valid
         self.assertTrue(form.is_valid())

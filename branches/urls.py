@@ -1,8 +1,9 @@
 from django.urls import path
-from . import views
+
+from .views import BranchIndexView
 
 app_name = 'branches'
 
 urlpatterns = [
-    path('', views.ViewBranchesView.as_view(), name='branch'),
+    path('', BranchIndexView.as_view(), name='branch'),
 ]

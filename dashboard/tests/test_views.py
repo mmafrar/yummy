@@ -8,17 +8,17 @@ from django.contrib.messages.storage.fallback import FallbackStorage
 
 from dashboard.models import Menu
 from branches.models import Branch
-from dashboard.views import ViewAddBranchView
+from dashboard.views import BranchCreateView
 
 
-class ViewAddBranchViewTest(TestCase):
+class BranchCreateViewTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
 
     def test_branch_view(self):
         request = self.factory.get('dashboard:branches.index')
         request.user = None  # Set user later
-        response = ViewAddBranchView.as_view()(request)
+        response = BranchCreateView.as_view()(request)
         self.assertEqual(response.status_code, 200)
 
     def test_branch_post_valid_data(self):
@@ -28,7 +28,7 @@ class ViewAddBranchViewTest(TestCase):
         setattr(request, 'session', 'session')
         messages = FallbackStorage(request)
         setattr(request, '_messages', messages)
-        response = ViewAddBranchView.as_view()(request)
+        response = BranchCreateView.as_view()(request)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Branch.objects.count(), 0)
 
@@ -38,12 +38,12 @@ class ViewAddBranchViewTest(TestCase):
         setattr(request, 'session', 'session')
         messages = FallbackStorage(request)
         setattr(request, '_messages', messages)
-        response = ViewAddBranchView.as_view()(request)
+        response = BranchCreateView.as_view()(request)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Branch.objects.count(), 0)
 
 
-class ViewDeleteBranchViewTest(TestCase):
+class BranchDeleteViewTest(TestCase):
     def setUp(self):
         self.client = Client()
 
@@ -99,7 +99,7 @@ class MenuViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
         # Check if the rendered template is correct
-        self.assertTemplateUsed(response, 'menu.html')
+        self.assertTemplateUsed(response, 'menu-index.html')
 
         # Check if menu items are present in the context
         self.assertIn('menus', response.context)

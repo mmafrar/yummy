@@ -4,7 +4,7 @@ from django.utils import timezone
 from branches.models import Branch
 
 
-class ViewBranchesViewTest(TestCase):
+class BranchIndexViewTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         Branch.objects.create(
@@ -23,5 +23,5 @@ class ViewBranchesViewTest(TestCase):
     def test_view_branches_view(self):
         response = self.client.get(reverse('branches:branch'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'branches.html')
+        self.assertTemplateUsed(response, 'branch-index.html')
         self.assertEqual(len(response.context['all_branches']), 2)

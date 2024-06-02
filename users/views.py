@@ -1,18 +1,17 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.views import LoginView
-from django.views import View
-from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import UserUpdateForm
-from .forms import RegisterForm, LoginForm, UpdateProfileForm
-from .models import Profile
-from django.contrib.auth.models import User
-from .forms import UserUpdateForm
 import os
+from django.views import View
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render, redirect, get_object_or_404
+
+from .models import Profile
+from .forms import UserRegisterForm, UserLoginForm, UserEditForm, ProfileEditForm
 
 
-class RegisterView(View):
-    form_class = RegisterForm
+class UserRegisterView(View):
+    form_class = UserRegisterForm
     initial = {'key': 'value'}
     template_name = 'register.html'
 
@@ -22,7 +21,7 @@ class RegisterView(View):
             return redirect(to='/')
 
         # else process dispatch as it otherwise normally would
-        return super(RegisterView, self).dispatch(request, *args, **kwargs)
+        return super(UserRegisterView, self).dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
         form = self.form_class(initial=self.initial)
@@ -40,23 +39,32 @@ class RegisterView(View):
 
 
 # Class based view that extends from the built in login view to add a remember me functionality
-class CustomLoginView(LoginView):
-    form_class = LoginForm
+class UserLoginView(LoginView):
+    form_class = UserLoginForm
 
     def get_success_url(self):
+        redirect_to = self.request.GET.get('redirect_to')
         # redirect based on the user type
         if self.request.user.is_superuser:
             return '/dashboard'
+        elif redirect_to:
+            return redirect_to
         return '/'
 
 
-class UpdateUserView(LoginRequiredMixin, View):
+class ProfileDetailView(LoginRequiredMixin, View):
+
+    def get(self, request):
+        return render(request, "profile-detail.html")
+
+
+class ProfileEditView(LoginRequiredMixin, View):
     template_name = 'profile-edit.html'
 
     def get(self, request, *args, **kwargs):
         user = get_object_or_404(User, pk=request.user.id)
-        form = UserUpdateForm(instance=user)
-        profile_form = UpdateProfileForm(instance=request.user.profile)
+        form = UserEditForm(instance=user)
+        profile_form = ProfileEditForm(instance=request.user.profile)
         return render(request, self.template_name, {'form': form, 'profile_form': profile_form})
 
     def post(self, request, *args, **kwargs):
@@ -65,8 +73,8 @@ class UpdateUserView(LoginRequiredMixin, View):
             # Redirect if the logged-in user is not the same as the user to be edited
             return redirect(to='users:profile.show')
 
-        form = UserUpdateForm(request.POST, instance=user)
-        profile_form = UpdateProfileForm(
+        form = UserEditForm(request.POST, instance=user)
+        profile_form = ProfileEditForm(
             request.POST, request.FILES, instance=request.user.profile)
         if form.is_valid() and profile_form.is_valid():
             profile, created = Profile.objects.get_or_create(user=request.user)
@@ -82,10 +90,5 @@ class UpdateUserView(LoginRequiredMixin, View):
             # Redirect to a success page
             messages.success(request, 'Profile has been updated succesfully')
             return redirect(to='users:profile.show')
+
         return render(request, self.template_name, {'form': form, 'profile_form': profile_form})
-
-
-class ViewUserProfileView(LoginRequiredMixin, View):
-
-    def get(self, request):
-        return render(request, "profile-detail.html")

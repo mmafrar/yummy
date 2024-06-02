@@ -1,14 +1,9 @@
 from django import forms
+
 from .models import Menu
 
 
 class MenuForm(forms.ModelForm):
-    price = forms.DecimalField(
-        max_digits=6,
-        decimal_places=2,
-        widget=forms.NumberInput(
-            attrs={'class': 'form-control', 'placeholder': 'RM', 'id': 'menuPrice'})
-    )
 
     class Meta:
         model = Menu
@@ -19,3 +14,10 @@ class MenuForm(forms.ModelForm):
             'image': forms.ClearableFileInput(attrs={'class': 'form-control', 'id': 'menuImage'}),
             'category': forms.Select(attrs={'class': 'form-select', 'id': 'menuCategory'}),
         }
+
+    price = forms.DecimalField(
+        max_digits=6,
+        decimal_places=2,
+        widget=forms.NumberInput(
+            attrs={'class': 'form-control', 'placeholder': 'RM', 'id': 'menuPrice'})
+    )

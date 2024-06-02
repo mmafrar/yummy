@@ -19,10 +19,10 @@ from django.conf import settings
 from django.urls import path, include
 from django.conf.urls.static import static
 
-from . import views
+from .views import YummyIndexView
 
 urlpatterns = [
-    path('', views.index, name='yummy'),
+    path('', YummyIndexView.as_view(), name='yummy'),
     path('admin/', admin.site.urls),
     path('dashboard/', include(('dashboard.urls', 'dashboard'), namespace='dashboard')),
     path('users/', include(('users.urls', 'users'), namespace='users')),

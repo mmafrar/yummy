@@ -72,7 +72,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'users.middleware.RestrictUserMiddleware',
+    'users.middleware.UserRestrictMiddleware',
 ]
 
 ROOT_URLCONF = 'yummy.urls'
@@ -156,8 +156,7 @@ MEDIA_URL = '/media/'
 
 # User authentication
 LOGIN_URL = 'users/login'
-LOGIN_REDIRECT_URL = '/'  # if the user is Customer
-# LOGIN_REDIRECT_URL = '/dashboard' # if the user is Admin
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 

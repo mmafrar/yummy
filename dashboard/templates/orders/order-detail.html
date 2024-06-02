@@ -16,6 +16,13 @@
                 <h4 class="mt-0 header-title menu-title" style="font-size: 30px; margin-left: 18px;">Order Details</h4>
             </div>
             <div class="card-body">
+                {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                    <div class="message {{ message.tags }}"><strong>{{ message }}</strong></div>
+                    {% endfor %}
+                </div>
+                {% endif %}
                 <!-- Add New Menu Form -->
                 <form>
                     <div>
@@ -80,4 +87,13 @@
 
 {% endblock %}
 
-{% block script %}{% endblock %}
+{% block script %}
+<script>
+    setTimeout(function() {
+            var messages = document.querySelector('.messages');
+            if (messages) {
+                messages.style.display = 'none';
+            }
+        }, 5000);
+</script>
+{% endblock %}
