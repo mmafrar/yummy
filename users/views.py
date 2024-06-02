@@ -1,5 +1,6 @@
 import os
 from django.views import View
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
@@ -18,7 +19,7 @@ class UserRegisterView(View):
     def dispatch(self, request, *args, **kwargs):
         # will redirect to the home page if a user tries to access the register page while logged in
         if request.user.is_authenticated:
-            return redirect(to='/')
+            return redirect(to=settings.LOGIN_REDIRECT_URL)
 
         # else process dispatch as it otherwise normally would
         return super(UserRegisterView, self).dispatch(request, *args, **kwargs)
@@ -46,10 +47,10 @@ class UserLoginView(LoginView):
         redirect_to = self.request.GET.get('redirect_to')
         # redirect based on the user type
         if self.request.user.is_superuser:
-            return '/dashboard'
+            return settings.DASHBOARD_REDIRECT_URL
         elif redirect_to:
             return redirect_to
-        return '/'
+        return settings.LOGIN_REDIRECT_URL
 
 
 class ProfileDetailView(LoginRequiredMixin, View):

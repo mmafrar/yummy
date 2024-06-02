@@ -1,4 +1,5 @@
 from django.urls import reverse
+from django.conf import settings
 from django.shortcuts import redirect
 
 
@@ -8,7 +9,7 @@ class UserRestrictMiddleware(object):
 
     def __call__(self, request):
         # restricted admin url for custom admin site
-        if request.path.find("/dashboard/") > -1:
+        if request.path.find(settings.DASHBOARD_REDIRECT_URL) > -1:
             if not request.user.is_superuser:
                 return redirect(reverse('users:login'))
 

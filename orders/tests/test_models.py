@@ -1,16 +1,20 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from branches.models import Branch
+
 from dashboard.models import Menu
+from branches.models import Branch
 from orders.models import Order, PaymentMethod, OrderStatus
 
 
 class OrderModelTest(TestCase):
 
     def setUp(self):
-        self.user = User.objects.create_user(username='pravin', password='pg030399')
-        self.branch = Branch.objects.create(branch_name='Pravin Branch', branch_address='Pravin Address', branch_contact='Pravin Contact')
-        self.menu = Menu.objects.create(name='Pravin Menu', description='Pravin Description', price=10.00)
+        self.user = User.objects.create_user(
+            username='pravin', password='pg030399')
+        self.branch = Branch.objects.create(
+            branch_name='Pravin Branch', branch_address='Pravin Address', branch_contact='Pravin Contact')
+        self.menu = Menu.objects.create(
+            name='Pravin Menu', description='Pravin Description', price=10.00)
 
     def test_order_creation(self):
         order = Order.objects.create(
@@ -25,6 +29,7 @@ class OrderModelTest(TestCase):
             branch=self.branch,
             menu=self.menu,
         )
+
         self.assertEqual(order.street, 'Pravin Street')
         self.assertEqual(order.city, 'Klang City')
         self.assertEqual(order.state, 'Selangor')
@@ -50,7 +55,9 @@ class OrderModelTest(TestCase):
             branch=self.branch,
             menu=self.menu,
         )
-        self.assertEqual(order.get_name(), f'{self.user.first_name} {self.user.last_name}')
+
+        self.assertEqual(order.get_name(),
+                         f'{self.user.first_name} {self.user.last_name}')
 
     def test_get_address(self):
         order = Order.objects.create(
@@ -65,5 +72,6 @@ class OrderModelTest(TestCase):
             branch=self.branch,
             menu=self.menu,
         )
+
         expected_address = 'Pravin Street, Klang City, Selangor, 41200'
         self.assertEqual(order.get_address(), expected_address)

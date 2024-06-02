@@ -155,9 +155,10 @@ MEDIA_URL = '/media/'
 
 
 # User authentication
-LOGIN_URL = 'users/login'
+LOGIN_URL = '/users/login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+DASHBOARD_REDIRECT_URL = '/dashboard'
 
 
 # Default primary key field type
