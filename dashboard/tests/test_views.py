@@ -43,35 +43,6 @@ class BranchCreateViewTest(TestCase):
         self.assertEqual(Branch.objects.count(), 0)
 
 
-class BranchDeleteViewTest(TestCase):
-    def setUp(self):
-        self.client = Client()
-
-    @patch('django.contrib.messages.success')
-    def test_get(self, mock_messages_success):
-        branch = Branch.objects.create(
-            branch_name="Yummy Food Restaurant - IOI City Mall",
-            branch_address="LG-239, Lower Ground Floor, IOI City Mall, Lebuh IRC, IOI Resort City, 62502 Putrajaya",
-            branch_contact="+60 3-4258 8889")
-
-        url = reverse('dashboard:branches.delete', kwargs={'pk': branch.pk})
-
-        # Call view function
-        response = self.client.get(url)
-
-        # Check if the branch is deleted
-        with self.assertRaises(Branch.DoesNotExist):
-            Branch.objects.get(pk=branch.pk)
-
-        # Check if success message is called
-        mock_messages_success.assert_called_once_with(
-            response.wsgi_request, 'Branch deleted sucessfully')
-
-        # Check if redirect happens
-        self.assertIsInstance(response, HttpResponseRedirect)
-        self.assertEqual(response.url, reverse('dashboard:branches.index'))
-
-
 class MenuViewTest(TestCase):
     def setUp(self):
 

@@ -8,16 +8,13 @@ from dashboard.models import Menu
 
 class OrderPlaceView(LoginRequiredMixin, View):
 
-    login_url = "../users/login"
-    redirect_field_name = "redirect_to"
+    redirect_field_name = 'redirect_to'
 
     def get(self, request):
         form = OrderPlaceForm()
         menu_id = request.GET.get('menu_id')
         menu = Menu.objects.get(pk=menu_id)
-
-        args = {'form': form, 'menu': menu}
-        return render(request, "order-place.html", args)
+        return render(request, 'order-place.html', {'form': form, 'menu': menu})
 
     def post(self, request):
         form = OrderPlaceForm(request.POST)
@@ -26,8 +23,6 @@ class OrderPlaceView(LoginRequiredMixin, View):
             order = form.save(commit=False)
             order.user = request.user
             order.save()
-            return render(request, "order-confirm.html")
-
+            return render(request, 'order-confirm.html')
         else:
-            args = {'form': form, 'menu': form.menu}
-            return render(request, "order-place.html", args)
+            return render(request, 'order-place.html', {'form': form, 'menu': form.menu})
