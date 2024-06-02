@@ -16,34 +16,30 @@
     <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
         <div class="section card" id="totalOrdersSection">
             <h4>Total Orders</h4>
-            <p><span id="totalOrders">0</span></p>
+            <p><span id="totalOrders">{{ total_orders }}</span></p>
         </div>
         <div class="section card" id="acceptedOrdersSection">
             <h4>Total Accepted</h4>
-            <p><span id="acceptedOrders">0</span></p>
+            <p><span id="acceptedOrders">{{ total_accepted }}</span></p>
         </div>
         <div class="section card" id="rejectedOrdersSection">
             <h4>Total Rejected</h4>
-            <p><span id="rejectedOrders">0</span></p>
+            <p><span id="rejectedOrders">{{ total_rejected }}</span></p>
         </div>
         <div class="section card" id="revenueSection">
             <h4>Total Revenue</h4>
-            <p>RM <span id="totalRevenue">0.00</span></p>
+            <p>RM <span id="totalRevenue">{{ total_revenue }}</span></p>
         </div>
     </div>
 
-    <div class="section card" id="popularItemsSection">
-        <h4>Popular Menu Items</h4>
-        <ul id="popularItems">
-            <li>TUNA SAN</li>
-            <li>BERRY GRAPEFUL</li>
-            <li>PEANUT BUTTER COCONUT OATMEAL</li>
-        </ul>
+    <div class="section card" id="popularMenuSection">
+        <h4>Most Popular Menu Item</h4>
+        <p><span id="popularMenuItem"><strong>{{ popular_menu_item }}</strong></span></p>
     </div>
 
     <!-- Revenue Chart Section -->
     <div class="section card" id="revenueChartSection">
-        <h4>Revenue Chart (Monthly)</h4>
+        <h4>Revenue Chart (Weekly)</h4>
         <div class="chart-container">
             <canvas id="revenueChart"></canvas>
         </div>

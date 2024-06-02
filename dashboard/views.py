@@ -9,12 +9,50 @@ from .forms import MenuForm
 from orders.models import Order
 from branches.models import Branch, OpeningHour
 from branches.form import BranchForm, OpeningHourFormSet
+from django.db.models import Sum, Count
+from django.db.models.functions import TruncWeek
+import json
 
 
 class ViewDashboardView(View):
 
     def get(self, request):
-        return render(request, "dashboard/index.html")
+        total_orders = Order.objects.count()
+        total_accepted = Order.objects.filter(order_status='2').count()
+        total_rejected = Order.objects.filter(order_status='3').count()
+        total_revenue = Order.objects.filter(order_status='2').aggregate(
+            total_revenue=Sum('total_amount'))['total_revenue']
+
+        popular_menu_item_data = Order.objects.values('menu_id').annotate(
+            count=Count('menu_id')).order_by('-count').first()
+        popular_menu_item = None
+        if popular_menu_item_data:
+            popular_menu_item = Menu.objects.get(
+                id=popular_menu_item_data['menu_id']).name
+
+        # Aggregate monthly revenue data
+        weekly_revenue = Order.objects.filter(order_status='2').annotate(
+            week=TruncWeek('created_at')
+        ).values('week').annotate(
+            total_revenue=Sum('total_amount')
+        ).order_by('week')
+
+        # Prepare data for Chart.js
+        weeks = [entry['week'].strftime('%Y-%m-%d')
+                 for entry in weekly_revenue]
+        revenues = [entry['total_revenue'] for entry in weekly_revenue]
+
+        context = {
+            'total_orders': total_orders,
+            'total_accepted': total_accepted,
+            'total_rejected': total_rejected,
+            'total_revenue': total_revenue,
+            'popular_menu_item': popular_menu_item,
+            'weekly': json.dumps(weeks),
+            'revenues': json.dumps(revenues),
+        }
+
+        return render(request, "dashboard/index.html", context)
 
 
 class ViewAdminBranchs(View):

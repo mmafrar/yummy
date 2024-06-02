@@ -1,46 +1,38 @@
-// Dummy data for demonstration purposes
-const totalOrders = 100;
-const acceptedOrders = 90;
-const rejectedOrders = 10;
-const totalRevenue = 5000.00;
+document.addEventListener('DOMContentLoaded', function () {
+    const ctx = document.getElementById('revenueChart').getContext('2d');
+    const weeks = JSON.parse('{{ weeks|escapejs }}');
+    const revenues = JSON.parse('{{ revenues|escapejs }}');
 
-const monthlyRevenueData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-    datasets: [{
-        label: 'Revenue',
-        data: [1500, 2000, 1800, 2500, 2200, 2800, 3000, 3200, 2700, 3100, 3500, 4000], // Dummy monthly revenue data
-        borderColor: 'rgba(75, 192, 192, 1)',
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        tension: 0.4
-    }]
-};
+    const weeklyRevenueData = {
+        labels: weeks,
+        datasets: [{
+            label: 'Revenue',
+            data: revenues,
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            tension: 0.4
+        }]
+    };
 
-// Update dashboard with dummy data
-document.getElementById('totalOrders').innerText = totalOrders;
-document.getElementById('acceptedOrders').innerText = acceptedOrders;
-document.getElementById('rejectedOrders').innerText = rejectedOrders;
-document.getElementById('totalRevenue').innerText = totalRevenue.toFixed(2);
-
-// Render revenue chart
-const ctx = document.getElementById('revenueChart').getContext('2d');
-const revenueChart = new Chart(ctx, {
-    type: 'line',
-    data: monthlyRevenueData,
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true,
-                title: {
-                    display: true,
-                    text: 'Revenue (RM)'
-                }
-            },
-            x: {
-                title: {
-                    display: true,
-                    text: 'Month'
+    const revenueChart = new Chart(ctx, {
+        type: 'line',
+        data: weeklyRevenueData,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Revenue (RM)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Week'
+                    }
                 }
             }
         }
-    }
+    });
 });
