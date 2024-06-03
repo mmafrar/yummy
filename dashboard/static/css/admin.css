@@ -263,3 +263,10 @@ body {
     background-color: #cda45e;
     color: white;
 }
+
+.truncate-text {
+    max-width: 300px; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
