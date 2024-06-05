@@ -1,6 +1,6 @@
 from django.views import View
 from django.conf import settings
-from django.core.mail import EmailMessage, get_connection
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 
 from .forms import ContactForm
@@ -19,28 +19,16 @@ class ContactIndexView(View):
             form.save()
 
             subject = form.cleaned_data.get('subject', '')
-            message_body = form.cleaned_data.get('message', '')
+            message = form.cleaned_data.get('message', '')
             name = form.cleaned_data.get('name', '')
-            sender_email = form.cleaned_data.get('email', '')
-            email_from = settings.YAHOO_EMAIL_HOST_USER
-            recipient_list = [settings.EMAIL_HOST_USER]
+            email_from = settings.EMAIL_HOST_USER
+            # Send email to yourself or any other recipient
+            recipient_list = ['asmahanifah11@gmail.com']
 
-            message = f"Name: {name}\nEmail: {sender_email}\n\n{message_body}"
-
-            # Configure the connection for Yahoo
-            connection = get_connection(
-                host=settings.YAHOO_EMAIL_HOST,
-                port=settings.YAHOO_EMAIL_PORT,
-                username=settings.YAHOO_EMAIL_HOST_USER,
-                password=settings.YAHOO_EMAIL_HOST_PASSWORD,
-                use_tls=settings.YAHOO_EMAIL_USE_TLS
-            )
+            message = f"Name: {name}\n\n{message}"
 
             # Sending email
-            email = EmailMessage(
-                subject, message, email_from, recipient_list, connection=connection
-            )
-            email.send()
+            send_mail(subject, message, email_from, recipient_list)
 
             # Debugging email
             print("Email From:", email_from)
