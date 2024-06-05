@@ -1,6 +1,7 @@
 from django.views import View
 from django.conf import settings
 from django.core.mail import send_mail
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 from .forms import ContactForm
@@ -20,10 +21,11 @@ class ContactIndexView(View):
 
             subject = form.cleaned_data.get('subject', '')
             message = form.cleaned_data.get('message', '')
-            name = form.cleaned_data.get('name', '')
             email_from = settings.EMAIL_HOST_USER
+            name = form.cleaned_data.get('name', '')
             # Send email to yourself or any other recipient
-            recipient_list = ['asmahanifah11@gmail.com']
+            recipient_list = User.objects.filter(
+                is_superuser=True).values_list('email', flat=True)
 
             message = f"Name: {name}\n\n{message}"
 
