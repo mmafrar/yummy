@@ -30,13 +30,21 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# Send Email to Gmail
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# Send Email to Gmail
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587  # Gmail SMTP port
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+
+# Yahoo SMTP settings
+YAHOO_EMAIL_HOST = 'smtp.mail.yahoo.com'
+YAHOO_EMAIL_PORT = 587
+YAHOO_EMAIL_USE_TLS = True
+YAHOO_EMAIL_HOST_USER = env("YAHOO_EMAIL_HOST_USER")
+YAHOO_EMAIL_HOST_PASSWORD = env("YAHOO_EMAIL_HOST_PASSWORD")
 
 ALLOWED_HOSTS = [
     '0.0.0.0',
