@@ -20,12 +20,18 @@ class ContactIndexView(View):
 
             subject = form.cleaned_data.get('subject', '')
             message = form.cleaned_data.get('message', '')
-            email_from = settings.NOREPLY_EMAIL
-            # Send email to yourself or any other recipient
+            email_from = form.cleaned_data.get('email', '')
+            name = form.cleaned_data.get('name', '')
             recipient_list = [settings.EMAIL_HOST_USER]
+
+            message = f"Name: {name}\nEmail: {email_from}\n\n{message}"
 
             # Sending email
             send_mail(subject, message, email_from, recipient_list)
+
+            # Debugging email
+            print("Email From:", email_from)
+            print("Recipient List:", recipient_list)
 
             return redirect('contacts:contact')
 
