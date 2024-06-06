@@ -1,5 +1,6 @@
 from django.urls import path
 
+from .views import ContactAdminView, ContactDetailView
 from .views import DashboardAdminView, OrderAdminView, OrderDetailView
 from .views import MenuAdminView, MenuCreateView, MenuEditView, MenuDeleteView
 from .views import BranchAdminView, BranchCreateView, BranchEditView, BranchEditOpeningHoursView, BranchDeleteView
@@ -24,4 +25,7 @@ urlpatterns = [
 
     path('orders', OrderAdminView.as_view(), name='orders.index'),
     path('orders/<int:pk>', OrderDetailView.as_view(), name='orders.show'),
+
+    path('contacts', ContactAdminView.as_view(), name='contacts.index'),
+    path('contacts/<int:pk>', ContactDetailView.as_view(), name='contacts.show'),
 ]

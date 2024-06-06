@@ -9,6 +9,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Menu
 from .forms import MenuForm
+from contacts.models import Contact
 from orders.models import Order, OrderStatus
 from branches.models import Branch, OpeningHour
 from branches.forms import BranchForm, OpeningHourFormSet
@@ -270,7 +271,7 @@ class MenuDeleteView(View):
 class OrderAdminView(View):
 
     def get(self, request):
-        all_orders = Order.objects.all()
+        all_orders = Order.objects.all().order_by('id')
         return render(request, "orders/order-admin.html", {'all_orders': all_orders})
 
 
@@ -284,3 +285,17 @@ class OrderDetailView(View):
             order.save()
             messages.success(request, 'Order status updated successfully')
         return render(request, "orders/order-detail.html", {'order': order})
+
+
+class ContactAdminView(View):
+
+    def get(self, request):
+        all_contacts = Contact.objects.all().order_by('id')
+        return render(request, "contacts/contact-admin.html", {'all_contacts': all_contacts})
+
+
+class ContactDetailView(View):
+
+    def get(self, request, pk):
+        contact = Contact.objects.get(pk=pk)
+        return render(request, "contacts/contact-detail.html", {'contact': contact})

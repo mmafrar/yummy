@@ -19,21 +19,22 @@ class ContactIndexView(View):
         if form.is_valid():
             form.save()
 
+            name = form.cleaned_data.get('name', '')
+            email = form.cleaned_data.get('email', '')
             subject = form.cleaned_data.get('subject', '')
             message = form.cleaned_data.get('message', '')
-            email_from = settings.EMAIL_HOST_USER
-            name = form.cleaned_data.get('name', '')
-            # Send email to yourself or any other recipient
+
+            # Send email to all superusers
             recipient_list = User.objects.filter(
                 is_superuser=True).values_list('email', flat=True)
 
-            message = f"Name: {name}\n\n{message}"
+            body = f"Name: {name}\nEmail: {email}\n\n{message}"
 
             # Sending email
-            send_mail(subject, message, email_from, recipient_list)
+            send_mail(subject, body,
+                      settings.EMAIL_HOST_USER, recipient_list)
 
             # Debugging email
-            print("Email From:", email_from)
             print("Recipient List:", recipient_list)
 
             return redirect('contacts:contact')
